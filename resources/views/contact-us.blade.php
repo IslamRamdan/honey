@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
+
 </head>
 
 <body data-success-title-en="Message Sent!" data-success-title-ar="تم الإرسال" data-success-title-es="Mensaje enviado"

@@ -7,12 +7,15 @@
     <link rel="stylesheet" href="{{ asset('css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
+
 </head>
 
 <body>
@@ -63,168 +66,173 @@
             </div>
         </div>
     </nav>
-
     <section class="blog-section py-5">
-        <div class="container  py-5">
-            <div class="row g-4  py-5">
+        <div class="container py-5">
+            <div class="row g-4 pt-5">
                 <div class="col-lg-8">
                     <div class="blog-detail-content p-2">
                         <div class="image-box" data-aos="fade-up">
-                            <img src="{{ asset('images/' . $blog->image) }}" alt="Honey">
+                            @if ($blog->image)
+                                <img src="{{ asset('images/blogs/' . $blog->image) }}" alt="{{ $blog->name_ar }}"
+                                    class="img-fluid rounded">
+                            @endif
                         </div>
                         <div class="date d-flex gap-2 align-items-center p-4" data-aos="fade-up">
-                            <i class="fas fa-calendar-alt"></i> <span
-                                data-en="{{ $blog->created_at->translatedFormat('d M Y') }}"
-                                data-ar="{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}"
-                                data-es="{{ $blog->created_at->locale('es')->translatedFormat('d F Y') }}"
-                                data-fr="{{ $blog->created_at->locale('fr')->translatedFormat('d F Y') }}">
+                            <i class="fas fa-calendar-alt"></i> @php
+                                $date = \Carbon\Carbon::parse($blog->created_at);
+                            @endphp
 
-                                {{ $blog->created_at->translatedFormat('d M Y') }}
-
+                            <span data-en="{{ $date->format('F d, Y') }}"
+                                data-ar="{{ $date->locale('ar')->isoFormat('D MMMM YYYY') }}"
+                                data-es="{{ $date->locale('es')->isoFormat('D [de] MMMM [de] YYYY') }}"
+                                data-fr="{{ $date->locale('fr')->isoFormat('D MMMM YYYY') }}">
+                                {{ $date->format('F d, Y') }}
                             </span>
 
 
                         </div>
                         <div class="detail-desc p-4" data-aos="fade-up">
-                            <p data-en="{{ $blog->description_en }}" data-ar="{{ $blog->description_ar }}"
-                                data-es="{{ $blog->description_es }}" data-fr="{{ $blog->description_fr }}">
-
-                                {{ $blog->description_en }}
-
+                            <p data-en="{!! $blog->description_en !!}" data-ar="{!! $blog->description_ar !!}"
+                                data-es="{!! $blog->description_es !!}" data-fr="{!! $blog->description_fr !!}">
                             </p>
 
                         </div>
+                        @php
+                            $videos = $blog->videos ?? [];
+                        @endphp
+
+                        @foreach ($videos as $index => $video)
+                            {{-- {{ dd($video) }} --}}
+                            @if ($video)
+                                <div class="video-container" data-bs-toggle="modal" data-bs-target="#videoModal">
+                                    {{-- <img src="{{ asset('assets/category-1.jpg') }}" alt="Video Thumbnail"> --}}
+                                    <div class="modal-body p-0 position-relative">
+                                        <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"
+                                            aria-label="Close"><i class="fas fa-xmark"></i></button>
+
+                                        <div class="ratio ratio-16x9">
+                                            <iframe id="videoFrame" src="{{ $video }}"
+                                                allow="autoplay; fullscreen" allowfullscreen>
+                                            </iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div>
                 </div>
-                <div class="col-lg-4" data-aos="fade-up"></div>
-                <div class="latest-news-card p-4 rounded-4 mb-5">
-                    <h2 class="mb-3" data-en="Latest News" data-ar="آخر الأخبار" data-es="Últimas Noticias"
-                        data-fr="Dernières Nouvelles">
-                        Latest News
-                    </h2>
+                <div class="col-lg-4" data-aos="fade-up">
+                    <div class="latest-news-card p-4 rounded-4 mb-5">
+                        <h2 class="mb-3" data-en="Latest News" data-ar="آخر الأخبار" data-es="Últimas Noticias"
+                            data-fr="Dernières Nouvelles">
+                            Latest News
+                        </h2>
 
-                    @foreach ($latestBlogs as $blog)
-                        <a href="{{ route('blogs.show', $blog->id) }}" class="news-item d-flex gap-2 mb-4">
+                        {{-- الأخبار السابقة --}}
+                        @foreach ($latestBlogs ?? [] as $latest)
+                            <a href="{{ route('news.show', $latest->id) }}" class="news-item d-flex gap-2 mb-4">
+                                <img src="{{ asset('images/blogs/' . $latest->image) }}" class="news-img me-3"
+                                    alt="">
+                                <div>
+                                    <h3 class="mb-1 h6">{{ $latest->name_ar }}</h3>
+                                    <p class="text-muted small mb-0">{{ $latest->created_at->format('d M, Y') }}</p>
+                                </div>
+                            </a>
+                        @endforeach
 
-                            <img src="{{ asset('images/' . $blog->image) }}" class="news-img me-3"
-                                alt="{{ $blog->name_en }}">
+                        {{-- الصور الإضافية --}}
+                        @if (!empty($blog->images))
+                            <h2 class="mt-4 mb-3" data-en="Additional Images" data-ar="صور إضافية"
+                                data-es="Imágenes Adicionales" data-fr="Images Supplémentaires">
+                                Additional Images
+                            </h2>
 
-                            <div>
-                                <h3 class="mb-1 h6" data-en="{{ $blog->name_en }}" data-ar="{{ $blog->name_ar }}"
-                                    data-es="{{ $blog->name_es }}" data-fr="{{ $blog->name_fr }}">
-                                    {{ $blog->name_en }}
-                                </h3>
-
-                                <p class="text-muted small mb-0"
-                                    data-en="{{ $blog->created_at->translatedFormat('d M Y') }}"
-                                    data-ar="{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}"
-                                    data-es="{{ $blog->created_at->locale('es')->translatedFormat('d F Y') }}"
-                                    data-fr="{{ $blog->created_at->locale('fr')->translatedFormat('d F Y') }}">
-
-                                    {{ $blog->created_at->format('F d, Y') }}
-                                </p>
+                            <div class="d-flex flex-column gap-3">
+                                @foreach (array_slice($blog->images, 0, 4) as $img)
+                                    <div class="w-100" data-aos="fade-up">
+                                        <img src="{{ asset('images/blogs/' . $img) }}" class="rounded border w-100"
+                                            style="object-fit: cover; max-height: 400px;" alt="Additional Image">
+                                    </div>
+                                @endforeach
                             </div>
+                        @endif
 
-                        </a>
-                    @endforeach
-
-
+                    </div>
                 </div>
-
-
             </div>
-
-        </div>
         </div>
     </section>
 
     <section class="py-3 related-posts">
         <div class="container">
-            <div class="heading" data-aos="fade-up">
+            <div class="heading text-center" data-aos="fade-up">
                 <h2 data-en="Related Posts" data-ar="مقالات ذات صلة" data-es="Publicaciones Relacionadas"
                     data-fr="Articles Connexes">
                     Related Posts
                 </h2>
 
             </div>
-            <div class="row g-4">
-                <div class="row g-4" data-aos="fade-up">
-                    @foreach ($blogs as $blog)
-                        <div class="col-md-6 col-lg-4">
-                            <div class="card h-100">
 
-                                {{-- Image --}}
-                                <div class="img">
-                                    <img src="{{ asset('images/' . $blog->image) }}" class="card-img-top"
-                                        alt="{{ $blog->name_en }}">
+            <div class="row g-4" data-aos="fade-up">
+                @foreach ($relatedBlogs ?? [] as $related)
+                    <div class="col-md-6 col-lg-4">
+                        <div class="card h-100">
+                            <div class="img">
+                                <img src="{{ asset('images/blogs/' . $related->image) }}" class="card-img-top"
+                                    alt="{{ $related->name_en }}">
+                            </div>
+                            <div class="card-body">
+                                <div class="date d-flex gap-2 align-items-center mb-3">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    <span
+                                        data-en="{{ $related->created_at->locale('en')->translatedFormat('d F Y') }}"
+                                        data-ar="{{ $related->created_at->locale('ar')->translatedFormat('d F Y') }}"
+                                        data-fr="{{ $related->created_at->locale('fr')->translatedFormat('d F Y') }}"
+                                        data-es="{{ $related->created_at->locale('es')->translatedFormat('d F Y') }}">
+                                        {{ $related->created_at->locale('en')->translatedFormat('d F Y') }}
+                                    </span>
                                 </div>
 
-                                <div class="card-body">
+                                <h3 class="card-title mb-3">
+                                    <a href="{{ route('news.show', $related->id) }}"
+                                        data-en="{{ $related->name_en }}" data-ar="{{ $related->name_ar }}"
+                                        data-es="{{ $related->name_es }}" data-fr="{{ $related->name_fr }}">
+                                        {{ $related->name_en }}
+                                    </a>
+                                </h3>
 
-                                    {{-- Date --}}
-                                    <div class="date d-flex gap-2 align-items-center mb-3">
-                                        <i class="fas fa-calendar-alt"></i>
+                                <p class="card-text" data-en="{!! Str::limit($related->description_en, 150) !!}"
+                                    data-ar="{!! Str::limit($related->description_ar, 150) !!}" data-es="{!! Str::limit($related->description_es, 150) !!}"
+                                    data-fr="{!! Str::limit($related->description_fr, 150) !!}">
+                                    {!! Str::limit($related->description_en, 150) !!}>
+                                </p>
 
-                                        <span data-en="{{ $blog->created_at->translatedFormat('d M Y') }}"
-                                            data-ar="{{ $blog->created_at->locale('ar')->translatedFormat('d F Y') }}"
-                                            data-es="{{ $blog->created_at->locale('es')->translatedFormat('d F Y') }}"
-                                            data-fr="{{ $blog->created_at->locale('fr')->translatedFormat('d F Y') }}">
-
-                                            {{ $blog->created_at->format('F d, Y') }}
-                                        </span>
-                                    </div>
-
-                                    {{-- Title --}}
-                                    <h3 class="card-title mb-3">
-                                        <a href="{{ route('news.show', $blog->id) }}" data-en="{{ $blog->name_en }}"
-                                            data-ar="{{ $blog->name_ar }}" data-es="{{ $blog->name_es }}"
-                                            data-fr="{{ $blog->name_fr }}">
-
-                                            {{ $blog->name_en }}
-                                        </a>
-                                    </h3>
-
-                                    {{-- Description --}}
-                                    <p class="card-text" data-en="{{ $blog->description_en }}"
-                                        data-ar="{{ $blog->description_ar }}" data-es="{{ $blog->description_es }}"
-                                        data-fr="{{ $blog->description_fr }}">
-
-                                        {{ Str::limit($blog->description_en, 150) }}
-                                    </p>
-
-                                    {{-- Read more --}}
-                                    <div class="blog-footer">
-                                        <a href="{{ route('news.show', $blog->id) }}"
-                                            class="blog-link d-flex align-items-center gap-2"
-                                            data-en="Read More <i class='fas fa-arrow-right mt-1'></i>"
-                                            data-ar="اقرأ المزيد <i class='fas fa-arrow-left mt-1'></i>"
-                                            data-es="Leer Más <i class='fas fa-arrow-right mt-1'></i>"
-                                            data-fr="Lire la suite <i class='fas fa-arrow-right mt-1'></i>">
-
-                                            <span data-en="Read More" data-ar="اقرأ المزيد" data-es="Leer Más"
-                                                data-fr="Lire la suite">
-                                                Read More
-                                            </span>
-
-                                            <i class="fas fa-arrow-right mt-1"></i>
-                                        </a>
-                                    </div>
-
+                                <div class="blog-footer">
+                                    <a href="{{ route('news.show', $related->id) }}"
+                                        class="blog-link d-flex align-items-center gap-2"
+                                        data-en="Read More <i class='fas fa-arrow-right mt-1'></i>"
+                                        data-ar="اقرأ المزيد <i class='fas fa-arrow-left mt-1'></i>"
+                                        data-es="Leer Más <i class='fas fa-arrow-right mt-1'></i>"
+                                        data-fr="Lire la suite <i class='fas fa-arrow-right mt-1'></i>">
+                                        <span>Read More</span> <i class="fas fa-arrow-right mt-1"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
-                    @endforeach
-                </div>
+                    </div>
+                @endforeach
             </div>
+
+
         </div>
     </section>
     <footer class="footer-section">
-        <img src="{{ asset('assets/footer-bee.png') }}" class="footer-bee" alt="">
         <div class="container py-5">
             <div class="row g-4 align-items-stretch">
                 <div class="col-lg-4 col-md-6 d-flex align-items-center">
-                    <div class="footer-logo">
-                        <img src="{{ asset('assets/logo.png') }}" alt="Dropbe" height="100">
+                    <div class="footer-logo d-flex align-items-center gap-0">
+                        <img src="assets/logo.png" alt="ee and honey" height="100">
+
                     </div>
                 </div>
 
@@ -240,8 +248,8 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#about" data-en="About Us" data-ar="من نحن" data-es="Sobre Nosotros"
-                                data-fr="À propos">
+                            <a href="{{ route('about') }}" data-en="About Us" data-ar="من نحن"
+                                data-es="Sobre Nosotros" data-fr="À propos">
                                 About Us
                             </a>
                         </li>
@@ -280,20 +288,20 @@
 
                     <ul class="footer-links">
                         <li>
-                            <a href="{{ route('products') }}" data-en="Honey Products" data-ar="منتجات العسل"
+                            <a href="products.html" data-en="Honey Products" data-ar="منتجات العسل"
                                 data-es="Productos de miel" data-fr="Produits de miel">
                                 Honey Products
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('products') }}" data-en="Creamed Honey" data-ar="العسل الكريمي"
+                            <a href="products.html" data-en="Creamed Honey" data-ar="العسل الكريمي"
                                 data-es="Miel cremado" data-fr="Miel crémeux">
                                 Creamed Honey
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('products') }}" data-en="Drinks" data-ar="المشروبات"
-                                data-es="Bebidas" data-fr="Boissons">
+                            <a href="products.html" data-en="Drinks" data-ar="المشروبات" data-es="Bebidas"
+                                data-fr="Boissons">
                                 Drinks
                             </a>
                         </li>
@@ -359,6 +367,7 @@
     </div>
     <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script src="{{ asset('js/video-modal.js') }}"></script>
 </body>

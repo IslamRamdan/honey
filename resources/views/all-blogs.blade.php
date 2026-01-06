@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <title>Document</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
+
 </head>
 
 <body>
@@ -78,7 +80,7 @@
                         <div class="col-md-6 col-lg-4">
                             <div class="card h-100">
                                 <div class="img">
-                                    <img src="{{ asset('images/' . $blog->image) }}" class="card-img-top"
+                                    <img src="{{ asset('images/blogs/' . $blog->image) }}" class="card-img-top"
                                         alt="{{ $blog->name_en }}">
                                 </div>
 
@@ -103,18 +105,18 @@
                                         </a>
                                     </h3>
 
-                                    <p class="card-text" data-en="{{ Str::limit($blog->description_en, 150) }}"
-                                        data-ar="{{ Str::limit($blog->description_ar, 150) }}"
-                                        data-es="{{ Str::limit($blog->description_es, 150) }}"
-                                        data-fr="{{ Str::limit($blog->description_fr, 150) }}">
-                                        {{ Str::limit($blog->description_en, 150) }}
+                                    <p class="card-text" data-en="{!! Str::limit($blog->description_en, 150) !!}"
+                                        data-ar="{!! Str::limit($blog->description_ar, 150) !!}" data-es="{!! Str::limit($blog->description_es, 150) !!}"
+                                        data-fr="{!! Str::limit($blog->description_fr, 150) !!}">
                                     </p>
 
                                     <div class="blog-footer">
                                         <a href="{{ route('news.show', $blog->id) }}"
                                             class="blog-link d-flex align-items-center gap-2">
-                                            <span>Read More</span>
-                                            <i class="fas fa-arrow-right mt-1"></i>
+                                            <span data-en="Read More" data-ar="اقرأ المزيد" data-es="Leer Más"
+                                                data-fr="Lire la suite">
+                                                Read More
+                                            </span> <i class="fas fa-arrow-right mt-1"></i>
                                         </a>
                                     </div>
                                 </div>

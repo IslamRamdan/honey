@@ -28,6 +28,10 @@ return new class extends Migration
 
             // الصورة والحالة
             $table->string('image')->nullable();
+            $table->json('images')->nullable();
+
+            $table->json('videos')->nullable();
+
             $table->enum('status', ['new', 'blog'])->default('new');
 
             $table->timestamps();

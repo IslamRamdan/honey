@@ -29,7 +29,7 @@ class CategoryController extends Controller
             'description_en' => 'required|string',
             'description_fr' => 'required|string',
             'description_es' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $data = $request->all();
@@ -61,7 +61,7 @@ class CategoryController extends Controller
             'description_en' => 'required|string',
             'description_fr' => 'required|string',
             'description_es' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $data = $request->all();

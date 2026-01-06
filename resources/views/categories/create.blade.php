@@ -1,8 +1,13 @@
 @extends('adminlte::page')
 
+@section('title', 'إضافة تصنيف جديد')
+
+@section('content_header')
+    <h1>إضافة تصنيف جديد</h1>
+@stop
+
 @section('content')
     <div class="container-fluid">
-        <h1 class="mb-3">إضافة تصنيف جديد</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -17,56 +22,49 @@
         <form action="{{ route('categories.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
-            <div class="row">
-                {{-- الاسماء --}}
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>الاسم (عربي)</label>
-                        <input type="text" name="name_ar" class="form-control" value="{{ old('name_ar') }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (إنجليزي)</label>
-                        <input type="text" name="name_en" class="form-control" value="{{ old('name_en') }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (فرنسي)</label>
-                        <input type="text" name="name_fr" class="form-control" value="{{ old('name_fr') }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (إسباني)</label>
-                        <input type="text" name="name_es" class="form-control" value="{{ old('name_es') }}">
-                    </div>
-                </div>
+            {{-- الأسماء والوصف لكل لغة --}}
+            @php
+                $langs = [
+                    'ar' => 'العربية',
+                    'en' => 'English',
+                    'fr' => 'Français',
+                    'es' => 'Español',
+                ];
+            @endphp
 
-                {{-- الوصف --}}
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>الوصف (عربي)</label>
-                        <textarea name="description_ar" class="form-control" rows="3">{{ old('description_ar') }}</textarea>
+            @foreach ($langs as $key => $lang)
+                <div class="card card-outline card-primary mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ $lang }}</h5>
                     </div>
-                    <div class="form-group">
-                        <label>الوصف (إنجليزي)</label>
-                        <textarea name="description_en" class="form-control" rows="3">{{ old('description_en') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الوصف (فرنسي)</label>
-                        <textarea name="description_fr" class="form-control" rows="3">{{ old('description_fr') }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الوصف (إسباني)</label>
-                        <textarea name="description_es" class="form-control" rows="3">{{ old('description_es') }}</textarea>
+
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label>الاسم</label>
+                            <input type="text" name="name_{{ $key }}" class="form-control"
+                                value="{{ old('name_' . $key) }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>الوصف</label>
+                            <textarea name="description_{{ $key }}" class="form-control" rows="3">{{ old('description_' . $key) }}</textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
             {{-- الصورة --}}
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>الصورة</label>
                 <input type="file" name="image" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-success">حفظ</button>
-            <a href="{{ route('categories.index') }}" class="btn btn-secondary">رجوع</a>
+            <button type="submit" class="btn btn-success mt-3">
+                <i class="fas fa-save"></i> حفظ التصنيف
+            </button>
+            <a href="{{ route('categories.index') }}" class="btn btn-secondary mt-3">
+                رجوع
+            </a>
         </form>
     </div>
-@endsection
+@stop

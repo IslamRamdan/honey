@@ -68,9 +68,9 @@ Route::get('/blog/{id}', function ($id) {
 
     $latestBlogs = Blog::where('status', 'new')->latest()->take(3)->get();
     $blog = Blog::findOrFail($id);
-    $blogs = Blog::where('id', '!=', $id)->where('status', 'blog')->latest()->take(3)->get();
+    $relatedBlogs = Blog::where('id', '!=', $id)->where('status', 'blog')->latest()->take(3)->get();
 
-    return view('blog-details', compact('blog', 'latestBlogs', 'blogs'));
+    return view('blog-details', compact('blog', 'latestBlogs', 'relatedBlogs'));
 })->name('news.show');
 
 
@@ -78,5 +78,7 @@ Route::get('/blog/{id}', function ($id) {
 Route::get('/categorey/{category}', [CategoryController::class, 'showProducts'])->name('categories.show.products');
 
 Route::resource('blogs', BlogController::class);
+Route::put('blogs/{blog}', [BlogController::class, 'update'])->name('blogs.update');
+Route::delete('blogs/{blog}/image/{index}', [BlogController::class, 'deleteImage'])->name('blogs.deleteImage');
 
 require __DIR__ . '/auth.php';

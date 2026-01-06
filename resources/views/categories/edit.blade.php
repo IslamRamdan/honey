@@ -1,8 +1,13 @@
 @extends('adminlte::page')
 
+@section('title', 'تعديل التصنيف')
+
+@section('content_header')
+    <h1>تعديل التصنيف</h1>
+@stop
+
 @section('content')
     <div class="container-fluid">
-        <h1 class="mb-3">تعديل التصنيف</h1>
 
         @if ($errors->any())
             <div class="alert alert-danger">
@@ -18,60 +23,54 @@
             @csrf
             @method('PUT')
 
-            <div class="row">
-                {{-- الاسماء --}}
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>الاسم (عربي)</label>
-                        <input type="text" name="name_ar" class="form-control" value="{{ $category->name_ar }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (إنجليزي)</label>
-                        <input type="text" name="name_en" class="form-control" value="{{ $category->name_en }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (فرنسي)</label>
-                        <input type="text" name="name_fr" class="form-control" value="{{ $category->name_fr }}">
-                    </div>
-                    <div class="form-group">
-                        <label>الاسم (إسباني)</label>
-                        <input type="text" name="name_es" class="form-control" value="{{ $category->name_es }}">
-                    </div>
-                </div>
+            @php
+                $langs = [
+                    'ar' => 'العربية',
+                    'en' => 'English',
+                    'fr' => 'Français',
+                    'es' => 'Español',
+                ];
+            @endphp
 
-                {{-- الوصف --}}
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>الوصف (عربي)</label>
-                        <textarea name="description_ar" class="form-control" rows="3">{{ $category->description_ar }}</textarea>
+            {{-- الأسماء والوصف لكل لغة --}}
+            @foreach ($langs as $key => $lang)
+                <div class="card card-outline card-primary mb-3">
+                    <div class="card-header">
+                        <h5 class="card-title">{{ $lang }}</h5>
                     </div>
-                    <div class="form-group">
-                        <label>الوصف (إنجليزي)</label>
-                        <textarea name="description_en" class="form-control" rows="3">{{ $category->description_en }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الوصف (فرنسي)</label>
-                        <textarea name="description_fr" class="form-control" rows="3">{{ $category->description_fr }}</textarea>
-                    </div>
-                    <div class="form-group">
-                        <label>الوصف (إسباني)</label>
-                        <textarea name="description_es" class="form-control" rows="3">{{ $category->description_es }}</textarea>
+
+                    <div class="card-body">
+                        <div class="form-group mb-3">
+                            <label>الاسم</label>
+                            <input type="text" name="name_{{ $key }}" class="form-control"
+                                value="{{ old('name_' . $key, $category->{'name_' . $key}) }}" required>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>الوصف</label>
+                            <textarea name="description_{{ $key }}" class="form-control" rows="3">{{ old('description_' . $key, $category->{'description_' . $key}) }}</textarea>
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endforeach
 
             {{-- الصورة --}}
-            <div class="form-group">
+            <div class="form-group mb-3">
                 <label>الصورة الحالية</label><br>
                 @if ($category->image)
-                    <img src="{{ asset('images/categories/' . $category->image) }}" width="100"><br><br>
+                    <img src="{{ asset('images/categories/' . $category->image) }}" width="150" class="rounded mb-2"><br>
                 @endif
                 <label>تغيير الصورة</label>
                 <input type="file" name="image" class="form-control">
             </div>
 
-            <button type="submit" class="btn btn-success">تحديث</button>
-            <a href="{{ route('categories.index') }}" class="btn btn-secondary">رجوع</a>
+            <button type="submit" class="btn btn-success mt-3">
+                <i class="fas fa-save"></i> تحديث التصنيف
+            </button>
+            <a href="{{ route('categories.index') }}" class="btn btn-secondary mt-3">
+                رجوع
+            </a>
+
         </form>
     </div>
-@endsection
+@stop

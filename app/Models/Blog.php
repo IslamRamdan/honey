@@ -17,6 +17,12 @@ class Blog extends Model
         'description_fr',
         'description_es',
         'image',
+        'images',   // ✅ أضف دي
+        'videos',   // ✅ ودي
         'status',
+    ];
+    protected $casts = [
+        'images' => 'array',
+        'videos' => 'array',
     ];
 }
