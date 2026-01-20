@@ -19,7 +19,6 @@
 
     {!! $seo->meta ?? '' !!}
 
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Bee & Honey - Natural Honey Products">
     <meta property="og:description"
@@ -102,41 +101,54 @@
                             data-es="Breve sobre Bee&Honey" data-fr="Bref sur Bee&Honey">
                             Brief About Bee&Honey
                         </h2>
-                        <p class="text-muted"
-                            data-en="Bee&Honey is a brand under Yemeni Honey House, founded in 2007, with extensive experience in producing and marketing natural honey to the highest quality standards."
-                            data-ar="Bee&Honey هي علامة تجارية تابعة لـ Yemeni Honey House، تأسست عام 2007، ولديها خبرة واسعة في إنتاج وتسويق العسل الطبيعي بأعلى معايير الجودة."
-                            data-es="Bee&Honey es una marca de Yemeni Honey House, fundada en 2007, con amplia experiencia en la producción y comercialización de miel natural con los más altos estándares de calidad."
-                            data-fr="Bee&Honey est une marque de Yemeni Honey House, fondée en 2007, avec une vaste expérience dans la production et la commercialisation de miel naturel aux normes de qualité les plus élevées.">
-                            Bee&Honey is a brand under Yemeni Honey House, founded in 2007, with extensive experience in
-                            producing and marketing natural honey to the highest quality standards.
+                       <p class="text-muted"
+                            data-ar="بي آند هني هي علامة تجارية رائدة تابعة لشركة بيت العسل اليمني، التي تأسست عام 2007، وتتمتع بخبرة واسعة في تصنيع وتطوير المنتجات الطبيعية والمكملات الغذائية المعتمدة على العسل الطبيعي، وفق أعلى معايير الجودة العالمية."
+                            data-en="Bee & Honey is a leading brand under Yemeni Honey House, established in 2007, with extensive experience in manufacturing and developing natural products and honey-based dietary supplements, in accordance with the highest international quality standards."
+                            data-fr="Bee & Honey est une marque leader appartenant à Yemeni Honey House, fondée en 2007, disposant d’une vaste expérience dans la fabrication et le développement de produits naturels et de compléments alimentaires à base de miel naturel, conformément aux normes internationales de qualité les plus élevées."
+                            data-es="Bee & Honey es una marca líder perteneciente a Yemeni Honey House, fundada en 2007, con amplia experiencia en la fabricación y el desarrollo de productos naturales y suplementos alimenticios a base de miel natural, de acuerdo con los más altos estándares internacionales de calidad.">
+                            Bee & Honey is a leading brand under Yemeni Honey House, established in 2007, with extensive
+                            experience in manufacturing and developing natural products and honey-based dietary
+                            supplements, in accordance with the highest international quality standards.
                         </p>
                         <p class="text-muted"
-                            data-en="Bee&Honey was born from our passion for offering modern, natural products that meet the needs of today's consumer, providing a unique experience that blends flavor and benefits."
-                            data-ar="تأسست Bee&Honey من شغفنا بتقديم منتجات طبيعية وعصرية تلبي احتياجات المستهلك اليوم، موفرة تجربة فريدة تمزج بين الطعم والفوائد."
-                            data-es="Bee&Honey nació de nuestra pasión por ofrecer productos modernos y naturales que satisfagan las necesidades del consumidor actual, proporcionando una experiencia única que combina sabor y beneficios."
-                            data-fr="Bee&Honey est née de notre passion pour offrir des produits modernes et naturels répondant aux besoins du consommateur d'aujourd'hui, offrant une expérience unique mêlant saveur et bienfaits.">
-                            Bee&Honey was born from our passion for offering modern, natural products that meet the
-                            needs of today's consumer, providing a unique experience that blends flavor and benefits.
-                        </p>
-
-                        <p class="text-muted"
-                            data-en="We take great care in selecting our apiaries and use sustainable methods in our production that protect the environment and safeguard bees. Our products, whether raw honey or natural honey beverages, reflect our commitment to unmatched quality and true purity, free from any artificial additives."
-                            data-ar="نولي اهتمامًا كبيرًا في اختيار مزارعنا ونستخدم طرقًا مستدامة في الإنتاج تحمي البيئة وتحافظ على النحل. منتجاتنا، سواء كانت عسلًا خامًا أو مشروبات عسل طبيعية، تعكس التزامنا بالجودة الفائقة والنقاء الحقيقي، خالية من أي إضافات صناعية."
-                            data-es="Cuidamos mucho la selección de nuestras colmenas y usamos métodos sostenibles en nuestra producción que protegen el medio ambiente y resguardan a las abejas. Nuestros productos, ya sea miel cruda o bebidas de miel natural, reflejan nuestro compromiso con una calidad inigualable y pureza verdadera, libres de aditivos artificiales."
-                            data-fr="Nous prenons grand soin dans la sélection de nos ruches et utilisons des méthodes durables dans notre production qui protègent l'environnement et préservent les abeilles. Nos produits, qu'il s'agisse de miel brut ou de boissons au miel naturel, reflètent notre engagement envers une qualité inégalée et une pureté réelle, sans aucun additif artificiel.">
-                            We take great care in selecting our apiaries and use sustainable methods in our production
-                            that protect the environment and safeguard bees. Our products, whether raw honey or natural
-                            honey beverages, reflect our commitment to unmatched quality and true purity, free from any
-                            artificial additives.
+                            data-ar="نفخر بكوننا من أبرز المصانع المتخصصة في إنتاج منتجات العسل والمشروبات الطبيعية المُحلّاة بالعسل والمكملات الغذائية، حيث نعتمد على أنظمة تصنيع حديثة ونلتزم بالمعايير الدولية للإنتاج السليم وسلامة الغذاء، الأمر الذي مكّننا من كسب ثقة الأسواق والدول عالميًا."
+                            data-en="We take pride in being one of the leading manufacturers specializing in honey products, honey-sweetened natural beverages, and dietary supplements. We rely on advanced manufacturing systems and adhere to international standards for good manufacturing practices and food safety, enabling us to earn the trust of markets and countries worldwide."
+                            data-fr="Nous sommes fiers de compter parmi les principaux fabricants spécialisés dans les produits à base de miel, les boissons naturelles sucrées au miel et les compléments alimentaires. Nous nous appuyons sur des systèmes de fabrication avancés et respectons les normes internationales de bonnes pratiques de fabrication et de sécurité alimentaire, ce qui nous a permis de gagner la confiance des marchés et des pays du monde entier."
+                            data-es="Nos enorgullece ser uno de los principales fabricantes especializados en productos de miel, bebidas naturales endulzadas con miel y suplementos alimenticios. Nos apoyamos en sistemas de fabricación avanzados y cumplimos con los estándares internacionales de buenas prácticas de producción y seguridad alimentaria, lo que nos ha permitido ganar la confianza de mercados y países a nivel mundial.">
+                            We take pride in being one of the leading manufacturers specializing in honey products,
+                            honey-sweetened natural beverages, and dietary supplements. We rely on advanced
+                            manufacturing systems and adhere to international standards for good manufacturing practices
+                            and food safety, enabling us to earn the trust of markets and countries worldwide.
                         </p>
 
                         <p class="text-muted"
-                            data-en="At Bee&Honey, we believe that honey is more than just food, it's a lifestyle that energizes you, strengthens immunity, and naturally supports the body's balance."
-                            data-ar="في Bee&Honey، نؤمن أن العسل أكثر من مجرد طعام، إنه أسلوب حياة يمنحك الطاقة، يقوي المناعة، ويدعم توازن الجسم بشكل طبيعي."
-                            data-es="En Bee&Honey, creemos que la miel es más que un alimento, es un estilo de vida que te energiza, fortalece la inmunidad y apoya naturalmente el equilibrio del cuerpo."
-                            data-fr="Chez Bee&Honey, nous croyons que le miel est plus qu'un simple aliment, c'est un mode de vie qui vous énergise, renforce l'immunité et soutient naturellement l'équilibre du corps.">
-                            At Bee&Honey, we believe that honey is more than just food, it's a lifestyle that energizes
-                            you, strengthens immunity, and naturally supports the body's balance.
+                            data-ar="انطلقت بي آند هني من شغف حقيقي بتقديم منتجات ومشروبات صحية وعصرية مستخلصة من الطبيعة، لتواكب احتياجات المستهلك الحديث، وتوفر تجربة متكاملة تجمع بين القيمة الغذائية، والطعم المتوازن، والجودة العالية."
+                            data-en="Bee & Honey was born from a genuine passion for offering healthy and modern products and beverages derived from nature, keeping pace with the needs of today’s consumer and delivering a complete experience that combines nutritional value, balanced taste, and high quality."
+                            data-fr="Bee & Honey est née d’une véritable passion pour proposer des produits et des boissons sains et modernes issus de la nature, afin de répondre aux besoins du consommateur moderne et d’offrir une expérience complète alliant valeur nutritionnelle, goût équilibré et haute qualité."
+                            data-es="Bee & Honey nació de una auténtica pasión por ofrecer productos y bebidas saludables y modernas extraídas de la naturaleza, en línea con las necesidades del consumidor actual, brindando una experiencia integral que combina valor nutricional, sabor equilibrado y alta calidad.">
+                            Bee & Honey was born from a genuine passion for offering healthy and modern products and
+                            beverages derived from nature, keeping pace with the needs of today’s consumer and
+                            delivering a complete experience that combines nutritional value, balanced taste, and high
+                            quality.
+                        </p>
+
+                        <p class="text-muted"
+                            data-ar="نحرص على اختيار أجود أنواع العسل الطبيعي والمكونات الطبيعية بعناية فائقة، دون إضافة مواد حافظة أو ألوان صناعية أو سكر، لنقدّم منتجات تعكس التزامنا بالجودة والشفافية والمصداقية مع المستهلك."
+                            data-en="We carefully select the finest natural honey and premium natural ingredients, without adding preservatives, artificial colors, or sugar, to deliver products that reflect our commitment to quality, transparency, and credibility with consumers."
+                            data-fr="Nous veillons à sélectionner avec le plus grand soin les meilleurs miels naturels et ingrédients naturels, sans ajouter de conservateurs, de colorants artificiels ni de sucre, afin d’offrir des produits reflétant notre engagement envers la qualité, la transparence et la crédibilité auprès des consommateurs."
+                            data-es="Seleccionamos cuidadosamente los mejores tipos de miel natural y los ingredientes naturales más puros, sin añadir conservantes, colorantes artificiales ni azúcar, para ofrecer productos que reflejen nuestro compromiso con la calidad, la transparencia y la credibilidad ante el consumidor.">
+                            We carefully select the finest natural honey and premium natural ingredients, without adding
+                            preservatives, artificial colors, or sugar, to deliver products that reflect our commitment
+                            to quality, transparency, and credibility with consumers.
+                        </p>
+                        <p class="text-muted"
+                            data-ar="في بي آند هني، نؤمن بأن منتجاتنا الصحية ليست مجرد منتجات غذائية، بل أسلوب حياة يدعم النشاط اليومي، يعزز المناعة، ويساهم في الحفاظ على توازن الجسم بشكل طبيعي."
+                            data-en="At Bee & Honey, we believe that our healthy products are not just food items but a lifestyle that supports daily activity, boosts immunity, and contributes to maintaining the body’s natural balance."
+                            data-fr="Chez Bee & Honey, nous croyons que nos produits sains ne sont pas de simples aliments, mais un mode de vie qui soutient l’activité quotidienne, renforce l’immunité et contribue à maintenir l’équilibre naturel du corps."
+                            data-es="En Bee & Honey, creemos que nuestros productos saludables no son solo alimentos, sino un estilo de vida que apoya la actividad diaria, fortalece la inmunidad y contribuye a mantener el equilibrio natural del cuerpo.">
+                            At Bee & Honey, we believe that our healthy products are not just food items but a lifestyle
+                            that supports daily activity, boosts immunity, and contributes to maintaining the body’s
+                            natural balance.
                         </p>
 
                     </div>
