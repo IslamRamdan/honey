@@ -475,13 +475,9 @@
 
     <section class="why-us">
         <div class="container">
-            <div class="row g-4 align-items-center mb-5">
-                <div class="col-lg-6">
-                    <div class="img">
-                        <img src="assets/bee-honey.jpg" alt="honey" class="img-fluid rounded-3 w-100">
-                    </div>
-                </div>
-                <div class="col-lg-6">
+            <div class="row g-4 align-items-center justify-content-center mb-5">
+                
+                <div class="col-lg-8">
                     <div class="content">
                         <h2 class="mb-5 text-center" data-ar="لماذا يثق بنا شركاؤنا؟"
                             data-en="Why do our partners trust us?"

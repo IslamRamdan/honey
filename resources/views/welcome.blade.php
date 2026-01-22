@@ -207,13 +207,14 @@
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة حفظ الله حسن للتجارة المحدودة شراكتنا في اليمن تنطلق من الجذور والهوية المشتركة. نعمل معاً لتقديم مشروبات عالية الجودة تحظى بثقة المستهلك اليمني، وحققنا نتائج إيجابية تعكس نجاحنا المشترك."
+                                            data-en="Hafez Allah Hassan Trading Co. Ltd. Our partnership in Yemen is rooted in shared heritage and identity. Together, we deliver high-quality beverages trusted by Yemeni consumers, achieving positive results that reflect our shared success."
+                                            data-fr="Société commerciale Hafez Allah Hassan Ltd. Notre partenariat au Yémen repose sur des racines et une identité communes. Ensemble, nous proposons des boissons de haute qualité, appréciées par les consommateurs yéménites, et avons obtenu des résultats positifs qui reflètent notre succès commun."
+                                            data-es="Hafez Allah Hassan Trading Co. Ltd. Nuestra alianza en Yemen nace de raíces e identidad compartidas. Trabajamos juntos para ofrecer bebidas de alta calidad en las que confían los consumidores yemeníes, logrando resultados positivos que reflejan nuestro éxito conjunto.">
+                                            Hafez Allah Hassan Trading Co. Ltd. Our partnership in Yemen is rooted in
+                                            shared heritage and identity. Together, we deliver high-quality beverages
+                                            trusted by Yemeni consumers, achieving positive results that reflect our
+                                            shared success
                                         </p>
 
                                     </div>
@@ -222,20 +223,41 @@
                             <div class="col-sm-6 col-md-4 col-lg-6">
                                 <div class="branch-box shadow-sm">
                                     <div class="title">
-                                        <h3 data-en="Jordan" data-ar="الأردن" data-fr="Jordanie" data-es="Jordania">
-                                            Jordan
+                                        <h3 data-ar="لبنان" data-en="Lebanon" data-fr="Liban" data-es="Líbano">
+                                            Lebanon
                                         </h3>
 
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="نواصل في لبنان بناء حضور تدريجي قائم على الثقة وفهم السوق المحلي. نعمل لتحقيق نتائج إيجابية ونمو مستدام في هذا السوق الواعد."
+                                            data-en="In Lebanon, we continue to build a gradual presence based on trust and understanding of the local market. We work to achieve positive results and sustainable growth in this promising market."
+                                            data-fr="Au Liban, nous continuons à établir une présence progressive fondée sur la confiance et la compréhension du marché local. Nous travaillons pour obtenir des résultats positifs et une croissance durable sur ce marché prometteur."
+                                            data-es="En Líbano, continuamos construyendo una presencia gradual basada en la confianza y en el conocimiento del mercado local. Trabajamos para lograr resultados positivos y un crecimiento sostenible en este mercado prometedor.">
+                                            In Lebanon, we continue to build a gradual presence based on trust and
+                                            understanding of the local market. We work to achieve positive results and
+                                            sustainable growth in this promising market.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-4 col-lg-6">
+                                <div class="branch-box shadow-sm">
+                                    <div class="title">
+                                        <h3 data-ar="مصر" data-en="Egypt" data-fr="Égypte" data-es="Egipto">
+                                            Egypt
+                                        </h3>
+
+                                    </div>
+                                    <div class="desc">
+                                        <p class="text-muted"
+                                            data-ar="شركة جولدن هيف لتجارة المواد الغذائية في السوق المصري، حققنا حضوراً متنامياً من خلال شراكة قوية. الإقبال على منتجاتنا يعكس نجاح التعاون وثقة المستهلك."
+                                            data-en="Golden Hive Food Trading Co. In the Egyptian market, we have achieved a growing presence through a strong partnership. The demand for our products reflects successful collaboration and consumer trust."
+                                            data-fr="Société Golden Hive de Commerce Alimentaire Sur le marché égyptien, nous avons renforcé notre présence grâce à un partenariat solide. La demande pour nos produits reflète la réussite de la collaboration et la confiance des consommateurs."
+                                            data-es="Compañía Golden Hive de Comercio de Alimentos En el mercado egipcio, hemos logrado una presencia creciente mediante una asociación sólida. La demanda de nuestros productos refleja el éxito de la colaboración y la confianza del consumidor.">
+                                            Golden Hive Food Trading Co. In the Egyptian market, we have achieved a
+                                            growing presence through a strong partnership. The demand for our products
+                                            reflects successful collaboration and consumer trust.
                                         </p>
                                     </div>
                                 </div>
@@ -251,13 +273,14 @@
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة هاي مون التجارية، شركة لاتين، ووكالتان محليتان يُعد السوق السعودي سوقاً استراتيجياً لنا. ومن خلال هذه الشراكات، حققنا تغطية شاملة لمختلف مناطق المملكة، مع نتائج قوية وانتشار فعّال لمنتجاتنا."
+                                            data-en="High Moon Trading Co., Latin Company, and Two Local Agencies The Saudi market is strategic for us. Through these partnerships, we have achieved comprehensive coverage across the Kingdom, with strong results and effective distribution of our products."
+                                            data-fr="Société commerciale High Moon, Société Latin et deux agences locales Le marché saoudien est stratégique pour nous. Grâce à ces partenariats, nous avons assuré une couverture complète de différentes régions du Royaume, avec des résultats solides et une distribution efficace de nos produits."
+                                            data-es="Compañía Comercial High Moon, Compañía Latin y dos agencias locales El mercado saudí es estratégico para nosotros. A través de estas alianzas, hemos logrado una cobertura integral en diferentes regiones del Reino, con resultados sólidos y una distribución eficaz de nuestros productos.">
+                                            High Moon Trading Co., Latin Company, and Two Local Agencies The Saudi
+                                            market is strategic for us. Through these partnerships, we have achieved
+                                            comprehensive coverage across the Kingdom, with strong results and effective
+                                            distribution of our products.
                                         </p>
                                     </div>
                                 </div>
@@ -271,13 +294,14 @@
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة قطر الوطنية للاستيراد والتصدير شراكتنا في قطر أسهمت في تحقيق حضور قوي ونتائج ملموسة. نعمل معاً لتقديم مشروبات تلبي تطلعات السوق وتحظى برضا المستهلكين."
+                                            data-en="Qatar National Import & Export Co. Our partnership in Qatar has contributed to building a strong presence and achieving tangible results. Together, we provide beverages that meet market expectations and earn consumer satisfaction."
+                                            data-fr="Société nationale d’importation et d’exportation du Qatar Notre partenariat au Qatar a contribué à établir une forte présence et à obtenir des résultats concrets. Ensemble, nous proposons des boissons qui répondent aux attentes du marché et gagnent la satisfaction des consommateurs."
+                                            data-es="Compañía Nacional de Importación y Exportación de Catar Nuestra alianza en Catar ha contribuido a lograr una fuerte presencia y resultados tangibles. Trabajamos juntos para ofrecer bebidas que satisfacen las expectativas del mercado y cuentan con la aprobación de los consumidores.">
+                                            Qatar National Import & Export Co. Our partnership in Qatar has contributed
+                                            to building a strong presence and achieving tangible results. Together, we
+                                            provide beverages that meet market expectations and earn consumer
+                                            satisfaction.
                                         </p>
                                     </div>
                                 </div>
@@ -292,35 +316,40 @@
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة مشاريع الخط العالي للتجارة والخدمات في السوق العُماني، بنينا شراكة قائمة على الاستقرار والنمو المستمر. الإقبال المتزايد على منتجاتنا يؤكد رضا المستهلك وقوة التعاون بيننا."
+                                            data-en="High Line Projects Trading & Services Co. In the Omani market, we have built a partnership based on stability and continuous growth. The increasing demand for our products reflects customer satisfaction and the strength of our collaboration."
+                                            data-fr="Société High Line Projects Trading & Services Sur le marché omanais, nous avons construit un partenariat fondé sur la stabilité et une croissance continue. La demande croissante pour nos produits confirme la satisfaction des consommateurs et la solidité de notre coopération."
+                                            data-es="High Line Projects Trading & Services En el mercado omaní, hemos construido una alianza basada en la estabilidad y el crecimiento continuo. La creciente demanda de nuestros productos confirma la satisfacción del consumidor y la fortaleza de nuestra colaboración.">
+                                            High Line Projects Trading & Services Co. In the Omani market, we have built
+                                            a
+                                            partnership based on stability and continuous growth. The increasing demand
+                                            for our
+                                            products reflects customer satisfaction and the strength of our
+                                            collaboration.
                                         </p>
                                     </div>
+
+
                                 </div>
                             </div>
                             <div class="col-sm-6 col-md-4 col-lg-6">
                                 <div class="branch-box shadow-sm ">
                                     <div class="title">
-                                        <h3 data-en="The UAE" data-ar="الإمارات العربية المتحدة"
-                                            data-fr="Les Émirats arabes unis" data-es="Los Emiratos Árabes Unidos">
-                                            The UAE
+                                        <h3 data-ar="فلسطين" data-en="Palestine" data-fr="Palestine"
+                                            data-es="Palestina">
+                                            Palestine
                                         </h3>
 
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة السلام للتبريد شراكتنا في فلسطين تركز على الاستمرارية وتوفير منتجات عالية الجودة. رضا المستهلك وثقته هما أساس نجاحنا المشترك."
+                                            data-en="Al Salam Cooling Co. Our partnership in Palestine focuses on continuity and providing high-quality products. Customer satisfaction and trust are the foundation of our shared success."
+                                            data-fr="Société Al Salam Cooling Notre partenariat en Palestine met l’accent sur la continuité et la fourniture de produits de haute qualité. La satisfaction et la confiance des consommateurs constituent la base de notre succès commun."
+                                            data-es="Compañía Al Salam Cooling Nuestra alianza en Palestina se centra en la continuidad y en ofrecer productos de alta calidad. La satisfacción y la confianza del consumidor son la base de nuestro éxito conjunto.">
+                                            Al Salam Cooling Co. Our partnership in Palestine focuses on continuity and
+                                            providing high-quality products. Customer satisfaction and trust are the
+                                            foundation of our shared success.
                                         </p>
                                     </div>
                                 </div>
@@ -336,13 +365,13 @@
                                     </div>
                                     <div class="desc">
                                         <p class="text-muted"
-                                            data-en="Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero, architecto."
-                                            data-ar="هذا نص تجريبي يُستخدم لعرض شكل المحتوى داخل التصميم، ويمكن استبداله بالنص الحقيقي لاحقًا."
-                                            data-fr="Ceci est un texte factice utilisé pour montrer la mise en page du contenu, pouvant être remplacé ultérieurement."
-                                            data-es="Este es un texto de ejemplo utilizado para mostrar el diseño del contenido y puede ser reemplazado más adelante.">
-                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas ut sit
-                                            iure. Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero,
-                                            architecto.
+                                            data-ar="شركة Xpress Food Union Ave في السوق الأمريكي، نجحنا في الوصول إلى شرائح متنوعة من المستهلكين. هذه الشراكة تعكس نمواً مستمراً وتوسعاً مدروساً لعلامتنا."
+                                            data-en="Xpress Food Union Ave Co. In the U.S. market, we have successfully reached diverse consumer segments. This partnership reflects continuous growth and a well-planned expansion of our brand."
+                                            data-fr="Société Xpress Food Union Ave Sur le marché américain, nous avons réussi à atteindre des segments de consommateurs variés. Ce partenariat reflète une croissance continue et une expansion stratégique de notre marque."
+                                            data-es="Compañía Xpress Food Union Ave En el mercado estadounidense, hemos logrado llegar a diversos segmentos de consumidores. Esta alianza refleja un crecimiento continuo y una expansión estratégica de nuestra marca.">
+                                            Xpress Food Union Ave Co. In the U.S. market, we have successfully reached
+                                            diverse consumer segments. This partnership reflects continuous growth and a
+                                            well-planned expansion of our brand.
                                         </p>
                                     </div>
                                 </div>
@@ -350,8 +379,10 @@
                         </div>
 
                     </div>
+
                 </div>
             </div>
+        </div>
         </div>
         </div>
 
@@ -438,9 +469,9 @@
         </div>
     </section>
 
-    <section class="catalog-section py-5 mb-5">
+     <section class="catalog-section py-5 mb-5">
         <div class="container">
-            <div class="row g-4 align-items-center justify-content-center">
+            <div class="row g-4 align-items-center">
                 <div class="col-lg-6 text-center">
                     <div class="catalog-content">
                         <p class="catalog-text" data-en="To view the e-catalog" data-ar="لعرض الكتالوج الإلكتروني"
@@ -454,11 +485,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="catalog-image">
-                        <img src="assets/catalog.png" alt="E-Catalog" class="img-fluid">
-                    </div>
-                </div>
+            
             </div>
         </div>
     </section>
@@ -470,7 +497,7 @@
                     <div class="counter-box text-center">
                         <div class="bg"></div>
                         <div class="icon"><i class="fas fa-cart-shopping"></i></div>
-                        <div class="number" data-target="3000000">0</div>
+                        <div class="number" data-target="28000000" data-display="28M+">0</div>
                         <div class="title" data-en="Products sold " data-ar="منتجاتنا المباعة "
                             data-fr="Produits vendus" data-es="Productos vendidos ">
                             Products sold
@@ -482,7 +509,7 @@
                     <div class="counter-box text-center">
                         <div class="bg"></div>
                         <div class="icon"><i class="fas fa-users"></i></div>
-                        <div class="number" data-target="2000000" data-display="2M+">
+                        <div class="number" data-target="25000000" data-display="25M+">
                             2M+
                         </div>
 
@@ -498,7 +525,7 @@
                     <div class="counter-box text-center">
                         <div class="bg"></div>
                         <div class="icon"><i class="fas fa-user-tie"></i></div>
-                        <div class="number" data-target="350">0</div>
+                        <div class="number" data-target="450">0</div>
                         <div class="title" data-en="Employees" data-ar="الموظفين" data-fr="Employés"
                             data-es="Empleados">
                             Employees
@@ -510,7 +537,7 @@
                     <div class="counter-box text-center">
                         <div class="bg"></div>
                         <div class="icon"><i class="fa-solid fa-store"></i></div>
-                        <div class="number" data-target="7000">0</div>
+                        <div class="number" data-target="120000">0</div>
                         <div class="title" data-ar="مواقع البيع" data-en="Sales Websites" data-es="Sitios de venta"
                             data-fr="Sites de vente">
                             Sales Websites

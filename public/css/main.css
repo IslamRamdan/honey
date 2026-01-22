@@ -436,13 +436,28 @@ html[dir="rtl"] .about-subtitle::before {
 
 .video-box {
     position: absolute;
-    top: 230px;
+    top: 250px;
     right: 20px;
     border-radius: 20px;
     width: 350px;
     overflow: hidden;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     animation: float-y 4s ease-in-out infinite;
+}
+@media screen and (min-width:768px) {
+    .video-box {
+    top: 400px;
+}
+}
+@media screen and (min-width:992px) {
+    .video-box {
+    top: 300px;
+}
+}
+@media screen and (min-width:1200px) {
+    .video-box {
+    top: 400px;
+}
 }
 
 html[dir="rtl"] .video-box {
@@ -2487,7 +2502,7 @@ html[dir="rtl"] .products .bee2 {
     border: 1px solid #d9982943;
     position: relative;
     background-color: #d9982918;
-
+    height: 100%;
 }
 
 .branch-box .title h3 {
@@ -2505,24 +2520,14 @@ html[dir="rtl"] .products .bee2 {
 
 .catalog-section {
     position: relative;
-    background: url("../assets/catalog-2.jpeg") no-repeat;
-    background-size: cover;
-    background-position: bottom;
+    background: url("../assets/catalog.jpg") no-repeat;
+    background-size: 100%;
+    background-position: top;
     overflow: hidden;
-    min-height: 50vh;
+    min-height: 100vh;
     display: flex;
     justify-content: space-between !important;
     align-items: center;
-}
-
-.catalog-section::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to left,
-            rgba(255, 165, 0, 0.65),
-            rgba(0, 0, 0, 0.5));
-    z-index: 1;
 }
 
 .catalog-section .container {
@@ -2530,18 +2535,26 @@ html[dir="rtl"] .products .bee2 {
     z-index: 2;
 }
 
+.catalog-section .row {
+    justify-content: flex-start;
+}
+
+html[dir="rtl"] .catalog-section .row {
+    justify-content: flex-end;
+}
 
 .catalog-content {
-    color: #fff;
+    color: #47210b;
 }
 
 .catalog-text {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     margin-bottom: 20px;
     letter-spacing: 0.5px;
-    font-weight: 700;
-    font-family: var(--Montserrat);
+    font-weight: 800;
+    font-family: var(--Naveid);
 }
+
 
 .catalog-image {
     display: flex;

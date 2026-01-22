@@ -1,37 +1,39 @@
 document.addEventListener("DOMContentLoaded", function () {
     console.log("DOM loaded, initializing map...");
-    
+
     if (!window.currentLang) window.currentLang = "en";
 
     const mapTranslations = {
         YE: { en: "Yemen", ar: "اليمن", fr: "Yémen", es: "Yemen" },
-        JO: { en: "Jordan", ar: "الأردن", fr: "Jordanie", es: "Jordania" },
         SA: { en: "Saudi Arabia", ar: "المملكة العربية السعودية", fr: "Arabie Saoudite", es: "Arabia Saudita" },
         QA: { en: "Qatar", ar: "قطر", fr: "Qatar", es: "Catar" },
         OM: { en: "Oman", ar: "عُمان", fr: "Oman", es: "Omán" },
-        AE: { en: "United Arab Emirates", ar: "الإمارات العربية المتحدة", fr: "Émirats Arabes Unis", es: "Emiratos Árabes Unidos" },
         US: { en: "United States", ar: "الولايات المتحدة الأمريكية", fr: "États-Unis", es: "Estados Unidos" },
+        EG: { en: "Egypt", ar: "مصر", fr: "Égypte", es: "Egipto" },
+        PS: { en: "Palestine", ar: "فلسطين", fr: "Palestine", es: "Palestina" },
+        LB: { en: "Lebanon", ar: "لبنان", fr: "Liban", es: "Líbano" },
+
         visit: { en: "Visit Website", ar: "زيارة الموقع", fr: "Visiter le site", es: "Visitar sitio web" }
     };
 
     const chartDiv = document.getElementById("chartdiv");
-    
+
     if (!chartDiv) {
         console.error(" chartdiv element not found!");
         return;
     }
-    
+
     console.log("Chart div found:", chartDiv.id, "Dimensions:", chartDiv.offsetWidth, "x", chartDiv.offsetHeight);
-    
+
     let chartInitialized = false;
     let resizeTimeout;
 
     function createGlobeChart() {
         console.log("Creating globe chart...");
-                if (resizeTimeout) {
+        if (resizeTimeout) {
             clearTimeout(resizeTimeout);
         }
-                if (window.root && !window.root.isDisposed()) {
+        if (window.root && !window.root.isDisposed()) {
             console.log("Disposing previous chart...");
             window.root.dispose();
             window.root = null;
@@ -40,18 +42,18 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
             const root = am5.Root.new("chartdiv");
             window.root = root;
-            
+
             console.log("AM5 Root created");
 
             root.autoResize = true;
-            
+
             root.width = chartDiv.clientWidth;
             root.height = chartDiv.clientHeight;
-            
+
             console.log("Set root dimensions:", root.width, "x", root.height);
 
             root.setThemes([am5themes_Animated.new(root)]);
-            
+
             console.log("Themes set");
 
             const chart = root.container.children.push(
@@ -61,13 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     projection: am5map.geoOrthographic(),
                     rotationX: -40,
                     rotationY: -20,
-                    homeZoomLevel: 2.5, 
+                    homeZoomLevel: 2.5,
                     homeGeoPoint: { longitude: 45, latitude: 25 }
                 })
             );
             const polygonSeries = chart.series.push(
-                am5map.MapPolygonSeries.new(root, { 
-                    geoJSON: am5geodata_worldLow 
+                am5map.MapPolygonSeries.new(root, {
+                    geoJSON: am5geodata_worldLow
                 })
             );
 
@@ -80,13 +82,15 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const countryColors = {
                 YE: am5.color(0x8D6E63),
-                JO: am5.color(0xA1887F),
+                PS: am5.color(0xA1887F),
                 SA: am5.color(0xC9A24D),
                 QA: am5.color(0x9C27B0),
                 OM: am5.color(0xFF9800),
-                AE: am5.color(0xD4AF37),
+                EG: am5.color(0x2E7D32),
+                LB: am5.color(0xC62828),
                 US: am5.color(0x3F51B5)
             };
+
 
             polygonSeries.events.on("datavalidated", () => {
                 console.log("Polygon series data validated");
@@ -98,21 +102,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             });
             const pinSeries = chart.series.push(
-                am5map.MapPointSeries.new(root, { 
-                    latitudeField: "latitude", 
-                    longitudeField: "longitude" 
+                am5map.MapPointSeries.new(root, {
+                    latitudeField: "latitude",
+                    longitudeField: "longitude"
                 })
             );
 
             pinSeries.data.setAll([
                 { code: "YE", latitude: 15.5527, longitude: 48.5164, instagram: "#", facebook: "#", website: "#" },
-                { code: "JO", latitude: 30.5852, longitude: 36.2384, instagram: "#", facebook: "#", website: "#" },
                 { code: "SA", latitude: 23.8859, longitude: 45.0792, instagram: "#", facebook: "#", website: "#" },
                 { code: "QA", latitude: 25.3548, longitude: 51.1839, instagram: "#", facebook: "#", website: "#" },
                 { code: "OM", latitude: 21.4735, longitude: 55.9754, instagram: "#", facebook: "#", website: "#" },
-                { code: "AE", latitude: 23.4241, longitude: 53.8478, instagram: "#", facebook: "#", website: "#" },
+                { code: "EG", latitude: 26.8206, longitude: 30.8025, instagram: "#", facebook: "#", website: "#" }, 
+                { code: "LB", latitude: 33.8547, longitude: 35.8623, instagram: "#", facebook: "#", website: "#" }, 
+                { code: "PS", latitude: 31.9522, longitude: 35.2332, instagram: "#", facebook: "#", website: "#" },
                 { code: "US", latitude: 37.0902, longitude: -95.7129, instagram: "#", facebook: "#", website: "#" }
-            ]);
+            ]
+            );
 
             console.log("Pin data set");
 
@@ -156,14 +162,14 @@ document.addEventListener("DOMContentLoaded", function () {
             chart.appear(1000, 100);
             chartInitialized = true;
             console.log("Chart initialized successfully");
-            
+
             resizeTimeout = setTimeout(() => {
                 if (root && !root.isDisposed()) {
                     console.log("Forcing resize after chart appearance...");
                     root.resize();
                 }
             }, 1500);
-            
+
         } catch (error) {
             console.error("Error creating chart:", error);
         }
@@ -171,16 +177,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function initMap() {
         console.log("Initializing map...");
-        
+
         if (typeof am5 === 'undefined' || typeof am5map === 'undefined') {
             console.error("AMCharts library not loaded!");
             setTimeout(initMap, 100);
             return;
         }
-        
+
         if (chartDiv.offsetWidth === 0 || chartDiv.offsetHeight === 0) {
             console.log("Chart container has zero dimensions, waiting...");
-                        setTimeout(() => {
+            setTimeout(() => {
                 console.log("After wait - dimensions:", chartDiv.offsetWidth, "x", chartDiv.offsetHeight);
                 createGlobeChart();
             }, 100);
@@ -191,7 +197,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    window.addEventListener('load', function() {
+    window.addEventListener('load', function () {
         console.log("Window fully loaded, checking chart...");
         if (window.root && !window.root.isDisposed()) {
             setTimeout(() => {
@@ -201,7 +207,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     let resizeDebounce;
-    window.addEventListener('resize', function() {
+    window.addEventListener('resize', function () {
         clearTimeout(resizeDebounce);
         resizeDebounce = setTimeout(() => {
             if (window.root && !window.root.isDisposed()) {
@@ -211,7 +217,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 250);
     });
 
-    window.addEventListener('pageshow', function(event) {
+    window.addEventListener('pageshow', function (event) {
         if (event.persisted) {
             console.log("Page loaded from cache, resizing chart...");
             setTimeout(() => {
@@ -249,10 +255,10 @@ document.addEventListener("DOMContentLoaded", function () {
             console.warn(`Language "${lang}" not supported. Available: en, ar, fr, es`);
         }
     };
-    
+
     setTimeout(initMap, 100);
-    
-    window.addEventListener('beforeunload', function() {
+
+    window.addEventListener('beforeunload', function () {
         if (window.root && !window.root.isDisposed()) {
             window.root.dispose();
         }
