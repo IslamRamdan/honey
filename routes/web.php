@@ -8,9 +8,10 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SeoSettingController;
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Product;
 
 Route::get('/', function () {
-    $products = App\Models\Product::paginate(9);
+    $products = Product::latest()->paginate(9);
     return view('welcome', compact('products'));
 });
 

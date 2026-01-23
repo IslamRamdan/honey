@@ -177,8 +177,12 @@
             <div class="swiper-wrapper">
                 @foreach ($products as $product)
                     <div class="swiper-slide">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}"
-                            class="img-fluid">
+                        @if (!empty($product->images) && count($product->images) > 0)
+                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->title_ar }}"
+                                class="img-fluid">
+                        @else
+                            <img src="{{ asset('assets/no-image.png') }}" alt="لا توجد صورة" class="img-fluid">
+                        @endif
                     </div>
                 @endforeach
             </div>
