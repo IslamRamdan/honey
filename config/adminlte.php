@@ -329,7 +329,7 @@ return [
         [
             'text' => 'إعدادات SEO',
             'url'  => '/admin/seo',
-            'icon' => 'fas fa-seo',
+            'icon' => 'fas fa-search',        // البحث (الأكثر شيوعًا لـ SEO)
         ],
 
     ],

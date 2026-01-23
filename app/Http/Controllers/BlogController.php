@@ -7,20 +7,26 @@ use Illuminate\Http\Request;
 
 class BlogController extends Controller
 {
-    // عرض كل المدونات
+    /* =======================
+       عرض كل المدونات
+    ======================== */
     public function index()
     {
         $blogs = Blog::all();
         return view('blogs.index', compact('blogs'));
     }
 
-    // صفحة إنشاء مدونة جديدة
+    /* =======================
+       صفحة إنشاء مدونة
+    ======================== */
     public function create()
     {
         return view('blogs.create');
     }
 
-    // تخزين المدونة الجديدة
+    /* =======================
+       تخزين مدونة جديدة
+    ======================== */
     public function store(Request $request)
     {
         $request->validate([
@@ -37,13 +43,13 @@ class BlogController extends Controller
             // الصورة الرئيسية
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
 
-            // صور إضافية (max 4)
-            'images'   => 'nullable|array|max:4',
+            // صور إضافية (حد أقصى 4)
+            'images'   => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp',
 
-            // روابط فيديو (max 2)
+            // فيديوهات (حد أقصى 2)
             'videos'   => 'nullable|array|max:2',
-            'videos.*' => 'nullable|url',
+            'videos.*' => 'file|mimes:mp4,webm,ogg,mov|max:51200',
 
             'status' => 'required|in:new,blog',
         ]);
@@ -51,8 +57,8 @@ class BlogController extends Controller
         $data = $request->except(['images', 'videos']);
 
         /* =======================
-       الصورة الرئيسية
-    ======================= */
+           الصورة الرئيسية
+        ======================== */
         if ($request->hasFile('image')) {
             $imageName = time() . '_main.' . $request->image->extension();
             $request->image->move(public_path('images/blogs'), $imageName);
@@ -60,8 +66,8 @@ class BlogController extends Controller
         }
 
         /* =======================
-       الصور الإضافية (Array)
-    ======================= */
+           الصور الإضافية
+        ======================== */
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
@@ -73,9 +79,16 @@ class BlogController extends Controller
         $data['images'] = $images ?: null;
 
         /* =======================
-       روابط الفيديو
-    ======================= */
-        $videos = array_filter($request->videos ?? []);
+           الفيديوهات
+        ======================== */
+        $videos = [];
+        if ($request->hasFile('videos')) {
+            foreach ($request->file('videos') as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('videos/blogs'), $name);
+                $videos[] = $name;
+            }
+        }
         $data['videos'] = $videos ?: null;
 
         Blog::create($data);
@@ -85,13 +98,17 @@ class BlogController extends Controller
             ->with('success', 'تم إنشاء المدونة بنجاح');
     }
 
-    // صفحة تعديل المدونة
+    /* =======================
+       صفحة تعديل المدونة
+    ======================== */
     public function edit(Blog $blog)
     {
         return view('blogs.edit', compact('blog'));
     }
 
-    // تحديث المدونة
+    /* =======================
+       تحديث المدونة
+    ======================== */
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
@@ -105,16 +122,13 @@ class BlogController extends Controller
             'description_fr' => 'required|string',
             'description_es' => 'required|string',
 
-            // الصورة الرئيسية
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
 
-            // صور إضافية (حد أقصى 4 إجمالي)
             'images'   => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp',
 
-            // فيديوهات (حد أقصى 2)
             'videos'   => 'nullable|array|max:2',
-            'videos.*' => 'nullable|url',
+            'videos.*' => 'file|mimes:mp4,webm,ogg,mov|max:51200',
 
             'status' => 'required|in:new,blog',
         ]);
@@ -122,8 +136,8 @@ class BlogController extends Controller
         $data = $request->except(['images', 'videos']);
 
         /* =======================
-       الصورة الرئيسية
-    ======================= */
+           الصورة الرئيسية
+        ======================== */
         if ($request->hasFile('image')) {
             $imageName = time() . '_main.' . $request->image->extension();
             $request->image->move(public_path('images/blogs'), $imageName);
@@ -131,19 +145,13 @@ class BlogController extends Controller
         }
 
         /* =======================
-       الصور الإضافية
-    ======================= */
+           الصور الإضافية
+        ======================== */
         $oldImages = $blog->images ?? [];
         $newImages = [];
 
         if ($request->hasFile('images')) {
-            $remaining = 4 - count($oldImages);
-
-            if ($remaining <= 0) {
-                return back()->withErrors('لا يمكن إضافة أكثر من 4 صور');
-            }
-
-            foreach (array_slice($request->file('images'), 0, $remaining) as $file) {
+            foreach ($request->file('images') as $file) {
                 $name = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path('images/blogs'), $name);
                 $newImages[] = $name;
@@ -153,10 +161,26 @@ class BlogController extends Controller
         $data['images'] = array_merge($oldImages, $newImages) ?: null;
 
         /* =======================
-       روابط الفيديو
-    ======================= */
-        $videos = array_filter($request->videos ?? []);
-        $data['videos'] = $videos ?: null;
+           الفيديوهات
+        ======================== */
+        $oldVideos = $blog->videos ?? [];
+        $newVideos = [];
+
+        if ($request->hasFile('videos')) {
+            $remaining = 2 - count($oldVideos);
+
+            if ($remaining <= 0) {
+                return back()->withErrors('لا يمكن إضافة أكثر من فيديوهين');
+            }
+
+            foreach (array_slice($request->file('videos'), 0, $remaining) as $file) {
+                $name = time() . '_' . uniqid() . '.' . $file->extension();
+                $file->move(public_path('videos/blogs'), $name);
+                $newVideos[] = $name;
+            }
+        }
+
+        $data['videos'] = array_merge($oldVideos, $newVideos) ?: null;
 
         $blog->update($data);
 
@@ -165,12 +189,18 @@ class BlogController extends Controller
             ->with('success', 'تم تعديل المدونة بنجاح');
     }
 
-    // حذف المدونة
+    /* =======================
+       حذف مدونة
+    ======================== */
     public function destroy(Blog $blog)
     {
         $blog->delete();
         return redirect()->route('blogs.index')->with('success', 'تم حذف المدونة');
     }
+
+    /* =======================
+       حذف صورة واحدة
+    ======================== */
     public function deleteImage(Blog $blog, $index)
     {
         $images = $blog->images ?? [];
@@ -180,6 +210,23 @@ class BlogController extends Controller
             if (file_exists($file)) unlink($file);
             array_splice($images, $index, 1);
             $blog->update(['images' => $images]);
+        }
+
+        return response()->json(['success' => true]);
+    }
+
+    /* =======================
+       حذف فيديو واحد
+    ======================== */
+    public function deleteVideo(Blog $blog, $index)
+    {
+        $videos = $blog->videos ?? [];
+
+        if (isset($videos[$index])) {
+            $file = public_path('videos/blogs/' . $videos[$index]);
+            if (file_exists($file)) unlink($file);
+            array_splice($videos, $index, 1);
+            $blog->update(['videos' => $videos]);
         }
 
         return response()->json(['success' => true]);

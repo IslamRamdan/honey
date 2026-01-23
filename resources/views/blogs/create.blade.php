@@ -24,23 +24,23 @@
         {{-- الصورة الرئيسية --}}
         <div class="form-group">
             <label>الصورة الرئيسية</label>
-            <input type="file" name="image" class="form-control">
+            <input type="file" name="image" class="form-control" accept="image/*">
         </div>
 
         {{-- الصور الإضافية --}}
         <div class="form-group">
-            <label>صور إضافية (حد أقصى 4)</label>
-            <input type="file" name="images[]" class="form-control" multiple>
+            <label>صور إضافية</label>
+            <input type="file" name="images[]" class="form-control" multiple accept="image/*">
         </div>
 
         {{-- الفيديوهات --}}
         <div class="form-group">
-            <label>رابط فيديو 1</label>
-            <input type="url" name="videos[]" class="form-control" placeholder="https://">
-        </div>
-        <div class="form-group">
-            <label>رابط فيديو 2</label>
-            <input type="url" name="videos[]" class="form-control" placeholder="https://">
+            <label>فيديوهات (حد أقصى 2)</label>
+            <input type="file" name="videos[]" class="form-control" multiple
+                accept="video/mp4,video/webm,video/ogg,video/quicktime">
+            <small class="text-muted">
+                الصيغ المسموحة: mp4, webm, ogg, mov — حجم أقصى 50MB
+            </small>
         </div>
 
         {{-- الحالة --}}
@@ -77,7 +77,7 @@
 
                     <div class="form-group">
                         <label>الوصف</label>
-                        <textarea name="description_{{ $key }}" class="form-control editor" rows="3">{{ old('description_' . $key) }}</textarea>
+                        <textarea name="description_{{ $key }}" class="form-control editor" rows="4">{{ old('description_' . $key) }}</textarea>
                     </div>
                 </div>
             </div>
@@ -95,7 +95,7 @@
 @stop
 
 @section('js')
-    {{-- CKEditor 5 Classic --}}
+    {{-- CKEditor 5 --}}
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <script>
         document.querySelectorAll('.editor').forEach((textarea) => {
