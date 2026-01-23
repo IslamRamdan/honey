@@ -164,10 +164,11 @@
                                 data-fr="{{ $date->locale('fr')->isoFormat('D MMMM YYYY') }}">
                                 {{ $date->format('F d, Y') }}
                             </span>
-
-
                         </div>
                         <div class="detail-desc p-4" data-aos="fade-up">
+                            <h3 style="text-align: center; color: #742e00;" data-en="{!! $blog->name_en !!}"
+                                data-ar="{!! $blog->name_ar !!}" data-es="{!! $blog->name_es !!}"
+                                data-fr="{!! $blog->name_fr !!}"></h3>
                             <p data-en="{!! $blog->description_en !!}" data-ar="{!! $blog->description_ar !!}"
                                 data-es="{!! $blog->description_es !!}" data-fr="{!! $blog->description_fr !!}">
                             </p>
@@ -178,7 +179,6 @@
                         @endphp
 
                         @foreach ($videos as $index => $video)
-                            {{-- {{ dd($video) }} --}}
                             @if ($video)
                                 <div class="video-container" data-bs-toggle="modal" data-bs-target="#videoModal">
                                     {{-- <img src="{{ asset('assets/category-1.jpg') }}" alt="Video Thumbnail"> --}}
@@ -187,14 +187,22 @@
                                             aria-label="Close"><i class="fas fa-xmark"></i></button>
 
                                         <div class="ratio ratio-16x9">
-                                            <iframe id="videoFrame" src="{{ $video }}"
-                                                allow="autoplay; fullscreen" allowfullscreen>
-                                            </iframe>
+                                            <video controls autoplay>
+                                                <source src="{{ asset('videos/blogs/' . $video) }}" type="video/mp4">
+                                                المتصفح لا يدعم تشغيل الفيديو
+                                            </video>
                                         </div>
                                     </div>
                                 </div>
                             @endif
                         @endforeach
+
+                        <style>
+                            video {
+                                margin: 0;
+                                width: 100%;
+                            }
+                        </style>
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up">
