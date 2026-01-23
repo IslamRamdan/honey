@@ -175,14 +175,9 @@
     <section class="py-5 swiper-section">
         <div class="swiper products-swiper">
             <div class="swiper-wrapper">
-                @foreach ($products as $product)
+                @foreach ($allImages as $product)
                     <div class="swiper-slide">
-                        @if (!empty($product->images) && count($product->images) > 0)
-                            <img src="{{ asset('storage/' . $product->images[0]) }}" alt="{{ $product->title_ar }}"
-                                class="img-fluid">
-                        @else
-                            <img src="{{ asset('assets/no-image.png') }}" alt="لا توجد صورة" class="img-fluid">
-                        @endif
+                        <img src="{{ asset('storage/' . $product) }}" alt="{{ $product }}" class="img-fluid">
                     </div>
                 @endforeach
             </div>
