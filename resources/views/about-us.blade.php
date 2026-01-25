@@ -52,7 +52,8 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
 </head>
 
@@ -641,9 +642,22 @@
         <div class="container">
             <div class="header">
                 <div class="text">
-                    <h2>Questions & Answers</h2>
-                    <p class="text-muted">There are many variations of passages of lorem Ipsum available but the
-                        majority have suffered alteration in some form by injected humour.</p>
+                    <h2 
+    data-en="Questions & Answers"
+    data-ar="الأسئلة والأجوبة"
+    data-fr="Questions et Réponses"
+    data-es="Preguntas y Respuestas">
+    Questions & Answers
+</h2>
+
+<p class="text-muted"
+    data-en="Find answers to the most common questions about our natural honey, sourcing process, quality standards, and delivery. We're here to help you choose the purest honey for you and your family."
+    data-ar="اعثر على إجابات لأكثر الأسئلة شيوعًا حول عسلنا الطبيعي، وطريقة الإنتاج، ومعايير الجودة، وخدمات التوصيل. نحن هنا لمساعدتك في اختيار أنقى عسل لك ولعائلتك."
+    data-fr="Trouvez les réponses aux questions les plus fréquentes concernant notre miel naturel, notre méthode de production, nos normes de qualité et la livraison. Nous sommes là pour vous aider à choisir le miel le plus pur pour vous et votre famille."
+    data-es="Encuentra respuestas a las preguntas más frecuentes sobre nuestra miel natural, el proceso de producción, los estándares de calidad y la entrega. Estamos aquí para ayudarte a elegir la miel más pura para ti y tu familia.">
+    Find answers to the most common questions about our natural honey, sourcing process, quality standards, and delivery. We're here to help you choose the purest honey for you and your family.
+</p>
+
                 </div>
             </div>
             <div class="py-5">
