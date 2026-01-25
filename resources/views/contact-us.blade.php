@@ -179,7 +179,7 @@
 
                                 </div>
                                 <a href="mailto:info@bee-and-honey.com">
-                                    info@bee-and-honey.com
+                                    info@beeandhoney.com
                                 </a>
                             </div>
                             <div class="location d-flex align-items-center justify-content-between">

@@ -229,13 +229,13 @@
                                         }
                                     </style>
 
+<div class="size"
+     data-en="{{ is_array($product->sizes_en) ? implode(' , ', $product->sizes_en) : ($product->sizes_en ?? '') }}"
+     data-ar="{{ is_array($product->sizes_ar) ? implode(' , ', $product->sizes_ar) : ($product->sizes_ar ?? '') }}"
+     data-es="{{ is_array($product->sizes_es) ? implode(' , ', $product->sizes_es) : ($product->sizes_es ?? '') }}"
+     data-fr="{{ is_array($product->sizes_fr) ? implode(' , ', $product->sizes_fr) : ($product->sizes_fr ?? '') }}">
+</div>
 
-                                    {{-- الأحجام --}}
-                                    <div class="size" data-en="{{ $product->sizes_en ?? '' }}"
-                                        data-ar="{{ $product->sizes_ar ?? '' }}"
-                                        data-es="{{ $product->sizes_es ?? '' }}"
-                                        data-fr="{{ $product->sizes_fr ?? '' }}">
-                                    </div>
                                 </div>
                             </div>
                         </div>

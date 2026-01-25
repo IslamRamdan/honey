@@ -164,7 +164,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="image">
-                        <img src="assets/brief-image.png" class="w-100" alt="">
+                        <img src="assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png" class="w-100" alt="">
                     </div>
                 </div>
             </div>
@@ -282,15 +282,17 @@
 
                                     </div>
                                     <div class="desc">
-                                        <p class="text-muted"
-                                            data-ar="نواصل في لبنان بناء حضور تدريجي قائم على الثقة وفهم السوق المحلي. نعمل لتحقيق نتائج إيجابية ونمو مستدام في هذا السوق الواعد."
-                                            data-en="In Lebanon, we continue to build a gradual presence based on trust and understanding of the local market. We work to achieve positive results and sustainable growth in this promising market."
-                                            data-fr="Au Liban, nous continuons à établir une présence progressive fondée sur la confiance et la compréhension du marché local. Nous travaillons pour obtenir des résultats positifs et une croissance durable sur ce marché prometteur."
-                                            data-es="En Líbano, continuamos construyendo una presencia gradual basada en la confianza y en el conocimiento del mercado local. Trabajamos para lograr resultados positivos y un crecimiento sostenible en este mercado prometedor.">
-                                            In Lebanon, we continue to build a gradual presence based on trust and
-                                            understanding of the local market. We work to achieve positive results and
-                                            sustainable growth in this promising market.
-                                        </p>
+                                       <p class="text-muted"
+    data-ar="شركة السلام للتبريد – نواصل في لبنان بناء حضور تدريجي قائم على الثقة وفهم السوق المحلي. نعمل لتحقيق نتائج إيجابية ونمو مستدام في هذا السوق الواعد."
+    data-en="Al Salam Cooling Company – In Lebanon, we continue to build a gradual presence based on trust and understanding of the local market. We work to achieve positive results and sustainable growth in this promising market."
+    data-fr="Al Salam Cooling Company – Au Liban, nous continuons à établir une présence progressive fondée sur la confiance et la compréhension du marché local. Nous travaillons pour obtenir des résultats positifs et une croissance durable sur ce marché prometteur."
+    data-es="Al Salam Cooling Company – En Líbano, continuamos construyendo una presencia gradual basada en la confianza y en el conocimiento del mercado local. Trabajamos para lograr resultados positivos y un crecimiento sostenible en este mercado prometedor.">
+    
+    Al Salam Cooling Company – In Lebanon, we continue to build a gradual presence based on trust and
+    understanding of the local market. We work to achieve positive results and
+    sustainable growth in this promising market.
+</p>
+
                                     </div>
                                 </div>
                             </div>

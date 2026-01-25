@@ -102,23 +102,29 @@
                 <h5 class="card-title">أحجام العبوات</h5>
             </div>
 
-            <div class="card-body">
-                <h5>أحجام المنتج باللغة العربية</h5>
-                <input type="text" name="sizes_ar" class="form-control mb-2" value="{{ $product->sizes_ar ?? '' }}"
-                    placeholder="أدخل أحجام المنتج">
+<div class="card-body">
+    <h5>أحجام المنتج باللغة العربية</h5>
+    <input type="text" name="sizes_ar" class="form-control mb-2"
+           value="{{ is_array($product->sizes_ar) ? implode(' , ', $product->sizes_ar) : ($product->sizes_ar ?? '') }}"
+           placeholder="أدخل أحجام المنتج">
 
-                <h5>أحجام المنتج باللغة الإنجليزية</h5>
-                <input type="text" name="sizes_en" class="form-control mb-2" value="{{ $product->sizes_en ?? '' }}"
-                    placeholder="أدخل أحجام المنتج">
+    <h5>أحجام المنتج باللغة الإنجليزية</h5>
+    <input type="text" name="sizes_en" class="form-control mb-2"
+           value="{{ is_array($product->sizes_en) ? implode(' , ', $product->sizes_en) : ($product->sizes_en ?? '') }}"
+           placeholder="أدخل أحجام المنتج">
 
-                <h5>أحجام المنتج باللغة الفرنسية</h5>
-                <input type="text" name="sizes_fr" class="form-control mb-2" value="{{ $product->sizes_fr ?? '' }}"
-                    placeholder="أدخل أحجام المنتج">
+    <h5>أحجام المنتج باللغة الفرنسية</h5>
+    <input type="text" name="sizes_fr" class="form-control mb-2"
+           value="{{ is_array($product->sizes_fr) ? implode(' , ', $product->sizes_fr) : ($product->sizes_fr ?? '') }}"
+           placeholder="أدخل أحجام المنتج">
 
-                <h5>أحجام المنتج باللغة الإسبانية</h5>
-                <input type="text" name="sizes_es" class="form-control mb-2" value="{{ $product->sizes_es ?? '' }}"
-                    placeholder="أدخل أحجام المنتج">
-            </div>
+    <h5>أحجام المنتج باللغة الإسبانية</h5>
+    <input type="text" name="sizes_es" class="form-control mb-2"
+           value="{{ is_array($product->sizes_es) ? implode(' , ', $product->sizes_es) : ($product->sizes_es ?? '') }}"
+           placeholder="أدخل أحجام المنتج">
+</div>
+
+
         </div>
 
         <button type="submit" class="btn btn-primary mt-3">

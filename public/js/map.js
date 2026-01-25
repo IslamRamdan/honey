@@ -202,7 +202,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     website: "#",
                 },
                 {
-                    code: "Jo",
+                    code: "JO",
                     latitude: 31.9566,
                     longitude: 35.9457,
                     instagram: "#",

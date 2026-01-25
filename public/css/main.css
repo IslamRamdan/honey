@@ -995,7 +995,6 @@ html[dir="rtl"] .video-box {
 .news-box h3 {
     font-size: 20px;
     font-weight: 700;
-    font-style: italic;
 }
 @media screen and (min-width: 500px) {
     .category-box h3 {
@@ -2969,4 +2968,19 @@ html[dir="rtl"] .value-card .content p {
 }
 html[dir="rtl"] .tele-phone {
     text-align: end;
+}
+
+.phone-number {
+    direction: ltr !important;
+    unicode-bidi: embed;
+}
+
+.phone a {
+    direction: ltr;
+    unicode-bidi: bidi-override;
+}
+
+body {
+    font-variant-numeric: lining-nums;
+    unicode-bidi: plaintext;
 }
