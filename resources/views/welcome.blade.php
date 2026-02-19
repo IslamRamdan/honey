@@ -233,9 +233,9 @@
         <div class="container-fluid px-0">
             <div class="heading">
                 <div class="container pb-4">
-                    <h2 class="text-center mb-2" data-en="Our Branch Locations" data-ar="مواقع فروعنا"
-                        data-es="Nuestras ubicaciones de sucursales" data-fr="Nos emplacements de succursales">
-                        Our Branch Locations
+                    <h2 class="text-center mb-2" data-en="Our Agent Locations" data-ar="مواقع وكلائنا"
+                        data-es="Ubicaciones de nuestros agentes" data-fr="Emplacements de nos agents">
+                        Our Agent Locations
                     </h2>
 
                 </div>
