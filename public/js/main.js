@@ -15,7 +15,11 @@ function applyLanguage(lang) {
     localStorage.setItem("lang", lang);
 
     document.querySelectorAll(`[data-${lang}]`).forEach(el => {
-        el.innerHTML = el.getAttribute(`data-${lang}`);
+        if (el.tagName === 'META') {
+            el.setAttribute('content', el.getAttribute(`data-${lang}`));
+        } else {
+            el.innerHTML = el.getAttribute(`data-${lang}`);
+        }
     });
 
     document.querySelectorAll(`[data-placeholder-${lang}]`).forEach(el => {

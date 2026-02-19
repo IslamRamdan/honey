@@ -11,6 +11,7 @@
         <!-- Title -->
         <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
             data-fr="{{ $seo->title_fr }}">
+            {{ $seo->{'title_' . app()->getLocale()} ?? $seo->title_en }}
         </title>
 
         <!-- Meta Description -->
