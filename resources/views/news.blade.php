@@ -77,8 +77,6 @@
                                 <h3 data-en="News" data-ar="الأخبار" data-fr="Actualités" data-es="Noticias">
                                     News
                                 </h3>
-
-
                             </div>
                         </a>
                     </div>

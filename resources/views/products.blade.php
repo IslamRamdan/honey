@@ -255,8 +255,9 @@
 
                             {{-- زر السابق --}}
                             <li class="page-item {{ $products->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $products->previousPageUrl() ?? '#' }}"
-                                    tabindex="-1">السابق</a>
+                                <a class="page-link" href="{{ $products->previousPageUrl() ?? '#' }}" tabindex="-1"
+                                    data-ar="السابق" data-en="Previous" data-fr="Précédent"
+                                    data-es="Anterior">السابق</a>
                             </li>
 
                             {{-- الأرقام --}}
@@ -268,7 +269,8 @@
 
                             {{-- زر التالي --}}
                             <li class="page-item {{ $products->hasMorePages() ? '' : 'disabled' }}">
-                                <a class="page-link" href="{{ $products->nextPageUrl() ?? '#' }}">التالي</a>
+                                <a class="page-link" href="{{ $products->nextPageUrl() ?? '#' }}" data-ar="التالي"
+                                    data-en="Next" data-fr="Suivant" data-es="Siguiente">التالي</a>
                             </li>
 
                         </ul>
