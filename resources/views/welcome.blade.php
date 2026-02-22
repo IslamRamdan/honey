@@ -11,6 +11,7 @@
         <!-- Title -->
         <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
             data-fr="{{ $seo->title_fr }}">
+            {{ $seo->{'title_' . app()->getLocale()} ?? $seo->title_en }}
         </title>
 
         <!-- Meta Description -->
@@ -233,9 +234,9 @@
         <div class="container-fluid px-0">
             <div class="heading">
                 <div class="container pb-4">
-                    <h2 class="text-center mb-2" data-en="Our Branch Locations" data-ar="مواقع فروعنا"
-                        data-es="Nuestras ubicaciones de sucursales" data-fr="Nos emplacements de succursales">
-                        Our Branch Locations
+                    <h2 class="text-center mb-2" data-en="Our Agent Locations" data-ar="مواقع وكلائنا"
+                        data-es="Ubicaciones de nuestros agentes" data-fr="Emplacements de nos agents">
+                        Our Agent Locations
                     </h2>
 
                 </div>
@@ -641,7 +642,7 @@
         </span>
 
 
-        <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
