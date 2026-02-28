@@ -13,7 +13,12 @@ return new class extends Migration
     {
         Schema::create('seo_settings', function (Blueprint $table) {
             $table->id();
-            $table->longText('meta')->nullable();
+            $table->longText('meta_home_page')->nullable();
+            $table->longText('meta_about')->nullable();
+            $table->longText('meta_category')->nullable();
+            $table->longText('meta_contact')->nullable();
+            $table->longText('meta_news')->nullable();
+            $table->longText('meta_blogs')->nullable();
             $table->timestamps();
         });
     }

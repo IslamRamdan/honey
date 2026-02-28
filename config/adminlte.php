@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>لوحة التحكم</b>',
+    // 'logo' => '<b>لوحة التحكم</b>',
     'logo_img' => 'assets/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
@@ -297,42 +297,41 @@ return [
     | https://github.com/jeroennoten/Laravel-AdminLTE/wiki/Menu-Configuration
     |
     */
-
     'menu' => [
         // Navbar items
-        [
-            'type' => 'navbar-search',
-            'text' => 'بحث',
-            'topnav_right' => true,
-        ],
-        [
-            'type' => 'fullscreen-widget',
-            'topnav_right' => true,
-        ],
+        // [
+        //     'type' => 'navbar-search',
+        //     'text' => 'بحث',
+        //     'topnav_right' => true,
+        // ],
+        // [
+        //     'type' => 'fullscreen-widget',
+        //     'topnav_right' => true,
+        // ],
 
-        // Sidebar items
-        [
-            'text' => 'المدونة',
-            'url' => '/blogs', // رابط صفحة المدونات في لوحة التحكم
-            'icon' => 'fas fa-blog', // أيقونة اختيارية
-        ],
-        [
-            'text' => 'التصنيفات',
-            'url'  => '/categories',
-            'icon' => 'fas fa-list',
-        ],
-        [
-            'text' => 'المنتجات',
-            'url'  => '/products',
-            'icon' => 'fas fa-list',
-        ],
-        [
-            'text' => 'إعدادات SEO',
-            'url'  => '/admin/seo',
-            'icon' => 'fas fa-search',        // البحث (الأكثر شيوعًا لـ SEO)
-        ],
-
+        // // Sidebar items
+        // [
+        //     'text' => 'المدونة',
+        //     'url' => '/blogs',
+        //     'icon' => 'fas fa-blog',
+        // ],
+        // [
+        //     'text' => 'التصنيفات',
+        //     'url'  => '/categories',
+        //     'icon' => 'fas fa-list',
+        // ],
+        // [
+        //     'text' => 'المنتجات',
+        //     'url'  => '/products',
+        //     'icon' => 'fas fa-list',
+        // ],
+        // [
+        //     'text' => 'إعدادات SEO',
+        //     'url'  => '/admin/seo',
+        //     'icon' => 'fas fa-search',
+        // ],
     ],
+
 
     /*
     |--------------------------------------------------------------------------

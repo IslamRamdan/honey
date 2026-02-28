@@ -7,18 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Basic SEO -->
-    <title>Blog-Detail| Bee & Honey - Pure Natural Honey</title>
-    <meta name="description"
-        content="Learn about Bee & Honey, a brand of Yemeni Honey House. We offer pure, natural honey and honey products crafted with care to support a healthy lifestyle.">
-    <meta name="keywords"
-        content="Bee & Honey, natural honey, honey products, Yemeni Honey, pure honey, raw honey, honey packs, honey drinks">
-    <meta name="author" content="Bee & Honey">
-    <meta name="robots" content="index, follow">
-    @php
-        $seo = \App\Models\SeoSetting::first();
-    @endphp
+    <!-- Title -->
+    <title data-ar="{{ $blog->seo_title_ar }}" data-en="{{ $blog->seo_title_en }}" data-es="{{ $blog->seo_title_es }}"
+        data-fr="{{ $blog->seo_title_fr }}">
+    </title>
 
-    {!! $seo->meta ?? '' !!}
+    <!-- Meta Description -->
+    <meta name="description" data-ar="{{ $blog->seo_description_ar }}" data-en="{{ $blog->seo_description_en }}"
+        data-es="{{ $blog->seo_description_es }}" data-fr="{{ $blog->seo_description_fr }}"
+        content="{{ $blog->{'seo_description_' . app()->getLocale()} ?? '' }}">
+
+    <!-- Meta Keywords -->
+    <meta name="keywords" data-ar="{{ $blog->seo_keywords_ar }}" data-en="{{ $blog->seo_keywords_en }}"
+        data-es="{{ $blog->seo_keywords_es }}" data-fr="{{ $blog->seo_keywords_fr }}"
+        content="{{ $blog->{'seo_keywords_' . app()->getLocale()} ?? '' }}">
+    <meta property="og:image" content="{{ asset('storage/' . $blog->image) }}" />
+
+    {!! $blog->meta ?? '' !!}
 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="About Bee & Honey - Pure Natural Honey">
@@ -216,8 +221,15 @@
                                 <img src="{{ asset('images/blogs/' . $latest->image) }}" class="news-img me-3"
                                     alt="">
                                 <div>
-                                    <h3 class="mb-1 h6">{{ $latest->name_ar }}</h3>
-                                    <p class="text-muted small mb-0">{{ $latest->created_at->format('d M, Y') }}</p>
+                                    <h3 class="mb-1 h6" data-en="{!! $latest->name_en !!}"
+                                        data-ar="{!! $latest->name_ar !!}" data-es="{!! $latest->name_es !!}"
+                                        data-fr="{!! $latest->name_fr !!}"></h3>
+                                    <p class="text-muted small mb-0"
+                                        data-en="{{ $latest->created_at->locale('en')->translatedFormat('d F Y') }}"
+                                        data-ar="{{ $latest->created_at->locale('ar')->translatedFormat('d F Y') }}"
+                                        data-fr="{{ $latest->created_at->locale('fr')->translatedFormat('d F Y') }}"
+                                        data-es="{{ $latest->created_at->locale('es')->translatedFormat('d F Y') }}">
+                                    </p>
                                 </div>
                             </a>
                         @endforeach
@@ -334,7 +346,7 @@
         </span>
 
 
-        <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

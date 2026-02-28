@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'تعديل التصنيف')
+@section('title', __('messages.edit_category'))
 
 @section('content_header')
-    <h1>تعديل التصنيف</h1>
+    <h1>{{ __('messages.edit_category') }}</h1>
 @stop
 
 @section('content')
@@ -25,10 +25,10 @@
 
             @php
                 $langs = [
-                    'ar' => 'العربية',
-                    'en' => 'English',
-                    'fr' => 'Français',
-                    'es' => 'Español',
+                    'ar' => __('messages.arabic'),
+                    'en' => __('messages.english'),
+                    'fr' => __('messages.french'),
+                    'es' => __('messages.spanish'),
                 ];
             @endphp
 
@@ -41,7 +41,7 @@
 
                     <div class="card-body">
                         <div class="form-group mb-3">
-                            <label>الاسم</label>
+                            <label>{{ __('messages.name') }}</label>
                             <input type="text" name="name_{{ $key }}" class="form-control"
                                 value="{{ old('name_' . $key, $category->{'name_' . $key}) }}" required>
                         </div>
@@ -51,21 +51,39 @@
 
             {{-- الصورة --}}
             <div class="form-group mb-3">
-                <label>الصورة الحالية</label><br>
+                <label>{{ __('messages.current_image') }}</label><br>
                 @if ($category->image)
                     <img src="{{ asset('images/categories/' . $category->image) }}" width="150" class="rounded mb-2"><br>
                 @endif
-                <label>تغيير الصورة</label>
+                <label>{{ __('messages.change_image') }}</label>
                 <input type="file" name="image" class="form-control">
             </div>
 
             <button type="submit" class="btn btn-success mt-3">
-                <i class="fas fa-save"></i> تحديث التصنيف
+                <i class="fas fa-save"></i> {{ __('messages.update_category') }}
             </button>
             <a href="{{ route('categories.index') }}" class="btn btn-secondary mt-3">
-                رجوع
+                {{ __('messages.back') }}
             </a>
 
         </form>
     </div>
 @stop
+@section('adminlte_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    @if (app()->getLocale() == 'ar')
+        <style>
+            [dir="rtl"] .main-sidebar {
+                right: 0;
+                left: auto;
+            }
+
+            [dir="rtl"] .content-wrapper,
+            [dir="rtl"] .main-footer {
+                margin-right: 250px;
+                margin-left: 0;
+            }
+        </style>
+    @endif
+@endsection

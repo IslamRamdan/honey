@@ -34,6 +34,23 @@ return new class extends Migration
 
             $table->enum('status', ['new', 'blog'])->default('new');
 
+
+            // ---------------- SEO -----------------
+            $table->string('seo_title_ar')->nullable();
+            $table->string('seo_title_en')->nullable();
+            $table->string('seo_title_fr')->nullable();
+            $table->string('seo_title_es')->nullable();
+
+            $table->text('seo_description_ar')->nullable();
+            $table->text('seo_description_en')->nullable();
+            $table->text('seo_description_fr')->nullable();
+            $table->text('seo_description_es')->nullable();
+
+            $table->string('seo_keywords_ar')->nullable();
+            $table->string('seo_keywords_en')->nullable();
+            $table->string('seo_keywords_fr')->nullable();
+            $table->string('seo_keywords_es')->nullable();
+
             $table->timestamps();
         });
     }

@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'إضافة مدونة')
+@section('title', __('messages.add_blog'))
 
 @section('content_header')
-    <h1>إضافة مدونة جديدة</h1>
+    <h1>{{ __('messages.add_new_blog') }}</h1>
 @stop
 
 @section('content')
@@ -23,42 +23,42 @@
 
         {{-- الصورة الرئيسية --}}
         <div class="form-group">
-            <label>الصورة الرئيسية</label>
+            <label>{{ __('messages.main_image') }}</label>
             <input type="file" name="image" class="form-control" accept="image/*">
         </div>
 
         {{-- الصور الإضافية --}}
         <div class="form-group">
-            <label>صور إضافية</label>
+            <label>{{ __('messages.additional_images') }}</label>
             <input type="file" name="images[]" class="form-control" multiple accept="image/*">
         </div>
 
         {{-- الفيديوهات --}}
         <div class="form-group">
-            <label>فيديوهات (حد أقصى 2)</label>
+            <label>{{ __('messages.videos_limit') }}</label>
             <input type="file" name="videos[]" class="form-control" multiple
                 accept="video/mp4,video/webm,video/ogg,video/quicktime">
             <small class="text-muted">
-                الصيغ المسموحة: mp4, webm, ogg, mov — حجم أقصى 50MB
+                {{ __('messages.allowed_formats') }}
             </small>
         </div>
 
         {{-- الحالة --}}
         <div class="form-group">
-            <label>الحالة</label>
+            <label>{{ __('messages.status') }}</label>
             <select name="status" class="form-control">
-                <option value="new" {{ old('status') == 'new' ? 'selected' : '' }}>new</option>
-                <option value="blog" {{ old('status') == 'blog' ? 'selected' : '' }}>blog</option>
+                <option value="new" {{ old('status') == 'new' ? 'selected' : '' }}>{{ __('messages.new') }}</option>
+                <option value="blog" {{ old('status') == 'blog' ? 'selected' : '' }}>{{ __('messages.blog') }}</option>
             </select>
         </div>
 
         {{-- اللغات --}}
         @php
             $langs = [
-                'ar' => 'العربية',
-                'en' => 'English',
-                'fr' => 'Français',
-                'es' => 'Español',
+                'ar' => __('messages.arabic'),
+                'en' => __('messages.english'),
+                'fr' => __('messages.french'),
+                'es' => __('messages.spanish'),
             ];
         @endphp
 
@@ -70,25 +70,50 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <label>العنوان</label>
+                        <label>{{ __('messages.title') }}</label>
                         <input type="text" name="name_{{ $key }}" class="form-control"
                             value="{{ old('name_' . $key) }}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>الوصف</label>
+                        <label>{{ __('messages.description') }}</label>
                         <textarea name="description_{{ $key }}" class="form-control editor" rows="4">{{ old('description_' . $key) }}</textarea>
                     </div>
                 </div>
             </div>
         @endforeach
+        <h4 class="mt-4">{{ __('messages.seo_settings_for_each_language') }}</h4>
+        @foreach (['ar' => __('messages.arabic'), 'en' => __('messages.english'), 'fr' => __('messages.french'), 'es' => __('messages.spanish')] as $code => $label)
+            <div class="card card-outline card-success mb-3">
+                <div class="card-header">
+                    <h5 class="card-title">{{ __('messages.seo') }} ({{ $label }})</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>{{ __('messages.title') }} ({{ $label }})</label>
+                        <input type="text" name="seo_title_{{ $code }}" class="form-control"
+                            value="{{ old('seo_title_' . $code, $blog->{'seo_title_' . $code} ?? '') }}">
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('messages.description') }} ({{ $label }})</label>
+                        <textarea name="seo_description_{{ $code }}" class="form-control" rows="3">{{ old('seo_description_' . $code, $blog->{'seo_description_' . $code} ?? '') }}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>{{ __('messages.keywords') }} ({{ $label }})</label>
+                        <input type="text" name="seo_keywords_{{ $code }}" class="form-control"
+                            value="{{ old('seo_keywords_' . $code, $blog->{'seo_keywords_' . $code} ?? '') }}">
+                    </div>
+                </div>
+            </div>
+        @endforeach
+
 
         <button type="submit" class="btn btn-success mt-3">
-            <i class="fas fa-save"></i> حفظ المدونة
+            <i class="fas fa-save"></i> {{ __('messages.save_blog') }}
         </button>
 
         <a href="{{ route('blogs.index') }}" class="btn btn-secondary mt-3">
-            رجوع
+            {{ __('messages.back') }}
         </a>
     </form>
 
@@ -105,3 +130,21 @@
         });
     </script>
 @stop
+@section('adminlte_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    @if (app()->getLocale() == 'ar')
+        <style>
+            [dir="rtl"] .main-sidebar {
+                right: 0;
+                left: auto;
+            }
+
+            [dir="rtl"] .content-wrapper,
+            [dir="rtl"] .main-footer {
+                margin-right: 250px;
+                margin-left: 0;
+            }
+        </style>
+    @endif
+@endsection

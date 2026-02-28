@@ -1,28 +1,36 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\SeoSettingController;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Product;
 
 Route::get('/', function () {
-    // أحدث المنتجات أولًا
-    // $products = Product::latest()->paginate(9);
-
-    // // جمع كل الصور في Array واحد
-    // $allImages = [];
-    // foreach ($products as $product) {
-    //     if (!empty($product->images)) {
-    //         $allImages = array_merge($allImages, $product->images);
-    //     }
-    // }
     return view('welcome');
+})->name('home');
+
+Route::get('/sitemap.xml', function () {
+
+    $products = Product::all();
+    $categories = Category::all();
+    $blogs = Blog::all();
+
+    return response()
+        ->view('sitemap', compact('products', 'categories', 'blogs'))
+        ->header('Content-Type', 'application/xml');
 });
+
+Route::get('locale/{locale}', function ($locale) {
+    if (in_array($locale, ['en', 'ar'])) {
+        session(['locale' => $locale]);
+    }
+    return redirect()->back();
+})->name('locale.switch');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -36,8 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/{id}/products', [CategoryController::class, 'products'])->name('categories.products');
     Route::resource('categories', CategoryController::class);
     Route::resource('products', ProductController::class);
-    Route::get('/admin/seo', [SeoSettingController::class, 'edit'])->name('seo.edit');
-    Route::post('/admin/seo', [SeoSettingController::class, 'update'])->name('seo.update');
+
+    Route::prefix('admin')->name('admin.')->group(function () {
+        Route::resource('seo', \App\Http\Controllers\Admin\SeoMetaController::class);
+    });
+
+    Route::resource('users', UserController::class);
 });
 
 // من نحن

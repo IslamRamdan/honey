@@ -7,18 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Basic SEO -->
-    <title>Blogs | Bee & Honey - Pure Natural Honey</title>
-    <meta name="description"
-        content="Learn about Bee & Honey, a brand of Yemeni Honey House. We offer pure, natural honey and honey products crafted with care to support a healthy lifestyle.">
-    <meta name="keywords"
-        content="Bee & Honey, natural honey, honey products, Yemeni Honey, pure honey, raw honey, honey packs, honey drinks">
-    <meta name="author" content="Bee & Honey">
-    <meta name="robots" content="index, follow">
-    @php
-        $seo = \App\Models\SeoSetting::first();
-    @endphp
+    @if ($seo)
+        <!-- Title -->
+        <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
+            data-fr="{{ $seo->title_fr }}">
+        </title>
 
-    {!! $seo->meta ?? '' !!}
+        <!-- Meta Description -->
+        <meta name="description" data-ar="{{ $seo->description_ar }}" data-en="{{ $seo->description_en }}"
+            data-es="{{ $seo->description_es }}" data-fr="{{ $seo->description_fr }}"
+            content="{{ $seo->{'description_' . app()->getLocale()} ?? '' }}">
+
+        <!-- Meta Keywords -->
+        <meta name="keywords" data-ar="{{ $seo->keywords_ar }}" data-en="{{ $seo->keywords_en }}"
+            data-es="{{ $seo->keywords_es }}" data-fr="{{ $seo->keywords_fr }}"
+            content="{{ $seo->{'keywords_' . app()->getLocale()} ?? '' }}">
+        @if ($seo && $seo->og_image)
+            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}" />
+        @endif
+    @endif
 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="About Bee & Honey - Pure Natural Honey">
@@ -208,8 +215,10 @@
 
                             {{-- زر السابق --}}
                             <li class="page-item {{ $news->onFirstPage() ? 'disabled' : '' }}">
-                                <a class="page-link" href="{{ $news->previousPageUrl() ?? '#' }}"
-                                    tabindex="-1">السابق</a>
+                                <a class="page-link" href="{{ $news->previousPageUrl() ?? '#' }}" tabindex="-1"
+                                    data-ar="السابق" data-en="Previous" data-fr="Précédent" data-es="Anterior">
+                                    السابق
+                                </a>
                             </li>
 
                             {{-- الأرقام --}}
@@ -221,14 +230,17 @@
 
                             {{-- زر التالي --}}
                             <li class="page-item {{ $news->hasMorePages() ? '' : 'disabled' }}">
-                                <a class="page-link" href="{{ $news->nextPageUrl() ?? '#' }}">التالي</a>
+                                <a class="page-link" href="{{ $news->nextPageUrl() ?? '#' }}" data-ar="التالي"
+                                    data-en="Next" data-fr="Suivant" data-es="Siguiente">
+                                    التالي
+                                </a>
                             </li>
 
                         </ul>
                     @endif
                 </div>
 
-                {{-- CSS --}}
+                {{-- CSS ثابت --}}
                 <style>
                     .custom-pagination .page-item .page-link {
                         color: #a46828;
@@ -252,7 +264,28 @@
                         border-color: #ddd;
                         cursor: not-allowed;
                     }
+
+                    /* RTL/LTR support */
+                    html[dir="rtl"] .custom-pagination {
+                        direction: rtl;
+                        flex-direction: row-reverse;
+                    }
+
+                    html[dir="ltr"] .custom-pagination {
+                        flex-direction: row;
+                    }
                 </style>
+
+                {{-- JS لتغيير النص حسب اللغة --}}
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const lang = document.documentElement.lang || 'ar'; // افتراضي عربي
+                        document.querySelectorAll('.custom-pagination .page-link').forEach(el => {
+                            if (el.dataset[lang]) el.textContent = el.dataset[lang];
+                        });
+                    });
+                </script>
+
             </div>
         </div>
     </section>
@@ -265,7 +298,7 @@
         </span>
 
 
-        <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

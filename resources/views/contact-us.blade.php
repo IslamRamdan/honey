@@ -7,18 +7,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Basic SEO -->
-    <title>contact us| Bee & Honey - Pure Natural Honey</title>
-    <meta name="description"
-        content="Learn about Bee & Honey, a brand of Yemeni Honey House. We offer pure, natural honey and honey products crafted with care to support a healthy lifestyle.">
-    <meta name="keywords"
-        content="Bee & Honey, natural honey, honey products, Yemeni Honey, pure honey, raw honey, honey packs, honey drinks">
-    <meta name="author" content="Bee & Honey">
-    <meta name="robots" content="index, follow">
-    @php
-        $seo = \App\Models\SeoSetting::first();
-    @endphp
+    @if ($seo)
+        <!-- Title -->
+        <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
+            data-fr="{{ $seo->title_fr }}">
+        </title>
 
-    {!! $seo->meta ?? '' !!}
+        <!-- Meta Description -->
+        <meta name="description" data-ar="{{ $seo->description_ar }}" data-en="{{ $seo->description_en }}"
+            data-es="{{ $seo->description_es }}" data-fr="{{ $seo->description_fr }}"
+            content="{{ $seo->{'description_' . app()->getLocale()} ?? '' }}">
+
+        <!-- Meta Keywords -->
+        <meta name="keywords" data-ar="{{ $seo->keywords_ar }}" data-en="{{ $seo->keywords_en }}"
+            data-es="{{ $seo->keywords_es }}" data-fr="{{ $seo->keywords_fr }}"
+            content="{{ $seo->{'keywords_' . app()->getLocale()} ?? '' }}">
+        @if ($seo && $seo->og_image)
+            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}" />
+        @endif
+    @endif
 
     <!-- Open Graph / Social Media -->
     <meta property="og:title" content="About Bee & Honey - Pure Natural Honey">
@@ -259,9 +266,15 @@
                             <div class="form-group">
                                 <input type="email" id="email" class="form-control"
                                     data-placeholder-en="Your Email" data-placeholder-ar="البريد الإلكتروني"
+                                    data-placeholder-es="Tu Correo Electrónico" data-placeholder-fr="Votre Email"
                                     data-required-en="Email is required" data-required-ar="البريد الإلكتروني مطلوب"
+                                    data-required-es="Se requiere correo electrónico"
+                                    data-required-fr="L'email est requis"
                                     data-regex="^[\w\.-]+@([\w-]+\.)+[\w-]{2,4}$" data-error-en="Invalid email format"
-                                    data-error-ar="صيغة البريد الإلكتروني غير صحيحة" placeholder="Your Email">
+                                    data-error-ar="صيغة البريد الإلكتروني غير صحيحة"
+                                    data-error-es="Formato de correo electrónico inválido"
+                                    data-error-fr="Format d'email invalide" placeholder="Your Email">
+
                                 <small class="error-msg"></small>
 
                             </div>
@@ -306,7 +319,7 @@
             Need help?
         </span>
 
-        <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

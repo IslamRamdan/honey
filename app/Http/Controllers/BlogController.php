@@ -10,9 +10,18 @@ class BlogController extends Controller
     /* =======================
        عرض كل المدونات
     ======================== */
-    public function index()
+    public function index(Request $request)
     {
-        $blogs = Blog::all();
+        // $blogs = Blog::all();
+        $query = Blog::query();
+
+        // فلترة حسب النوع (blog / news)
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $blogs = $query->latest()->paginate(10);
+
         return view('blogs.index', compact('blogs'));
     }
 

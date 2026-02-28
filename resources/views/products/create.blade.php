@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'إضافة منتج')
+@section('title', __('messages.add_product'))
 
 @section('content_header')
-    <h1>إضافة منتج جديد</h1>
+    <h1>{{ __('messages.add_new_product') }}</h1>
 @stop
 
 @section('content')
@@ -23,12 +23,12 @@
 
         {{-- التصنيف --}}
         <div class="form-group">
-            <label>التصنيف</label>
+            <label>{{ __('messages.category') }}</label>
             <select name="category_id" class="form-control" required>
-                <option value="">اختر التصنيف</option>
+                <option value="">{{ __('messages.select_category') }}</option>
                 @foreach ($categories as $category)
                     <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
-                        {{ $category->name_ar }}
+                        {{ $category->{'name_' . app()->getLocale()} }}
                     </option>
                 @endforeach
             </select>
@@ -36,9 +36,9 @@
 
         {{-- صور المنتج --}}
         <div class="form-group">
-            <label>صور المنتج</label>
+            <label>{{ __('messages.product_images') }}</label>
             <input type="file" name="images[]" class="form-control" multiple>
-            <small class="text-muted">يمكنك اختيار أكثر من صورة</small>
+            <small class="text-muted">{{ __('messages.multiple_images_note') }}</small>
         </div>
 
         <hr>
@@ -46,10 +46,10 @@
         {{-- اللغات --}}
         @php
             $langs = [
-                'ar' => 'العربية',
-                'en' => 'English',
-                'fr' => 'Français',
-                'es' => 'Español',
+                'ar' => __('messages.arabic'),
+                'en' => __('messages.english'),
+                'fr' => __('messages.french'),
+                'es' => __('messages.spanish'),
             ];
         @endphp
 
@@ -61,13 +61,13 @@
 
                 <div class="card-body">
                     <div class="form-group">
-                        <label>العنوان</label>
+                        <label>{{ __('messages.title') }}</label>
                         <input type="text" name="title_{{ $key }}" class="form-control"
                             value="{{ old('title_' . $key) }}" required>
                     </div>
 
                     <div class="form-group">
-                        <label>الوصف</label>
+                        <label>{{ __('messages.description') }}</label>
                         <textarea name="description_{{ $key }}" class="form-control" rows="3">{{ old('description_' . $key) }}</textarea>
                     </div>
                 </div>
@@ -77,46 +77,65 @@
         {{-- أحجام العبوات لكل لغة --}}
         <div class="card card-outline card-secondary">
             <div class="card-header">
-                <h5 class="card-title">أحجام العبوات</h5>
+                <h5 class="card-title">{{ __('messages.package_sizes') }}</h5>
             </div>
 
             <div class="card-body">
-                @php
-                    $languages = ['ar' => 'العربية', 'en' => 'الإنجليزية', 'fr' => 'الفرنسية', 'es' => 'الإسبانية'];
-                @endphp
 
-                @foreach ($languages as $langCode => $langName)
-                    <h6>اللغة: {{ $langName }}</h6>
+                <div class="mb-3">
+                    <label class="form-label">{{ __('messages.package_size_ar') }}</label>
+                    <input type="text" name="sizes_ar" class="form-control" value="{{ old('sizes_ar') }}"
+                        placeholder="{{ __('messages.size_example_ar') }}">
+                </div>
 
-                    @php
-                        $sizes = $product->{'sizes_' . $langCode} ?? [];
-                    @endphp
+                <div class="mb-3">
+                    <label class="form-label">{{ __('messages.package_size_en') }}</label>
+                    <input type="text" name="sizes_en" class="form-control" value="{{ old('sizes_en') }}"
+                        placeholder="{{ __('messages.size_example_en') }}">
+                </div>
 
-                    {{-- عرض الأحجام الحالية --}}
-                    @if ($sizes)
-                        @foreach ($sizes as $size)
-                            <input type="text" name="sizes_{{ $langCode }}[]" class="form-control mb-2"
-                                value="{{ $size }}" placeholder="أدخل حجم العبوة">
-                        @endforeach
-                    @endif
+                <div class="mb-3">
+                    <label class="form-label">{{ __('messages.package_size_fr') }}</label>
+                    <input type="text" name="sizes_fr" class="form-control" value="{{ old('sizes_fr') }}"
+                        placeholder="{{ __('messages.size_example_fr') }}">
+                </div>
 
-                    {{-- حقل لإضافة حجم جديد --}}
-                    <input type="text" name="sizes_{{ $langCode }}[]" class="form-control mb-2"
-                        placeholder="إضافة حجم جديد">
+                <div class="mb-3">
+                    <label class="form-label">{{ __('messages.package_size_es') }}</label>
+                    <input type="text" name="sizes_es" class="form-control" value="{{ old('sizes_es') }}"
+                        placeholder="{{ __('messages.size_example_es') }}">
+                </div>
 
-                    <hr>
-                @endforeach
             </div>
+
         </div>
 
 
         <button type="submit" class="btn btn-success mt-3">
-            <i class="fas fa-save"></i> حفظ المنتج
+            <i class="fas fa-save"></i> {{ __('messages.save_product') }}
         </button>
 
         <a href="{{ route('products.index') }}" class="btn btn-secondary mt-3">
-            رجوع
+            {{ __('messages.back') }}
         </a>
     </form>
 
 @stop
+@section('adminlte_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+
+    @if (app()->getLocale() == 'ar')
+        <style>
+            [dir="rtl"] .main-sidebar {
+                right: 0;
+                left: auto;
+            }
+
+            [dir="rtl"] .content-wrapper,
+            [dir="rtl"] .main-footer {
+                margin-right: 250px;
+                margin-left: 0;
+            }
+        </style>
+    @endif
+@endsection

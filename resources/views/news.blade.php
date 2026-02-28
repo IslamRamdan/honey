@@ -78,8 +78,6 @@
                                 <h3 data-en="News" data-ar="الأخبار" data-fr="Actualités" data-es="Noticias">
                                     News
                                 </h3>
-
-
                             </div>
                         </a>
                     </div>
@@ -215,7 +213,7 @@
         </span>
 
 
-        <a href="#" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+        <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>

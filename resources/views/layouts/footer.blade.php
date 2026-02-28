@@ -63,24 +63,16 @@
                     </h5>
 
                     <ul class="footer-links">
-                        <li>
-                            <a href="products.html" data-en="Honey Products" data-ar="منتجات العسل"
-                                data-es="Productos de miel" data-fr="Produits de miel">
-                                Honey Products
-                            </a>
-                        </li>
-                        <li>
-                            <a href="products.html" data-en="Creamed Honey" data-ar="العسل الكريمي"
-                                data-es="Miel cremado" data-fr="Miel crémeux">
-                                Creamed Honey
-                            </a>
-                        </li>
-                        <li>
-                            <a href="products.html" data-en="Drinks" data-ar="المشروبات" data-es="Bebidas"
-                                data-fr="Boissons">
-                                Drinks
-                            </a>
-                        </li>
+                        @foreach (\App\Models\Category::latest()->take(3)->get() as $category)
+                            <li>
+                                <a href="{{ route('categories.show.products', $category->id) }}"
+                                    data-en="{{ $category->name_en }}" data-ar="{{ $category->name_ar }}"
+                                    data-es="{{ $category->name_es }}" data-fr="{{ $category->name_fr }}">
+
+                                    {{ $category->name_en }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
 
                 </div>

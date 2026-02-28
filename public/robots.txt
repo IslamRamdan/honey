@@ -1,2 +1,3 @@
 User-agent: *
 Disallow:
+Sitemap: https://beeandhoney.com/sitemap.xml
