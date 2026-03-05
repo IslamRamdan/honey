@@ -152,7 +152,6 @@ Route::get('/blog/{id}', function ($id) {
 Route::get('/categorey/{category}', [CategoryController::class, 'showProducts'])->name('categories.show.products');
 
 Route::resource('blogs', BlogController::class);
-Route::put('blogs/{blog}', [BlogController::class, 'update'])->name('blogs.update');
 Route::delete('blogs/{blog}/image/{index}', [BlogController::class, 'deleteImage'])->name('blogs.deleteImage');
 Route::delete('/blogs/{blog}/video/{index}', [BlogController::class, 'deleteVideo'])
     ->name('blogs.video.delete');
