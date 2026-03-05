@@ -217,6 +217,17 @@ return [
   'save'                   => 'حفظ',
   'back'                   => 'رجوع',
   'add_user' => 'إضافة مستخدم',
+  'content_details' => 'تفاصيل المحتوى',
 
+  // رسائل النجاح
+  'updated_successfully' => 'تم التحديث بنجاح',
+  'created_successfully' => 'تمت الإضافة بنجاح',
+  'deleted_successfully' => 'تم الحذف بنجاح',
+
+  // SweetAlert
+  'confirm_delete_title' => 'هل أنت متأكد؟',
+  'confirm_delete_text' => 'لن تتمكن من التراجع عن هذا!',
+  'yes_delete' => 'نعم، احذف!',
+  'cancel' => 'إلغاء',
 
 ];

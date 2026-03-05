@@ -70,7 +70,8 @@
             </ul>
             <div class="dropdown p-4 p-lg-0 d-flex justify-content-center align-items-center">
                 <button class="btn btn-warning dropdown-toggle" type="button" id="languageDropdown"
-                    data-bs-toggle="dropdown" aria-expanded="false">
+                    data-bs-toggle="dropdown" aria-expanded="false"
+                    data-en="Language" data-ar="اللغة" data-es="Idioma" data-fr="Langue">
                     Language
                 </button>
                 <ul class="dropdown-menu" aria-labelledby="languageDropdown">

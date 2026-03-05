@@ -14,15 +14,16 @@
 @stop
 
 
+@section('plugins.Datatables', true)
 @section('content')
 
-    <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">{{ __('messages.users_list') }}</h3>
+    <div class="card card-outline card-primary">
+        <div class="card-header border-0 pb-0">
+            <h3 class="card-title m-0">{{ __('messages.users_list') }}</h3>
         </div>
 
-        <div class="card-body p-0">
-            <table class="table table-bordered table-hover text-center">
+        <div class="card-body">
+            <table id="usersTable" class="table table-bordered table-striped table-hover text-center">
                 <thead class="bg-light">
                     <tr>
                         <th>#</th>
@@ -65,10 +66,6 @@
                 </tbody>
             </table>
         </div>
-
-        <div class="card-footer clearfix">
-            {{ $users->links() }}
-        </div>
     </div>
 
 @stop
@@ -89,4 +86,19 @@
             }
         </style>
     @endif
+@endsection
+
+@section('js')
+<script>
+    $(function () {
+        $('#usersTable').DataTable({
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "language": {
+                "url": "{{ app()->getLocale() == 'ar' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : (app()->getLocale() == 'fr' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json' : (app()->getLocale() == 'es' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json' : '')) }}"
+            }
+        });
+    });
+</script>
 @endsection

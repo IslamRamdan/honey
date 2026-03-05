@@ -7,42 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Basic SEO -->
-    @if ($seo)
-        <!-- Title -->
-        <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
-            data-fr="{{ $seo->title_fr }}">
-        </title>
-
-        <!-- Meta Description -->
-        <meta name="description" data-ar="{{ $seo->description_ar }}" data-en="{{ $seo->description_en }}"
-            data-es="{{ $seo->description_es }}" data-fr="{{ $seo->description_fr }}"
-            content="{{ $seo->{'description_' . app()->getLocale()} ?? '' }}">
-
-        <!-- Meta Keywords -->
-        <meta name="keywords" data-ar="{{ $seo->keywords_ar }}" data-en="{{ $seo->keywords_en }}"
-            data-es="{{ $seo->keywords_es }}" data-fr="{{ $seo->keywords_fr }}"
-            content="{{ $seo->{'keywords_' . app()->getLocale()} ?? '' }}">
-        @if ($seo && $seo->og_image)
-            <meta property="og:image" content="{{ asset('storage/' . $seo->og_image) }}" />
-        @endif
-    @endif
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="About Bee & Honey - Pure Natural Honey">
-    <meta property="og:description"
-        content="Discover Bee & Honey, a brand delivering pure and natural honey and products crafted with care.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.yourwebsite.com/about-us.html">
-    <meta property="og:image" content="https://www.yourwebsite.com/assets/about-1.jpg">
-    <meta property="og:site_name" content="Bee & Honey">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About Bee & Honey - Pure Natural Honey">
-    <meta name="twitter:description"
-        content="Learn about Bee & Honey, offering pure, natural honey and products crafted with care.">
-    <meta name="twitter:image" content="https://www.yourwebsite.com/assets/about-1.jpg">
-    <meta name="twitter:site" content="@BeeAndHoney">
+    @include('components.seo')
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/logo.png') }}">
@@ -62,6 +27,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <script>
+        const savedLang = localStorage.getItem("lang") || (navigator.language.slice(0, 2) === 'ar' ? 'ar' : 'en');
+        document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.style.opacity = '0';
+    </script>
 </head>
 
 <body>
@@ -137,7 +107,8 @@
                 </ul>
                 <div class="dropdown p-4 p-lg-0 d-flex justify-content-center align-items-center">
                     <button class="btn btn-warning dropdown-toggle" type="button" id="languageDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        data-en="Language" data-ar="اللغة" data-es="Idioma" data-fr="Langue">
                         Language
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
@@ -173,7 +144,7 @@
                                             @foreach ($product->images as $image)
                                                 <div class="swiper-slide">
                                                     <img src="{{ asset('storage/' . $image) }}"
-                                                        alt="{{ $product->title_ar }}">
+                                                        alt="{{ $product->title_ar }}" onerror="this.onerror=null;this.src='{{ asset('assets/logo.png') }}';">
                                                 </div>
                                             @endforeach
                                         @else

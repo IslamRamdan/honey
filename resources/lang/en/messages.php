@@ -215,5 +215,17 @@ return [
   'save'                   => 'Save',
   'back'                   => 'Back',
   'add_user' => 'Add User',
+  'content_details' => 'Content Details',
+
+  // Success Messages
+  'updated_successfully' => 'Updated successfully',
+  'created_successfully' => 'Created successfully',
+  'deleted_successfully' => 'Deleted successfully',
+
+  // SweetAlert
+  'confirm_delete_title' => 'Are you sure?',
+  'confirm_delete_text' => 'You won\'t be able to revert this!',
+  'yes_delete' => 'Yes, delete it!',
+  'cancel' => 'Cancel',
 
 ];

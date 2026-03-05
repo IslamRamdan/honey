@@ -1,5 +1,9 @@
 {
     "Dashboard": "Dashboard",
     "logged_in": "You are logged in!",
-    "dashboard": "Dashboard"
+    "dashboard": "Dashboard",
+    "arabic": "العربية",
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español"
 }

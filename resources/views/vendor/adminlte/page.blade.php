@@ -49,4 +49,32 @@
 @section('adminlte_js')
     @stack('js')
     @yield('js')
+
+    {{-- SweetAlert2 CDN --}}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    // Global SweetAlert2 delete handler
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.delete-form').forEach(function(form) {
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                Swal.fire({
+                    title: '{{ __("messages.confirm_delete_title") ?? "هل أنت متأكد؟" }}',
+                    text: '{{ __("messages.confirm_delete_text") ?? "لن تتمكن من التراجع عن هذا!" }}',
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: '{{ __("messages.yes_delete") ?? "نعم، احذف!" }}',
+                    cancelButtonText: '{{ __("messages.cancel") ?? "إلغاء" }}',
+                    reverseButtons: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }}
+                }).then(function(result) {
+                    if (result.isConfirmed) {
+                        form.submit();
+                    }
+                });
+            });
+        });
+    });
+    </script>
 @stop

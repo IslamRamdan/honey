@@ -7,40 +7,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Basic SEO -->
-    <!-- Title -->
-    <title data-ar="{{ $blog->seo_title_ar }}" data-en="{{ $blog->seo_title_en }}" data-es="{{ $blog->seo_title_es }}"
-        data-fr="{{ $blog->seo_title_fr }}">
-    </title>
-
-    <!-- Meta Description -->
-    <meta name="description" data-ar="{{ $blog->seo_description_ar }}" data-en="{{ $blog->seo_description_en }}"
-        data-es="{{ $blog->seo_description_es }}" data-fr="{{ $blog->seo_description_fr }}"
-        content="{{ $blog->{'seo_description_' . app()->getLocale()} ?? '' }}">
-
-    <!-- Meta Keywords -->
-    <meta name="keywords" data-ar="{{ $blog->seo_keywords_ar }}" data-en="{{ $blog->seo_keywords_en }}"
-        data-es="{{ $blog->seo_keywords_es }}" data-fr="{{ $blog->seo_keywords_fr }}"
-        content="{{ $blog->{'seo_keywords_' . app()->getLocale()} ?? '' }}">
-    <meta property="og:image" content="{{ asset('storage/' . $blog->image) }}" />
-
-    {!! $blog->meta ?? '' !!}
-
-    <!-- Open Graph / Social Media -->
-    <meta property="og:title" content="About Bee & Honey - Pure Natural Honey">
-    <meta property="og:description"
-        content="Discover Bee & Honey, a brand delivering pure and natural honey and products crafted with care.">
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.yourwebsite.com/about-us.html">
-    <meta property="og:image" content="https://www.yourwebsite.com/assets/about-1.jpg">
-    <meta property="og:site_name" content="Bee & Honey">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="About Bee & Honey - Pure Natural Honey">
-    <meta name="twitter:description"
-        content="Learn about Bee & Honey, offering pure, natural honey and products crafted with care.">
-    <meta name="twitter:image" content="https://www.yourwebsite.com/assets/about-1.jpg">
-    <meta name="twitter:site" content="@BeeAndHoney">
+    @php
+        $seo = new \stdClass();
+        $seo->title_ar = $blog->seo_title_ar ?? $blog->name_ar;
+        $seo->title_en = $blog->seo_title_en ?? $blog->name_en;
+        $seo->title_es = $blog->seo_title_es ?? $blog->name_es;
+        $seo->title_fr = $blog->seo_title_fr ?? $blog->name_fr;
+        
+        $seo->description_ar = $blog->seo_description_ar ?? \Illuminate\Support\Str::limit(strip_tags($blog->description_ar), 150);
+        $seo->description_en = $blog->seo_description_en ?? \Illuminate\Support\Str::limit(strip_tags($blog->description_en), 150);
+        $seo->description_es = $blog->seo_description_es ?? \Illuminate\Support\Str::limit(strip_tags($blog->description_es), 150);
+        $seo->description_fr = $blog->seo_description_fr ?? \Illuminate\Support\Str::limit(strip_tags($blog->description_fr), 150);
+        
+        $seo->keywords_ar = $blog->seo_keywords_ar ?? '';
+        $seo->keywords_en = $blog->seo_keywords_en ?? '';
+        $seo->keywords_es = $blog->seo_keywords_es ?? '';
+        $seo->keywords_fr = $blog->seo_keywords_fr ?? '';
+        
+        $seo->image = $blog->image;
+    @endphp
+    @include('components.seo')
 
     <!-- Favicon -->
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/logo.png') }}">
@@ -60,6 +46,11 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
+    <script>
+        const savedLang = localStorage.getItem("lang") || (navigator.language.slice(0, 2) === 'ar' ? 'ar' : 'en');
+        document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.style.opacity = '0';
+    </script>
 </head>
 
 <body>
@@ -132,7 +123,8 @@
                 </ul>
                 <div class="dropdown p-4 p-lg-0 d-flex justify-content-center align-items-center">
                     <button class="btn btn-warning dropdown-toggle" type="button" id="languageDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        data-en="Language" data-ar="اللغة" data-es="Idioma" data-fr="Langue">
                         Language
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">
@@ -260,9 +252,11 @@
     <section class="py-3 related-posts">
         <div class="container">
             <div class="heading text-center" data-aos="fade-up">
-                <h2 data-en="Related Posts" data-ar="مقالات ذات صلة" data-es="Publicaciones Relacionadas"
-                    data-fr="Articles Connexes">
-                    Related Posts
+                <h2 data-en="{{ $blog->status == 'new' ? 'Related News' : 'Related Posts' }}"
+                    data-ar="{{ $blog->status == 'new' ? 'أخبار ذات صلة' : 'مقالات ذات صلة' }}"
+                    data-es="{{ $blog->status == 'new' ? 'Noticias Relacionadas' : 'Publicaciones Relacionadas' }}"
+                    data-fr="{{ $blog->status == 'new' ? 'Actualités Connexes' : 'Articles Connexes' }}">
+                    {{ $blog->status == 'new' ? 'Related News' : 'Related Posts' }}
                 </h2>
 
             </div>
@@ -295,10 +289,10 @@
                                     </a>
                                 </h3>
 
-                                <p class="card-text" data-en="{!! Str::limit($related->description_en, 150) !!}"
-                                    data-ar="{!! Str::limit($related->description_ar, 150) !!}" data-es="{!! Str::limit($related->description_es, 150) !!}"
-                                    data-fr="{!! Str::limit($related->description_fr, 150) !!}">
-                                    {!! Str::limit($related->description_en, 150) !!}>
+                                <p class="card-text" data-en="{{ Str::limit(strip_tags($related->description_en), 150) }}"
+                                    data-ar="{{ Str::limit(strip_tags($related->description_ar), 150) }}" data-es="{{ Str::limit(strip_tags($related->description_es), 150) }}"
+                                    data-fr="{{ Str::limit(strip_tags($related->description_fr), 150) }}">
+                                    {{ Str::limit(strip_tags($related->description_en), 150) }}
                                 </p>
 
                                 <div class="blog-footer">

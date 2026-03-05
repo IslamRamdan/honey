@@ -23,9 +23,18 @@ class SeoMetaController extends Controller
     {
         $request->validate([
             'page' => 'required|string',
-            'title' => 'nullable|string',
-            'description' => 'nullable|string',
-            'keywords' => 'nullable|string',
+            'title_ar' => 'nullable|string',
+            'title_en' => 'nullable|string',
+            'title_fr' => 'nullable|string',
+            'title_es' => 'nullable|string',
+            'description_ar' => 'nullable|string',
+            'description_en' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_es' => 'nullable|string',
+            'keywords_ar' => 'nullable|string',
+            'keywords_en' => 'nullable|string',
+            'keywords_fr' => 'nullable|string',
+            'keywords_es' => 'nullable|string',
             'image' => 'nullable|image'
         ]);
 
@@ -49,11 +58,12 @@ class SeoMetaController extends Controller
 
     public function edit($id)
     {
-        $seo = SeoMeta::find($id); // او findOrFail لو تحب يرمي 404
+        $seo = SeoMeta::find($id);
         if (!$seo) {
             return redirect()->route('admin.seo.index')->with('error', 'SEO record not found');
         }
-        return view('admin.seo.edit', compact('seo'));
+        $allSeoPages = SeoMeta::orderBy('page')->get();
+        return view('admin.seo.edit', compact('seo', 'allSeoPages'));
     }
 
 
@@ -71,9 +81,18 @@ class SeoMetaController extends Controller
 
         $request->validate([
             'page' => 'required|string',
-            'title' => 'nullable|string',
-            'description' => 'nullable|string',
-            'keywords' => 'nullable|string',
+            'title_ar' => 'nullable|string',
+            'title_en' => 'nullable|string',
+            'title_fr' => 'nullable|string',
+            'title_es' => 'nullable|string',
+            'description_ar' => 'nullable|string',
+            'description_en' => 'nullable|string',
+            'description_fr' => 'nullable|string',
+            'description_es' => 'nullable|string',
+            'keywords_ar' => 'nullable|string',
+            'keywords_en' => 'nullable|string',
+            'keywords_fr' => 'nullable|string',
+            'keywords_es' => 'nullable|string',
             'image' => 'nullable|image'
         ]);
 

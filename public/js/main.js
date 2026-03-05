@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
 
     document.querySelectorAll('.btn-dropdown').forEach(button => {
-        button.setAttribute('data-bs-toggle', ''); 
+        button.setAttribute('data-bs-toggle', '');
         const dropdownMenu = button.nextElementSibling;
 
         button.addEventListener('mouseenter', () => {
@@ -168,6 +168,9 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     applyLanguage(currentLang);
+    // Show page after language is applied
+    document.documentElement.style.transition = 'opacity 0.15s ease';
+    document.documentElement.style.opacity = '1';
     initProductsSwiper(currentLang);
 
     const navbar = document.getElementById("mainNavbar");

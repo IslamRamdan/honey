@@ -6,21 +6,26 @@
     <h1>{{ __('messages.products') }}</h1>
 @stop
 
+@section('plugins.Datatables', true)
+
 @section('content')
     <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
-        <i class="fas fa-plus"></i> {{ __('messages.add_product') }}
+        <i class="fas fa-plus"></i> {{ __('messages.add_product') ?? 'إضافة منتج' }}
     </a>
 
-    <div class="card">
+    <div class="card card-outline card-primary">
+        <div class="card-header">
+            <h3 class="card-title">{{ __('messages.products') ?? 'المنتجات' }}</h3>
+        </div>
         <div class="card-body">
-            <table class="table table-bordered table-striped">
-                <thead>
+            <table id="productsTable" class="table table-bordered table-striped table-hover">
+                <thead class="bg-light">
                     <tr>
-                        <th>{{ __('messages.id') }}</th>
-                        <th>{{ __('messages.title') }}</th>
-                        <th>{{ __('messages.image') }}</th>
-                        <th>{{ __('messages.category') }}</th>
-                        <th>{{ __('messages.actions') }}</th>
+                        <th>{{ __('messages.id') ?? '#' }}</th>
+                        <th>{{ __('messages.title') ?? 'العنوان' }}</th>
+                        <th>{{ __('messages.image') ?? 'الصورة' }}</th>
+                        <th>{{ __('messages.category') ?? 'التصنيف' }}</th>
+                        <th>{{ __('messages.actions') ?? 'الإجراءات' }}</th>
                     </tr>
                 </thead>
 
@@ -35,7 +40,7 @@
                             <td>
                                 @if (!empty($product->images) && count($product->images) > 0)
                                     <img src="{{ asset('storage/' . $product->images[0]) }}" width="80"
-                                        class="img-thumbnail rounded" alt="{{ $product->title_ar }}">
+                                        class="img-thumbnail rounded" alt="{{ $product->title_ar }}" onerror="this.onerror=null;this.src='{{ asset('assets/logo.png') }}';">
                                 @else
                                     <span class="text-muted">{{ __('messages.no_image') }}</span>
                                 @endif
@@ -69,7 +74,8 @@
         </div>
     </div>
 @stop
-@section('adminlte_css')
+
+@section('css')
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
 
     @if (app()->getLocale() == 'ar')
@@ -86,4 +92,26 @@
             }
         </style>
     @endif
+    <style>
+        .table img {
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+    </style>
+@endsection
+
+@section('js')
+<script>
+    $(function () {
+        $('#productsTable').DataTable({
+            "responsive": true,
+            "lengthChange": true,
+            "autoWidth": false,
+            "language": {
+                "url": "{{ app()->getLocale() == 'ar' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : (app()->getLocale() == 'fr' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json' : (app()->getLocale() == 'es' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json' : '')) }}"
+            }
+        });
+    });
+</script>
 @endsection

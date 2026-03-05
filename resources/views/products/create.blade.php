@@ -43,71 +43,57 @@
 
         <hr>
 
-        {{-- اللغات --}}
         @php
             $langs = [
-                'ar' => __('messages.arabic'),
-                'en' => __('messages.english'),
-                'fr' => __('messages.french'),
-                'es' => __('messages.spanish'),
+                'ar' => __('messages.arabic') ?? 'العربية',
+                'en' => __('messages.english') ?? 'English',
+                'fr' => __('messages.french') ?? 'Français',
+                'es' => __('messages.spanish') ?? 'Español',
             ];
         @endphp
 
-        @foreach ($langs as $key => $lang)
-            <div class="card card-outline card-primary mb-3">
-                <div class="card-header">
-                    <h5 class="card-title">{{ $lang }}</h5>
-                </div>
-
-                <div class="card-body">
-                    <div class="form-group">
-                        <label>{{ __('messages.title') }}</label>
-                        <input type="text" name="title_{{ $key }}" class="form-control"
-                            value="{{ old('title_' . $key) }}" required>
-                    </div>
-
-                    <div class="form-group">
-                        <label>{{ __('messages.description') }}</label>
-                        <textarea name="description_{{ $key }}" class="form-control" rows="3">{{ old('description_' . $key) }}</textarea>
-                    </div>
-                </div>
+        <div class="card card-outline card-primary mb-3">
+            <div class="card-header p-0 border-bottom-0">
+                <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                    @foreach ($langs as $key => $lang)
+                        <li class="nav-item">
+                            <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="custom-tabs-{{ $key }}-tab" data-toggle="pill" href="#custom-tabs-{{ $key }}" role="tab" aria-controls="custom-tabs-{{ $key }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                @if($key == 'ar') 🇸🇦 
+                                @elseif($key == 'en') 🇬🇧 
+                                @elseif($key == 'fr') 🇫🇷 
+                                @elseif($key == 'es') 🇪🇸 
+                                @endif
+                                {{ $lang }}
+                            </a>
+                        </li>
+                    @endforeach
+                </ul>
             </div>
-        @endforeach
-
-        {{-- أحجام العبوات لكل لغة --}}
-        <div class="card card-outline card-secondary">
-            <div class="card-header">
-                <h5 class="card-title">{{ __('messages.package_sizes') }}</h5>
-            </div>
-
+            
             <div class="card-body">
+                <div class="tab-content" id="custom-tabs-four-tabContent">
+                    @foreach ($langs as $key => $lang)
+                        <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="custom-tabs-{{ $key }}" role="tabpanel" aria-labelledby="custom-tabs-{{ $key }}-tab">
+                            
+                            <div class="form-group mb-3">
+                                <label>{{ __('messages.title') ?? 'العنوان' }} ({{ $lang }}) <span class="text-danger">*</span></label>
+                                <input type="text" name="title_{{ $key }}" class="form-control" value="{{ old('title_' . $key) }}" required>
+                            </div>
 
-                <div class="mb-3">
-                    <label class="form-label">{{ __('messages.package_size_ar') }}</label>
-                    <input type="text" name="sizes_ar" class="form-control" value="{{ old('sizes_ar') }}"
-                        placeholder="{{ __('messages.size_example_ar') }}">
+                            <div class="form-group mb-3">
+                                <label>{{ __('messages.description') ?? 'الوصف' }} ({{ $lang }}) <span class="text-danger">*</span></label>
+                                <textarea name="description_{{ $key }}" class="form-control" rows="3" required>{{ old('description_' . $key) }}</textarea>
+                            </div>
+
+                            <div class="form-group mb-3">
+                                <label>{{ __('messages.package_sizes') ?? 'أحجام العبوات' }} ({{ $lang }})</label>
+                                <input type="text" name="sizes_{{ $key }}" class="form-control" value="{{ old('sizes_' . $key) }}" placeholder="e.g. 250g, 500g">
+                            </div>
+
+                        </div>
+                    @endforeach
                 </div>
-
-                <div class="mb-3">
-                    <label class="form-label">{{ __('messages.package_size_en') }}</label>
-                    <input type="text" name="sizes_en" class="form-control" value="{{ old('sizes_en') }}"
-                        placeholder="{{ __('messages.size_example_en') }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">{{ __('messages.package_size_fr') }}</label>
-                    <input type="text" name="sizes_fr" class="form-control" value="{{ old('sizes_fr') }}"
-                        placeholder="{{ __('messages.size_example_fr') }}">
-                </div>
-
-                <div class="mb-3">
-                    <label class="form-label">{{ __('messages.package_size_es') }}</label>
-                    <input type="text" name="sizes_es" class="form-control" value="{{ old('sizes_es') }}"
-                        placeholder="{{ __('messages.size_example_es') }}">
-                </div>
-
             </div>
-
         </div>
 
 

@@ -103,21 +103,21 @@
             </div>
 
             <div class="card-body">
-                <h5>{{ __('messages.package_size_ar') }}</h5>
+                <h5>أحجام المنتج باللغة العربية</h5>
                 <input type="text" name="sizes_ar" class="form-control mb-2" value="{{ $product->sizes_ar ?? '' }}"
-                    placeholder="{{ __('messages.size_placeholder') }}">
+                    placeholder="أدخل أحجام المنتج">
 
-                <h5>{{ __('messages.package_size_en') }}</h5>
+                <h5>أحجام المنتج باللغة الإنجليزية</h5>
                 <input type="text" name="sizes_en" class="form-control mb-2" value="{{ $product->sizes_en ?? '' }}"
-                    placeholder="{{ __('messages.size_placeholder') }}">
+                    placeholder="أدخل أحجام المنتج">
 
-                <h5>{{ __('messages.package_size_fr') }}</h5>
+                <h5>أحجام المنتج باللغة الفرنسية</h5>
                 <input type="text" name="sizes_fr" class="form-control mb-2" value="{{ $product->sizes_fr ?? '' }}"
-                    placeholder="{{ __('messages.size_placeholder') }}">
+                    placeholder="أدخل أحجام المنتج">
 
-                <h5>{{ __('messages.package_size_es') }}</h5>
+                <h5>أحجام المنتج باللغة الإسبانية</h5>
                 <input type="text" name="sizes_es" class="form-control mb-2" value="{{ $product->sizes_es ?? '' }}"
-                    placeholder="{{ __('messages.size_placeholder') }}">
+                    placeholder="أدخل أحجام المنتج">
             </div>
         </div>
 

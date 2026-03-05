@@ -25,28 +25,43 @@
             {{-- الأسماء والوصف لكل لغة --}}
             @php
                 $langs = [
-                    'ar' => __('messages.arabic'),
-                    'en' => __('messages.english'),
-                    'fr' => __('messages.french'),
-                    'es' => __('messages.spanish'),
+                    'ar' => __('messages.arabic') ?? 'العربية',
+                    'en' => __('messages.english') ?? 'English',
+                    'fr' => __('messages.french') ?? 'Français',
+                    'es' => __('messages.spanish') ?? 'Español',
                 ];
             @endphp
 
-            @foreach ($langs as $key => $lang)
-                <div class="card card-outline card-primary mb-3">
-                    <div class="card-header">
-                        <h5 class="card-title">{{ $lang }}</h5>
-                    </div>
-
-                    <div class="card-body">
-                        <div class="form-group mb-3">
-                            <label>{{ __('messages.name') }}</label>
-                            <input type="text" name="name_{{ $key }}" class="form-control"
-                                value="{{ old('name_' . $key) }}" required>
-                        </div>
+            <div class="card card-outline card-primary mb-3">
+                <div class="card-header p-0 border-bottom-0">
+                    <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                        @foreach ($langs as $key => $lang)
+                            <li class="nav-item">
+                                <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="custom-tabs-{{ $key }}-tab" data-toggle="pill" href="#custom-tabs-{{ $key }}" role="tab" aria-controls="custom-tabs-{{ $key }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                    @if($key == 'ar') 🇸🇦 
+                                    @elseif($key == 'en') 🇬🇧 
+                                    @elseif($key == 'fr') 🇫🇷 
+                                    @elseif($key == 'es') 🇪🇸 
+                                    @endif
+                                    {{ $lang }}
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-four-tabContent">
+                        @foreach ($langs as $key => $lang)
+                            <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="custom-tabs-{{ $key }}" role="tabpanel" aria-labelledby="custom-tabs-{{ $key }}-tab">
+                                <div class="form-group">
+                                    <label>{{ __('messages.name') ?? 'الاسم' }} ({{ $lang }}) <span class="text-danger">*</span></label>
+                                    <input type="text" name="name_{{ $key }}" class="form-control" value="{{ old('name_' . $key) }}" required>
+                                </div>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
-            @endforeach
+            </div>
 
             {{-- الصورة --}}
             <div class="form-group mb-3">

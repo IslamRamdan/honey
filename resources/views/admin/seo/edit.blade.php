@@ -14,55 +14,68 @@
 
             <div class="card-body">
 
-                {{-- اختيار الصفحة --}}
+                {{-- التنقل بين صفحات SEO --}}
                 <div class="form-group">
                     <label>{{ __('messages.choose_page') }}</label>
-                    <select name="page" class="form-control">
-                        <option value="home" {{ $seo->page == 'home' ? 'selected' : '' }}>{{ __('messages.home') }}
-                        </option>
-                        <option value="about" {{ $seo->page == 'about' ? 'selected' : '' }}>{{ __('messages.about_us') }}
-                        </option>
-                        <option value="contact" {{ $seo->page == 'contact' ? 'selected' : '' }}>{{ __('messages.contact') }}
-                        </option>
-                        <option value="categories" {{ $seo->page == 'categories' ? 'selected' : '' }}>
-                            {{ __('messages.products') }}</option>
-                        <option value="all-blogs" {{ $seo->page == 'all-blogs' ? 'selected' : '' }}>
-                            {{ __('messages.blogs') }}</option>
-                        <option value="all-news" {{ $seo->page == 'all-news' ? 'selected' : '' }}>
-                            {{ __('messages.news') }}</option>
+                    <select id="pageSelector" class="form-control">
+                        @foreach($allSeoPages as $seoPage)
+                            <option value="{{ $seoPage->id }}" {{ $seoPage->id == $seo->id ? 'selected' : '' }}>
+                                {{ $seoPage->page }}
+                            </option>
+                        @endforeach
                     </select>
                 </div>
 
+                {{-- حقل مخفي لاسم الصفحة --}}
+                <input type="hidden" name="page" value="{{ $seo->page }}">
+
                 {{-- اللغات --}}
-                @foreach (['ar' => 'Arabic', 'en' => 'English', 'fr' => 'French', 'es' => 'Spanish'] as $code => $label)
-                    <div class="card card-outline card-primary mb-3">
-                        <div class="card-header">
-                            <h5 class="card-title">{{ __('messages.' . strtolower($label)) }}</h5>
-                        </div>
-
-                        <div class="card-body">
-                            {{-- Title --}}
-                            <div class="form-group">
-                                <label>{{ __('messages.title') }} ({{ strtoupper($code) }})</label>
-                                <input type="text" name="title_{{ $code }}" class="form-control"
-                                    value="{{ old('title_' . $code, $seo->{'title_' . $code}) }}">
-                            </div>
-
-                            {{-- Description --}}
-                            <div class="form-group">
-                                <label>{{ __('messages.description') }} ({{ strtoupper($code) }})</label>
-                                <textarea name="description_{{ $code }}" class="form-control" rows="3">{{ old('description_' . $code, $seo->{'description_' . $code}) }}</textarea>
-                            </div>
-
-                            {{-- Keywords --}}
-                            <div class="form-group">
-                                <label>{{ __('messages.keywords') }} ({{ strtoupper($code) }})</label>
-                                <input type="text" name="keywords_{{ $code }}" class="form-control"
-                                    value="{{ old('keywords_' . $code, $seo->{'keywords_' . $code}) }}">
-                            </div>
+                @php
+                    $langs = [
+                        'ar' => __('messages.arabic') ?? 'العربية',
+                        'en' => __('messages.english') ?? 'English',
+                        'fr' => __('messages.french') ?? 'Français',
+                        'es' => __('messages.spanish') ?? 'Español',
+                    ];
+                @endphp
+                <div class="card card-outline card-primary mb-4 mt-3">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            @foreach ($langs as $code => $lang)
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="custom-tabs-{{ $code }}-tab" data-toggle="pill" href="#custom-tabs-{{ $code }}" role="tab" aria-controls="custom-tabs-{{ $code }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                        @if($code == 'ar') 🇸🇦 
+                                        @elseif($code == 'en') 🇬🇧 
+                                        @elseif($code == 'fr') 🇫🇷 
+                                        @elseif($code == 'es') 🇪🇸 
+                                        @endif
+                                        {{ $lang }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            @foreach ($langs as $code => $lang)
+                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="custom-tabs-{{ $code }}" role="tabpanel" aria-labelledby="custom-tabs-{{ $code }}-tab">
+                                    <div class="form-group">
+                                        <label>{{ __('messages.title') }} ({{ strtoupper($code) }})</label>
+                                        <input type="text" name="title_{{ $code }}" class="form-control" value="{{ old('title_' . $code, $seo->{'title_' . $code}) }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ __('messages.description') }} ({{ strtoupper($code) }})</label>
+                                        <textarea name="description_{{ $code }}" class="form-control" rows="3">{{ old('description_' . $code, $seo->{'description_' . $code}) }}</textarea>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <label>{{ __('messages.keywords') }} ({{ strtoupper($code) }})</label>
+                                        <input type="text" name="keywords_{{ $code }}" class="form-control" value="{{ old('keywords_' . $code, $seo->{'keywords_' . $code}) }}">
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                @endforeach
+                </div>
 
                 {{-- OG Image --}}
                 <div class="form-group">
@@ -86,7 +99,11 @@
 
 @push('js')
     <script>
-        // أي JS إضافي إذا حبيت
+        // التنقل بين صفحات SEO عند تغيير القائمة
+        document.getElementById('pageSelector').addEventListener('change', function() {
+            var selectedId = this.value;
+            window.location.href = '/admin/seo/' + selectedId + '/edit';
+        });
     </script>
 @endpush
 

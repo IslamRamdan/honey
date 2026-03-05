@@ -29,32 +29,52 @@
                 </div>
 
                 {{-- اللغات --}}
-                @foreach (['ar' => 'arabic', 'en' => 'english', 'fr' => 'french', 'es' => 'spanish'] as $code => $lang)
-                    <div class="card card-outline card-primary mb-3">
-                        <div class="card-header">
-                            <h5 class="card-title">{{ __('messages.' . $lang) }}</h5>
-                        </div>
-
-                        <div class="card-body">
-                            <div class="form-group">
-                                <label>{{ __('messages.title') }} ({{ strtoupper($code) }})</label>
-                                <input type="text" name="title_{{ $code }}" class="form-control"
-                                    value="{{ old('title_' . $code) }}">
-                            </div>
-
-                            <div class="form-group">
-                                <label>{{ __('messages.description') }} ({{ strtoupper($code) }})</label>
-                                <textarea name="description_{{ $code }}" class="form-control" rows="3">{{ old('description_' . $code) }}</textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <label>{{ __('messages.keywords') }} ({{ strtoupper($code) }})</label>
-                                <input type="text" name="keywords_{{ $code }}" class="form-control"
-                                    value="{{ old('keywords_' . $code) }}">
-                            </div>
+                @php
+                    $langs = [
+                        'ar' => __('messages.arabic') ?? 'العربية',
+                        'en' => __('messages.english') ?? 'English',
+                        'fr' => __('messages.french') ?? 'Français',
+                        'es' => __('messages.spanish') ?? 'Español',
+                    ];
+                @endphp
+                <div class="card card-outline card-primary mb-4 mt-3">
+                    <div class="card-header p-0 border-bottom-0">
+                        <ul class="nav nav-tabs" id="custom-tabs-four-tab" role="tablist">
+                            @foreach ($langs as $code => $lang)
+                                <li class="nav-item">
+                                    <a class="nav-link {{ $loop->first ? 'active' : '' }}" id="custom-tabs-{{ $code }}-tab" data-toggle="pill" href="#custom-tabs-{{ $code }}" role="tab" aria-controls="custom-tabs-{{ $code }}" aria-selected="{{ $loop->first ? 'true' : 'false' }}">
+                                        @if($code == 'ar') 🇸🇦 
+                                        @elseif($code == 'en') 🇬🇧 
+                                        @elseif($code == 'fr') 🇫🇷 
+                                        @elseif($code == 'es') 🇪🇸 
+                                        @endif
+                                        {{ $lang }}
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="custom-tabs-four-tabContent">
+                            @foreach ($langs as $code => $lang)
+                                <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="custom-tabs-{{ $code }}" role="tabpanel" aria-labelledby="custom-tabs-{{ $code }}-tab">
+                                    <div class="form-group">
+                                        <label>{{ __('messages.title') }} ({{ strtoupper($code) }})</label>
+                                        <input type="text" name="title_{{ $code }}" class="form-control" value="{{ old('title_' . $code) }}">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>{{ __('messages.description') }} ({{ strtoupper($code) }})</label>
+                                        <textarea name="description_{{ $code }}" class="form-control" rows="3">{{ old('description_' . $code) }}</textarea>
+                                    </div>
+                                    <div class="form-group mb-0">
+                                        <label>{{ __('messages.keywords') }} ({{ strtoupper($code) }})</label>
+                                        <input type="text" name="keywords_{{ $code }}" class="form-control" value="{{ old('keywords_' . $code) }}">
+                                    </div>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
-                @endforeach
+                </div>
 
                 {{-- OG Image --}}
                 <div class="form-group mt-3">

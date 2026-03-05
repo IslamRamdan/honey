@@ -36,7 +36,7 @@
                             <td>
                                 @if (!empty($product->images) && count($product->images) > 0)
                                     <img src="{{ asset('storage/' . $product->images[0]) }}" width="80" class="rounded"
-                                        alt="{{ $product->title_ar }}">
+                                        alt="{{ $product->title_ar }}" onerror="this.onerror=null;this.src='{{ asset('assets/logo.png') }}';">
                                 @else
                                     <span class="text-muted">{{ __('messages.no_image') }}</span>
                                 @endif

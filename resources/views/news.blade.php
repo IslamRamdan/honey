@@ -16,8 +16,8 @@
         rel="stylesheet">
     <link rel="icon" type="image/png" href="{{ asset('assets/logo.png') }}">
 
-    <title>Document</title>
-</head>
+    <!-- Basic SEO -->
+    @include('components.seo')
 
 <body>
     <nav class="navbar navbar-expand-lg shadow-sm mb-5" id="mainNavbar">
@@ -53,7 +53,8 @@
                 </ul>
                 <div class="dropdown p-4 p-lg-0 d-flex justify-content-center align-items-center">
                     <button class="btn btn-warning dropdown-toggle" type="button" id="languageDropdown"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false"
+                        data-en="Language" data-ar="اللغة" data-es="Idioma" data-fr="Langue">
                         Language
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="languageDropdown">

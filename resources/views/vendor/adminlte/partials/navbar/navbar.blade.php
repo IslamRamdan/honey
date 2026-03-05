@@ -39,7 +39,11 @@
         <!-- Language Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                <i class="flag-icon flag-icon-{{ app()->getLocale() == 'ar' ? 'sa' : 'us' }}"></i>
+                @php
+                    $flagMap = ['ar' => 'sa', 'en' => 'us', 'fr' => 'fr', 'es' => 'es'];
+                    $currentFlag = $flagMap[app()->getLocale()] ?? 'us';
+                @endphp
+                <i class="flag-icon flag-icon-{{ $currentFlag }}"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right p-0">
                 <a href="{{ route('locale.switch', 'ar') }}"
@@ -50,8 +54,17 @@
                     class="dropdown-item {{ app()->getLocale() == 'en' ? 'active' : '' }}">
                     <i class="flag-icon flag-icon-us mr-2"></i> English
                 </a>
+                <a href="{{ route('locale.switch', 'fr') }}"
+                    class="dropdown-item {{ app()->getLocale() == 'fr' ? 'active' : '' }}">
+                    <i class="flag-icon flag-icon-fr mr-2"></i> Français
+                </a>
+                <a href="{{ route('locale.switch', 'es') }}"
+                    class="dropdown-item {{ app()->getLocale() == 'es' ? 'active' : '' }}">
+                    <i class="flag-icon flag-icon-es mr-2"></i> Español
+                </a>
             </div>
         </li>
+
     </ul>
 
 </nav>

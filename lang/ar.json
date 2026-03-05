@@ -1,5 +1,9 @@
 {
     "Dashboard": "لوحة التحكم",
     "logged_in": "تم تسجيل الدخول بنجاح",
-    "dashboard": "لوحة التحكم"
+    "dashboard": "لوحة التحكم",
+    "arabic": "العربية",
+    "english": "English",
+    "french": "Français",
+    "spanish": "Español"
 }
