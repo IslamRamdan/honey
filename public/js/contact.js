@@ -91,33 +91,68 @@ document.addEventListener("DOMContentLoaded", () => {
         const subjectInput = document.getElementById("subject").value.trim();
         const message = document.getElementById("message").value.trim();
 
-        const subject = encodeURIComponent(`New Message From: ${name}`);
+        const submitBtn = form.querySelector('button[type="submit"]');
+        const originalBtnText = submitBtn.innerHTML;
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = window.currentLang === 'ar' ? 'جاري الإرسال...' : 'Sending...';
 
-        const body = encodeURIComponent(
-            `Name: ${name}\n` +
-            `Email: ${email}\n` +
-            `Phone: ${phone}\n\n` +
-            `Subject: ${subjectInput}\n\n` +
-            `Message:\n${message}`
-        );
+        const payload = {
+            name: name,
+            email: email,
+            phone: phone,
+            subject: subjectInput,
+            message: message
+        };
 
-        const gmailURL = `https://mail.google.com/mail/?view=cm&fs=1&to=${businessEmail}&su=${subject}&body=${body}`;
+        const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-        window.open(gmailURL, "_blank");
+        fetch('/contact/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(payload)
+        })
+            .then(response => response.json())
+            .then(data => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
 
+                if (data.success) {
+                    const title = document.body.getAttribute(`data-success-title-${window.currentLang || "ar"}`) || "Success";
+                    const text = document.body.getAttribute(`data-success-text-${window.currentLang || "ar"}`) || "Your message has been sent successfully.";
 
-        const title = document.body.getAttribute(`data-success-title-${window.currentLang || "ar"}`) || "Success";
-        const text = document.body.getAttribute(`data-success-text-${window.currentLang || "ar"}`) || "Your message is ready to send!";
+                    Swal.fire({
+                        icon: "success",
+                        title: title,
+                        text: text,
+                        confirmButtonColor: "#c89b3c"
+                    });
 
-        Swal.fire({
-            icon: "success",
-            title: title,
-            text: text,
-            confirmButtonColor: "#c89b3c"
-        });
-
-        form.reset();
-        inputs.forEach(clearError);
+                    form.reset();
+                    inputs.forEach(clearError);
+                } else {
+                    Swal.fire({
+                        icon: "error",
+                        title: window.currentLang === 'ar' ? "خطأ" : "Error",
+                        text: data.message || "Failed to send message.",
+                        confirmButtonColor: "#c89b3c"
+                    });
+                }
+            })
+            .catch(error => {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnText;
+                Swal.fire({
+                    icon: "error",
+                    title: window.currentLang === 'ar' ? "خطأ" : "Error",
+                    text: "An error occurred while sending your message. Please try again.",
+                    confirmButtonColor: "#c89b3c"
+                });
+                console.error("Error:", error);
+            });
 
     });
 

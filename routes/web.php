@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ContactController;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Product;
@@ -106,6 +107,8 @@ Route::get('/contact-us', function () {
     $seo = \App\Models\SeoMeta::where('page', 'contact-us')->first();
     return view('contact-us', compact('settings', 'seo'));
 })->name('contact');
+
+Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
 
 // الأخبار
 Route::get('/news', function () {
