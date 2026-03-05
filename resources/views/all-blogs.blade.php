@@ -124,9 +124,9 @@
         <div class="container py-5">
             <div class="pt-5">
                 <div class="header pt-5 text-center mb-5">
-                    <h2 data-en="Explore Our Latest News" data-ar="استكشف أحدث أخبارنا"
-                        data-fr="Découvrez nos dernières actualités" data-es="Explora nuestras últimas noticias">
-                        Explore Our Latest News
+                    <h2 data-en="Explore Our Latest Blogs" data-ar="استكشف أحدث مقالاتنا"
+                        data-fr="Découvrez nos derniers articles" data-es="Explora nuestros últimos artículos">
+                        Explore Our Latest Blogs
                     </h2>
 
                 </div>
