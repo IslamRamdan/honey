@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Certificate;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class CertificateController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $certificates = Certificate::ordered()->get();
@@ -28,14 +30,14 @@ class CertificateController extends Controller
         ]);
 
         $data = [];
-        $data['icon_image'] = $request->file('icon_image')->store('certificates', 'public');
+        $data['icon_image'] = $this->storeCompressedImage($request->file('icon_image'), 'certificates');
         $data['is_active'] = $request->has('is_active');
         $data['sort_order'] = $request->sort_order ?? 0;
 
         $fullImages = [];
         if ($request->hasFile('full_images')) {
             foreach ($request->file('full_images') as $file) {
-                $fullImages[] = $file->store('certificates', 'public');
+                $fullImages[] = $this->storeCompressedImage($file, 'certificates');
             }
         }
         $data['full_images'] = $fullImages;
@@ -63,13 +65,13 @@ class CertificateController extends Controller
         $data['sort_order'] = $request->sort_order ?? 0;
 
         if ($request->hasFile('icon_image')) {
-            $data['icon_image'] = $request->file('icon_image')->store('certificates', 'public');
+            $data['icon_image'] = $this->storeCompressedImage($request->file('icon_image'), 'certificates');
         }
 
         $fullImages = $certificate->full_images ?? [];
         if ($request->hasFile('full_images')) {
             foreach ($request->file('full_images') as $file) {
-                $fullImages[] = $file->store('certificates', 'public');
+                $fullImages[] = $this->storeCompressedImage($file, 'certificates');
             }
         }
         $data['full_images'] = $fullImages;

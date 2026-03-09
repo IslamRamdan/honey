@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SeoMeta;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class SeoMetaController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $seoMetas = SeoMeta::latest()->get();
@@ -47,7 +49,7 @@ class SeoMetaController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('seo', 'public');
+            $data['image'] = $this->storeCompressedImage($request->file('image'), 'seo');
         }
 
         SeoMeta::create($data);
@@ -99,7 +101,7 @@ class SeoMetaController extends Controller
         $data = $request->except('image');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('seo', 'public');
+            $data['image'] = $this->storeCompressedImage($request->file('image'), 'seo');
         }
 
         $seo->update($data);

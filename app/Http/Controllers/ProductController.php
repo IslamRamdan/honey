@@ -6,10 +6,11 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
+use App\Traits\CompressesImages;
 
 class ProductController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $products = Product::with('category')->latest()->get();
@@ -38,7 +39,7 @@ class ProductController extends Controller
             $images = [];
 
             foreach ($request->file('images') as $image) {
-                $images[] = $image->store('products', 'public');
+                $images[] = $this->storeCompressedImage($image, 'products');
             }
 
             $data['images'] = $images; // Array يتخزن JSON تلقائيًا
@@ -100,7 +101,7 @@ class ProductController extends Controller
     ======================= */
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
-                $currentImages[] = $image->store('products', 'public');
+                $currentImages[] = $this->storeCompressedImage($image, 'products');
             }
         }
 

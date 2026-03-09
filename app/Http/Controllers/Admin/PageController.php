@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Page;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class PageController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $pages = Page::ordered()->get();
@@ -41,14 +43,14 @@ class PageController extends Controller
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('pages', 'public');
+            $data['image'] = $this->storeCompressedImage($request->file('image'), 'pages');
         }
 
         // Handle multiple images
         $imagesList = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $imagesList[] = $file->store('pages', 'public');
+                $imagesList[] = $this->storeCompressedImage($file, 'pages');
             }
         }
         $data['images'] = $imagesList ?: null;
@@ -85,7 +87,7 @@ class PageController extends Controller
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('pages', 'public');
+            $data['image'] = $this->storeCompressedImage($request->file('image'), 'pages');
         }
 
         // Handle multiple images
@@ -93,7 +95,7 @@ class PageController extends Controller
         $newImages = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $newImages[] = $file->store('pages', 'public');
+                $newImages[] = $this->storeCompressedImage($file, 'pages');
             }
         }
         // Merge old and new images

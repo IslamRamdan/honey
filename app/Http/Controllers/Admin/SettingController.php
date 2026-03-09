@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class SettingController extends Controller
 {
+    use CompressesImages;
     public function edit()
     {
         $settings = Setting::all()->groupBy('group');
@@ -27,7 +29,7 @@ class SettingController extends Controller
             }
 
             if ($request->hasFile($key)) {
-                $path = $request->file($key)->store('settings', 'public');
+                $path = $this->storeCompressedImage($request->file($key), 'settings');
                 Setting::updateOrCreate(
                     ['key' => $key],
                     ['value' => $path, 'group' => $group]

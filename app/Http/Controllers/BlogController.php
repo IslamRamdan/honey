@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class BlogController extends Controller
 {
+    use CompressesImages;
     /* =======================
        عرض كل المدونات
     ======================== */
@@ -69,9 +71,7 @@ class BlogController extends Controller
            الصورة الرئيسية
         ======================== */
         if ($request->hasFile('image')) {
-            $imageName = time() . '_main.' . $request->image->extension();
-            $request->image->move(public_path('images/blogs'), $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = $this->storeCompressedImageToPublic($request->image, 'images/blogs');
         }
 
         /* =======================
@@ -80,9 +80,7 @@ class BlogController extends Controller
         $images = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $name = time() . '_' . uniqid() . '.' . $file->extension();
-                $file->move(public_path('images/blogs'), $name);
-                $images[] = $name;
+                $images[] = $this->storeCompressedImageToPublic($file, 'images/blogs');
             }
         }
         $data['images'] = $images ?: null;
@@ -148,9 +146,7 @@ class BlogController extends Controller
            الصورة الرئيسية
         ======================== */
         if ($request->hasFile('image')) {
-            $imageName = time() . '_main.' . $request->image->extension();
-            $request->image->move(public_path('images/blogs'), $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = $this->storeCompressedImageToPublic($request->image, 'images/blogs');
         }
 
         /* =======================
@@ -161,9 +157,7 @@ class BlogController extends Controller
 
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $name = time() . '_' . uniqid() . '.' . $file->extension();
-                $file->move(public_path('images/blogs'), $name);
-                $newImages[] = $name;
+                $newImages[] = $this->storeCompressedImageToPublic($file, 'images/blogs');
             }
         }
 

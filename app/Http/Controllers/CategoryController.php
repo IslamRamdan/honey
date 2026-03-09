@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class CategoryController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $categories = Category::all();
@@ -31,9 +33,7 @@ class CategoryController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/categories'), $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = $this->storeCompressedImageToPublic($request->image, 'images/categories');
         }
 
         Category::create($data);
@@ -59,9 +59,7 @@ class CategoryController extends Controller
         $data = $request->all();
 
         if ($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->image->extension();
-            $request->image->move(public_path('images/categories'), $imageName);
-            $data['image'] = $imageName;
+            $data['image'] = $this->storeCompressedImageToPublic($request->image, 'images/categories');
         }
 
         $category->update($data);

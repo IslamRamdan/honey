@@ -28,27 +28,24 @@
     <meta name="theme-color" content="#ffffff">
 
 
-    <!-- Google Fonts -->
+    <!-- Google Fonts (non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    
-    <!-- Preconnect External Domains -->
-    <link rel="preconnect" href="https://cdn.amcharts.com">
-    
-    <!-- Preload Critical Typography -->
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap"
+        rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"></noscript>
 
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-        rel="stylesheet">
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="css/all.min.css">
+    <!-- Critical CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="css/main.css">
+
+    <!-- Non-critical CSS (deferred) -->
+    <link href="css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="css/all.min.css"></noscript>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" media="print" onload="this.media='all'">
     <script>
         const savedLang = localStorage.getItem("lang") || (navigator.language.slice(0, 2) === 'ar' ? 'ar' : 'en');
         document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
@@ -58,11 +55,11 @@
 
 
 <body class="home-body">
+<main>
 
     <section class="hero">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline preload="metadata" poster="{{ asset('assets/logo.png') }}" class="hero-video">
-                <source src="{{ !empty($settings['hero_video']) ? asset('storage/' . $settings['hero_video']) : asset('assets/website-video.mp4') }}" type="video/mp4">
+            <video autoplay muted loop playsinline preload="none" poster="{{ asset('assets/logo.png') }}" class="hero-video" id="heroVideo">
             </video>
         </div>
         @include('layouts.header')
@@ -122,7 +119,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="image">
-                        <img src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}" width="600" height="400" class="w-100" alt="{{ $aboutBrief->title_en ?? 'About Bee & Honey' }}">
+                        <img src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}" width="600" height="400" loading="lazy" decoding="async" class="w-100" alt="{{ $aboutBrief->title_en ?? 'About Bee & Honey' }}">
                     </div>
                 </div>
             </div>
@@ -135,7 +132,7 @@
             <div class="swiper-wrapper">
                 @foreach($sliders as $slider)
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/' . $slider->image) }}" alt="Honey Product Banner">
+                    <img src="{{ asset('storage/' . $slider->image) }}" loading="lazy" decoding="async" alt="Honey Product Banner">
                 </div>
                 @endforeach
             </div>
@@ -219,7 +216,7 @@
                 <div class="col">
                     <div class="certificate-item" data-aos="zoom-in">
                         <div class="image mx-auto">
-                            <img src="{{ asset('storage/' . $certificate->icon_image) }}" width="180" height="250" class="img-fluid certificate-img"
+                            <img src="{{ asset('storage/' . $certificate->icon_image) }}" width="180" height="250" loading="lazy" decoding="async" class="img-fluid certificate-img"
                                 alt="Bee and Honey Certificate" data-bs-toggle="modal" data-bs-target="#certificateModal"
                                 data-bs-imgs="{{ implode(',', array_map(function($img) { return asset('storage/' . $img); }, $certificate->full_images ?? [])) }}">
                             <div class="view-icon" data-bs-toggle="modal" data-bs-target="#certificateModal"
@@ -283,6 +280,8 @@
         </div>
     </section>
 
+    </main>
+
     @include('layouts.footer')
 
     <div class="modal fade" id="certificateModal" tabindex="-1">
@@ -293,15 +292,15 @@
                         data-fr="Certificat">
                         Certificate
                     </h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="cert-viewer">
                         <div class="cert-controls mb-2">
-                            <button class="btn btn-sm btn-outline-primary" id="zoom-in">
+                            <button class="btn btn-sm btn-outline-primary" id="zoom-in" aria-label="Zoom in">
                                 <i class="fas fa-search-plus"></i>
                             </button>
-                            <button class="btn btn-sm btn-outline-primary" id="zoom-out">
+                            <button class="btn btn-sm btn-outline-primary" id="zoom-out" aria-label="Zoom out">
                                 <i class="fas fa-search-minus"></i>
                             </button>
                         </div>
@@ -331,15 +330,30 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+    <script src="js/main.js" defer></script>
+    <script src="js/certificate.js" defer></script>
+
+    <!-- Deferred Hero Video Loading -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var v = document.getElementById('heroVideo');
+        if (v) {
+            var s = document.createElement('source');
+            s.src = '{{ !empty($settings["hero_video"]) ? asset("storage/" . $settings["hero_video"]) : asset("assets/website-video.mp4") }}';
+            s.type = 'video/mp4';
+            v.appendChild(s);
+            v.load();
+        }
+    });
+    </script>
+
+    <!-- Map Scripts (deferred) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <!-- AmCharts -->
     <script src="https://cdn.amcharts.com/lib/5/index.js" defer></script>
     <script src="https://cdn.amcharts.com/lib/5/map.js" defer></script>
     <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js" defer></script>
     <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" defer></script>
-    
-    <script src="js/main.js" defer></script>
-    <script src="js/certificate.js" defer></script>
     <script src="js/map.js" defer></script>
 </body>
 

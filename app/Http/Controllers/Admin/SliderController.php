@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Slider;
 use Illuminate\Http\Request;
+use App\Traits\CompressesImages;
 
 class SliderController extends Controller
 {
+    use CompressesImages;
     public function index()
     {
         $sliders = Slider::ordered()->get();
@@ -31,7 +33,7 @@ class SliderController extends Controller
         ]);
 
         $data = $request->except('image');
-        $data['image'] = $request->file('image')->store('sliders', 'public');
+        $data['image'] = $this->storeCompressedImage($request->file('image'), 'sliders');
         $data['is_active'] = $request->has('is_active');
 
         Slider::create($data);
@@ -59,7 +61,7 @@ class SliderController extends Controller
         $data['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('sliders', 'public');
+            $data['image'] = $this->storeCompressedImage($request->file('image'), 'sliders');
         }
 
         $slider->update($data);
