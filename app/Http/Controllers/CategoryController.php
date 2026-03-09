@@ -77,7 +77,26 @@ class CategoryController extends Controller
         // جلب المنتجات المرتبطة بالتصنيف
         $products = $category->products()->paginate(9); // 9 منتجات لكل صفحة
 
-        return view('products', compact('category', 'products'));
+        // إنشاء كائن SEO ديناميكي للصفحة بناءً على بيانات التصنيف
+        $seo = new \stdClass();
+        $seo->title_ar = $category->name_ar . ' | بي آند هني';
+        $seo->title_en = $category->name_en . ' | Bee & Honey';
+        $seo->title_es = $category->name_es . ' | Bee & Honey';
+        $seo->title_fr = $category->name_fr . ' | Bee & Honey';
+
+        $seo->description_ar = 'تصفح منتجاتنا في قسم ' . $category->name_ar . ' من بي آند هني للحصول على أفضل المنتجات الطبيعية.';
+        $seo->description_en = 'Browse our products in the ' . $category->name_en . ' category from Bee & Honey for the best natural products.';
+        $seo->description_es = 'Explore nuestros productos en la categoría ' . $category->name_es . ' de Bee & Honey para obtener los mejores productos naturales.';
+        $seo->description_fr = 'Parcourez nos produits dans la catégorie ' . $category->name_fr . ' de Bee & Honey pour les meilleurs produits naturels.';
+
+        $seo->keywords_ar = $category->name_ar . ', عسل, منتجات طبيعية, بي آند هني, منتجات';
+        $seo->keywords_en = $category->name_en . ', honey, natural products, bee and honey, products';
+        $seo->keywords_es = $category->name_es . ', miel, productos naturales, bee and honey, productos';
+        $seo->keywords_fr = $category->name_fr . ', miel, produits naturels, bee and honey, produits';
+
+        $seo->image = $category->image ? '../images/categories/' . $category->image : null;
+
+        return view('products', compact('category', 'products', 'seo'));
     }
     public function products($id)
     {

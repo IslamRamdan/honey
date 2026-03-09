@@ -21,7 +21,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ url()->current() }}">
     @if ($seo->image)
-        <meta property="og:image" content="{{ asset('storage/' . $seo->image) }}">
+        <meta property="og:image" content="{{ Str::startsWith($seo->image, ['http', '../', 'images/']) ? asset($seo->image) : asset('storage/' . $seo->image) }}">
     @endif
 
     <!-- Twitter Card Tags -->
@@ -29,7 +29,7 @@
     <meta name="twitter:title" content="{{ $seo->{'title_' . app()->getLocale()} ?? $seo->title_en }}">
     <meta name="twitter:description" content="{{ $seo->{'description_' . app()->getLocale()} ?? '' }}">
     @if ($seo->image)
-        <meta name="twitter:image" content="{{ asset('storage/' . $seo->image) }}">
+        <meta name="twitter:image" content="{{ Str::startsWith($seo->image, ['http', '../', 'images/']) ? asset($seo->image) : asset('storage/' . $seo->image) }}">
     @endif
 @else
     <title>{{ config('app.name', 'Bee and Honey') }}</title>
