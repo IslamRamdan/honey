@@ -139,7 +139,7 @@
                             <div class="product-card">
 
                                 <div class="product-img swiper myProductSwiper">
-                                    <div class="swiper-wrapper" dir="ltr">
+                                    <div class="swiper-wrapper">
                                         @if (!empty($product->images))
                                             @foreach ($product->images as $image)
                                                 <div class="swiper-slide">
@@ -295,19 +295,36 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="{{ asset('js/main.js') }}"></script>
     <script>
-        new Swiper(".myProductSwiper", {
-            loop: true,
-            slidesPerView: 1,
+        let productSwiperInstances = [];
 
-            autoplay: {
-                delay: 2000,
-                disableOnInteraction: false
-            },
+        function initProductSwipers() {
+            if (productSwiperInstances.length > 0) {
+                productSwiperInstances.forEach(instance => instance.destroy(true, true));
+                productSwiperInstances = [];
+            }
 
-            speed: 800,
+            var swipers = document.querySelectorAll('.myProductSwiper');
+            swipers.forEach(function(swiperElement) {
+                var newSwiper = new Swiper(swiperElement, {
+                    loop: true,
+                    slidesPerView: 1,
 
-            allowTouchMove: true,
-            grabCursor: true
+                    autoplay: {
+                        delay: 2000,
+                        disableOnInteraction: false
+                    },
+
+                    speed: 800,
+
+                    allowTouchMove: true,
+                    grabCursor: true
+                });
+                productSwiperInstances.push(newSwiper);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initProductSwipers();
         });
     </script>
 
@@ -412,6 +429,7 @@
             mutations.forEach(function(mutation) {
                 if (mutation.type === 'attributes' && mutation.attributeName === 'dir') {
                     updateProductLanguage();
+                    setTimeout(initProductSwipers, 100);
                 }
             });
         });

@@ -15,7 +15,7 @@
                 <div class="form-group">
                     <label>{{ __('admin.full_images') }}</label>
                     <input type="file" name="full_images[]" class="form-control" accept="image/*" multiple>
-                    <small class="text-muted">{{ __('admin.upload_multiple') ?? 'You can upload multiple images' }}</small>
+                    <small class="text-muted">{{ __('messages.upload_multiple_note') ?? 'لاختيار أكثر من صورة، قم بتحديدهم جميعاً معاً (سحب الماوس أو استخدام زر Ctrl / Command)' }}</small>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">

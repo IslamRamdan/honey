@@ -56,9 +56,9 @@ class BlogController extends Controller
             'images'   => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp',
 
-            // فيديوهات (حد أقصى 2)
-            'videos'   => 'nullable|array|max:2',
-            'videos.*' => 'file|mimes:mp4,webm,ogg,mov|max:51200',
+            // فيديوهات
+            'videos'   => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,webm,ogg,mov',
 
             'status' => 'required|in:new,blog',
         ]);
@@ -136,8 +136,8 @@ class BlogController extends Controller
             'images'   => 'nullable|array',
             'images.*' => 'image|mimes:jpg,jpeg,png,webp',
 
-            'videos'   => 'nullable|array|max:2',
-            'videos.*' => 'file|mimes:mp4,webm,ogg,mov|max:51200',
+            'videos'   => 'nullable|array',
+            'videos.*' => 'file|mimes:mp4,webm,ogg,mov',
 
             'status' => 'required|in:new,blog',
         ]);
@@ -176,13 +176,7 @@ class BlogController extends Controller
         $newVideos = [];
 
         if ($request->hasFile('videos')) {
-            $remaining = 2 - count($oldVideos);
-
-            if ($remaining <= 0) {
-                return back()->withErrors('لا يمكن إضافة أكثر من فيديوهين');
-            }
-
-            foreach (array_slice($request->file('videos'), 0, $remaining) as $file) {
+            foreach ($request->file('videos') as $file) {
                 $name = time() . '_' . uniqid() . '.' . $file->extension();
                 $file->move(public_path('videos/blogs'), $name);
                 $newVideos[] = $name;

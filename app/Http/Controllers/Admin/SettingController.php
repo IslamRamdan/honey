@@ -28,7 +28,13 @@ class SettingController extends Controller
 
             if ($request->hasFile($key)) {
                 $path = $request->file($key)->store('settings', 'public');
-                Setting::where('key', $key)->update(['value' => $path]);
+                Setting::updateOrCreate(
+                    ['key' => $key],
+                    ['value' => $path, 'group' => $group]
+                );
+            } elseif (in_array($key, ['hero_video', 'catalog_image', 'catalog_link'])) {
+                // Skip if no file was uploaded to prevent overwriting with null
+                continue;
             } else {
                 Setting::updateOrCreate(
                     ['key' => $key],

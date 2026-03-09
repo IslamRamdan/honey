@@ -14,17 +14,22 @@
     </url>
 
     <url>
-        <loc>{{ url('/products') }}</loc>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>{{ url('/categories') }}</loc>
+        <loc>{{ url('/categorey') }}</loc>
         <priority>0.8</priority>
     </url>
 
     <url>
         <loc>{{ url('/news') }}</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>{{ url('/all-blogs') }}</loc>
+        <priority>0.8</priority>
+    </url>
+
+    <url>
+        <loc>{{ url('/all-news') }}</loc>
         <priority>0.8</priority>
     </url>
 
@@ -36,17 +41,8 @@
     <!-- Categories -->
     @foreach ($categories as $category)
         <url>
-            <loc>{{ url('/categories/' . $category->id) }}</loc>
+            <loc>{{ url('/categorey/' . $category->id) }}</loc>
             <lastmod>{{ $category->updated_at->toAtomString() }}</lastmod>
-            <changefreq>weekly</changefreq>
-        </url>
-    @endforeach
-
-    <!-- Products -->
-    @foreach ($products as $product)
-        <url>
-            <loc>{{ url('/products/' . $product->id) }}</loc>
-            <lastmod>{{ $product->updated_at->toAtomString() }}</lastmod>
             <changefreq>weekly</changefreq>
         </url>
     @endforeach
@@ -54,7 +50,7 @@
     <!-- Blogs / News -->
     @foreach ($blogs as $blog)
         <url>
-            <loc>{{ url('/news/' . $blog->id) }}</loc>
+            <loc>{{ url('/blog/' . $blog->id) }}</loc>
             <lastmod>{{ $blog->updated_at->toAtomString() }}</lastmod>
             <changefreq>weekly</changefreq>
         </url>

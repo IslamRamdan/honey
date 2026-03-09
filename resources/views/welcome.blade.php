@@ -12,10 +12,10 @@
 
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Bee & Honey - Natural Honey Products">
+    <meta name="twitter:title" content="{{ $seo->{'title_' . app()->getLocale()} ?? 'Bee & Honey - Natural Honey Products' }}">
     <meta name="twitter:description"
-        content="Explore the finest natural honey from Bee & Honey. Shop honey products and learn more about our farm.">
-    <meta name="twitter:image" content="https://www.yourwebsite.com/assets/og-image.jpg">
+        content="{{ $seo->{'description_' . app()->getLocale()} ?? 'Explore the finest natural honey from Bee & Honey. Shop honey products and learn more about our farm.' }}">
+    <meta name="twitter:image" content="{{ isset($seo->image) && $seo->image ? asset('storage/' . $seo->image) : asset('assets/logo.png') }}">
     <meta name="twitter:site" content="@BeeAndHoney">
     <meta name="twitter:creator" content="@BeeAndHoney">
 
@@ -29,8 +29,15 @@
 
 
     <!-- Google Fonts -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <!-- Preconnect External Domains -->
+    <link rel="preconnect" href="https://cdn.amcharts.com">
+    
+    <!-- Preload Critical Typography -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap">
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cairo:wght@200..1000&family=IBM+Plex+Sans+Arabic:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:ital,wght@0,100..700;1,100..700&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
@@ -54,13 +61,16 @@
 
     <section class="hero">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline class="hero-video">
+            <video autoplay muted loop playsinline preload="metadata" poster="{{ asset('assets/logo.png') }}" class="hero-video">
                 <source src="{{ !empty($settings['hero_video']) ? asset('storage/' . $settings['hero_video']) : asset('assets/website-video.mp4') }}" type="video/mp4">
             </video>
         </div>
         @include('layouts.header')
 
         <div class="hero-inner py-5">
+            <h1 class="visually-hidden" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;">
+                {{ isset($seo) && $seo ? ($seo->{'title_' . app()->getLocale()} ?? $seo->title_en) : 'Bee & Honey - Natural Honey Products' }}
+            </h1>
             {{-- <div class="rotating-text-wrapper mb-4">
                 <h2 class="t1" data-en="The best quality Honey from our farm"
                     data-ar="أفضل عسل بجودة عالية من مزارعنا" data-es="La mejor miel de calidad de nuestra granja"
@@ -112,7 +122,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="image">
-                        <img src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}" class="w-100" alt="About Brief">
+                        <img src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}" width="600" height="400" class="w-100" alt="{{ $aboutBrief->title_en ?? 'About Bee & Honey' }}">
                     </div>
                 </div>
             </div>
@@ -125,7 +135,7 @@
             <div class="swiper-wrapper">
                 @foreach($sliders as $slider)
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/' . $slider->image) }}" alt="slider">
+                    <img src="{{ asset('storage/' . $slider->image) }}" alt="Honey Product Banner">
                 </div>
                 @endforeach
             </div>
@@ -209,8 +219,8 @@
                 <div class="col">
                     <div class="certificate-item" data-aos="zoom-in">
                         <div class="image mx-auto">
-                            <img src="{{ asset('storage/' . $certificate->icon_image) }}" class="img-fluid certificate-img"
-                                alt="Certificate" data-bs-toggle="modal" data-bs-target="#certificateModal"
+                            <img src="{{ asset('storage/' . $certificate->icon_image) }}" width="180" height="250" class="img-fluid certificate-img"
+                                alt="Bee and Honey Certificate" data-bs-toggle="modal" data-bs-target="#certificateModal"
                                 data-bs-imgs="{{ implode(',', array_map(function($img) { return asset('storage/' . $img); }, $certificate->full_images ?? [])) }}">
                             <div class="view-icon" data-bs-toggle="modal" data-bs-target="#certificateModal"
                                 data-bs-imgs="{{ implode(',', array_map(function($img) { return asset('storage/' . $img); }, $certificate->full_images ?? [])) }}">
@@ -225,7 +235,11 @@
         </div>
     </section>
 
-    <section class="catalog-section py-5">
+    <section class="catalog-section py-5"
+        @if(!empty($settings['catalog_image'] ?? ''))
+            style="background: url('{{ asset('storage/' . $settings['catalog_image']) }}') no-repeat center center; background-size: cover;"
+        @endif
+    >
         <div class="container">
             <div class="row g-4 align-items-center">
                 <div class="col-lg-6 text-center">
@@ -237,6 +251,7 @@
 
                         <a href="{{ isset($settings['catalog_link']) && (str_starts_with($settings['catalog_link'], 'http') || str_starts_with($settings['catalog_link'], '#')) ? $settings['catalog_link'] : (isset($settings['catalog_link']) ? asset('storage/' . $settings['catalog_link']) : '#') }}"
                             target="_blank" download class="catalog-btn">
+                            <span class="visually-hidden">Download Catalog</span>
                             <i class="fa-solid fa-file-arrow-down fa-bounce"></i>
                         </a>
                     </div>
@@ -306,20 +321,26 @@
 
 
         <a href="https://wa.me/962781101030" class="whatsapp-float" target="_blank" aria-label="Chat on WhatsApp">
+            <span class="visually-hidden">Chat on WhatsApp</span>
             <i class="fab fa-whatsapp"></i>
         </a>
     </div>
+    <script>
+        window.mapLocationsData = @json($mapLocations);
+    </script>
     <script src="js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/certificate.js"></script>
-    <script src="js/map.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+    <!-- AmCharts -->
+    <script src="https://cdn.amcharts.com/lib/5/index.js" defer></script>
+    <script src="https://cdn.amcharts.com/lib/5/map.js" defer></script>
+    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js" defer></script>
+    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" defer></script>
+    
+    <script src="js/main.js" defer></script>
+    <script src="js/certificate.js" defer></script>
+    <script src="js/map.js" defer></script>
 </body>
 
 </html>

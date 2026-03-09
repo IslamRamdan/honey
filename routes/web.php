@@ -4,10 +4,12 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\BranchController;
+use App\Http\Controllers\Admin\MapLocationController;
 use App\Http\Controllers\Admin\CertificateController;
 use App\Http\Controllers\Admin\CounterController;
 use App\Http\Controllers\Admin\FaqController;
 use App\Http\Controllers\Admin\PageController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -30,12 +32,13 @@ Route::get('/', function () {
     $sliders = Slider::active()->ordered()->get();
     // Exclude Jordan (JO), Iraq (IQ), Sudan (SD), Libya (LY) from the grid boxes
     $branches = Branch::active()->whereNotIn('country_code', ['JO', 'IQ', 'SD', 'LY'])->ordered()->get();
+    $mapLocations = \App\Models\MapLocation::active()->ordered()->get();
     $certificates = Certificate::active()->ordered()->get();
     $counters = Counter::active()->ordered()->get();
     $aboutBrief = Page::getBySlug('about-brief');
     $seo = \App\Models\SeoMeta::where('page', 'home')->first();
 
-    return view('welcome', compact('settings', 'sliders', 'branches', 'certificates', 'counters', 'aboutBrief', 'seo'));
+    return view('welcome', compact('settings', 'sliders', 'branches', 'mapLocations', 'certificates', 'counters', 'aboutBrief', 'seo'));
 })->name('home');
 
 Route::get('/sitemap.xml', function () {
@@ -65,25 +68,69 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('categories/{id}/products', [CategoryController::class, 'products'])->name('categories.products');
-    Route::resource('categories', CategoryController::class);
-    Route::resource('products', ProductController::class);
-
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::resource('seo', \App\Http\Controllers\Admin\SeoMetaController::class);
-        Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
-        Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
-        Route::resource('sliders', SliderController::class);
-        Route::resource('branches', BranchController::class);
-        Route::resource('certificates', CertificateController::class);
-        Route::resource('counters', CounterController::class);
-        Route::resource('faqs', FaqController::class);
-        Route::resource('pages', PageController::class);
-        Route::delete('pages/{page}/image/{index}', [PageController::class, 'deleteImage'])->name('pages.deleteImage');
-        Route::resource('activity_logs', \App\Http\Controllers\Admin\ActivityLogController::class)->only(['index', 'show']);
+    // Categories & Products (with permission middleware)
+    Route::middleware('permission:manage-categories')->group(function () {
+        Route::get('categories/{id}/products', [CategoryController::class, 'products'])->name('categories.products');
+        Route::resource('categories', CategoryController::class);
     });
 
-    Route::resource('users', UserController::class);
+    Route::middleware('permission:manage-products')->group(function () {
+        Route::resource('products', ProductController::class);
+    });
+
+    // Admin routes
+    Route::prefix('admin')->name('admin.')->group(function () {
+
+        Route::middleware('permission:manage-seo')->group(function () {
+            Route::resource('seo', \App\Http\Controllers\Admin\SeoMetaController::class);
+        });
+
+        Route::middleware('permission:manage-settings')->group(function () {
+            Route::get('settings', [SettingController::class, 'edit'])->name('settings.edit');
+            Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+        });
+
+        Route::middleware('permission:manage-sliders')->group(function () {
+            Route::resource('sliders', SliderController::class);
+        });
+
+        Route::middleware('permission:manage-branches')->group(function () {
+            Route::resource('branches', BranchController::class);
+            Route::resource('map_locations', MapLocationController::class);
+        });
+
+        Route::middleware('permission:manage-certificates')->group(function () {
+            Route::resource('certificates', CertificateController::class);
+            Route::delete('certificates/{certificate}/image/{index}', [CertificateController::class, 'deleteImage'])->name('certificates.deleteImage');
+        });
+
+        Route::middleware('permission:manage-counters')->group(function () {
+            Route::resource('counters', CounterController::class);
+        });
+
+        Route::middleware('permission:manage-faqs')->group(function () {
+            Route::resource('faqs', FaqController::class);
+        });
+
+        Route::middleware('permission:manage-pages')->group(function () {
+            Route::resource('pages', PageController::class);
+            Route::delete('pages/{page}/image/{index}', [PageController::class, 'deleteImage'])->name('pages.deleteImage');
+        });
+
+        Route::middleware('permission:view-activity-logs')->group(function () {
+            Route::resource('activity_logs', \App\Http\Controllers\Admin\ActivityLogController::class)->only(['index', 'show']);
+        });
+
+        // Roles management (requires manage-roles permission)
+        Route::middleware('permission:manage-roles')->group(function () {
+            Route::resource('roles', RoleController::class);
+        });
+    });
+
+    // Users management (requires manage-users permission)
+    Route::middleware('permission:manage-users')->group(function () {
+        Route::resource('users', UserController::class);
+    });
 });
 
 // من نحن
@@ -154,9 +201,11 @@ Route::get('/blog/{id}', function ($id) {
 
 Route::get('/categorey/{category}', [CategoryController::class, 'showProducts'])->name('categories.show.products');
 
-Route::resource('blogs', BlogController::class);
-Route::delete('blogs/{blog}/image/{index}', [BlogController::class, 'deleteImage'])->name('blogs.deleteImage');
-Route::delete('/blogs/{blog}/video/{index}', [BlogController::class, 'deleteVideo'])
-    ->name('blogs.video.delete');
+Route::middleware(['auth', 'permission:manage-blogs'])->group(function () {
+    Route::resource('blogs', BlogController::class);
+    Route::delete('blogs/{blog}/image/{index}', [BlogController::class, 'deleteImage'])->name('blogs.deleteImage');
+    Route::delete('/blogs/{blog}/video/{index}', [BlogController::class, 'deleteVideo'])
+        ->name('blogs.video.delete');
+});
 
 require __DIR__ . '/auth.php';

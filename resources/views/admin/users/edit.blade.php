@@ -1,0 +1,102 @@
+@extends('adminlte::page')
+
+@section('title', __('admin.edit_user'))
+
+@section('content_header')
+    <div class="d-flex justify-content-between align-items-center">
+        <h1>{{ __('admin.edit_user') }}</h1>
+        <a href="{{ route('users.index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-left"></i>
+            {{ __('admin.back') }}
+        </a>
+    </div>
+@stop
+
+@section('content')
+
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">{{ __('admin.edit_user') }}: {{ $user->name }}</h3>
+        </div>
+
+        <form action="{{ route('users.update', $user->id) }}" method="POST">
+            @csrf
+            @method('PUT')
+
+            <div class="card-body">
+
+                {{-- الاسم --}}
+                <div class="form-group">
+                    <label>{{ __('admin.name') }}</label>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
+                        value="{{ old('name', $user->name) }}" required>
+                    @error('name')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- البريد --}}
+                <div class="form-group">
+                    <label>{{ __('admin.email') }}</label>
+                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
+                        value="{{ old('email', $user->email) }}" required>
+                    @error('email')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- الدور --}}
+                <div class="form-group">
+                    <label>{{ __('admin.role') }}</label>
+                    <select name="role" class="form-control @error('role') is-invalid @enderror" required>
+                        <option value="">-- {{ __('admin.select_role') }} --</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}"
+                                {{ old('role', $userRole) == $role->name ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('role')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- كلمة المرور (اختياري) --}}
+                <div class="form-group">
+                    <label>{{ __('admin.password') }} <small class="text-muted">({{ __('admin.leave_empty_to_keep') }})</small></label>
+                    <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
+                    @error('password')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                {{-- تأكيد كلمة المرور --}}
+                <div class="form-group">
+                    <label>{{ __('admin.password_confirm') }}</label>
+                    <input type="password" name="password_confirmation" class="form-control">
+                </div>
+
+            </div>
+
+            <div class="card-footer">
+                <button class="btn btn-success">
+                    <i class="fas fa-save"></i>
+                    {{ __('admin.update') }}
+                </button>
+            </div>
+        </form>
+    </div>
+
+@stop
+
+@section('adminlte_css')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
+    @if (app()->getLocale() == 'ar')
+        <style>
+            [dir="rtl"] .main-sidebar { right: 0; left: auto; }
+            [dir="rtl"] .content-wrapper,
+            [dir="rtl"] .main-footer { margin-right: 250px; margin-left: 0; }
+        </style>
+    @endif
+@endsection

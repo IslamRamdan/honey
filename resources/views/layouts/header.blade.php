@@ -2,8 +2,8 @@
     <div class="container-lg ">
         <a class="navbar-brand" href="/">
             <div class="logo-icon">
-                <img src="{{ asset('assets/logo.png') }}" height="70" class="w-100 dark-logo">
-                <img src="{{ asset('assets/light-logo.png') }}" height="70" class="w-100 light-logo">
+                <img src="{{ asset('assets/logo.png') }}" width="153" height="70" class="w-100 dark-logo" alt="Bee and Honey Logo">
+                <img src="{{ asset('assets/light-logo.png') }}" width="153" height="70" class="w-100 light-logo" alt="Bee and Honey Logo Light">
             </div>
         </a>
 

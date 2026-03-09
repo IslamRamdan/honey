@@ -59,6 +59,7 @@
 $(function () {
     $('#slidersTable').DataTable({
         "responsive": true, "lengthChange": true, "autoWidth": false,
+        "order": [], // This prevents DataTables from overriding the controller's order
         "language": { "url": "{{ app()->getLocale() == 'ar' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : (app()->getLocale() == 'fr' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json' : (app()->getLocale() == 'es' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json' : '')) }}" }
     });
 });

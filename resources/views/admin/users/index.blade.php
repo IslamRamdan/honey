@@ -1,25 +1,38 @@
 @extends('adminlte::page')
 
-@section('title', __('messages.users'))
+@section('title', __('admin.users'))
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1>{{ __('messages.users') }}</h1>
+        <h1>{{ __('admin.users') }}</h1>
 
         <a href="{{ route('users.create') }}" class="btn btn-success">
             <i class="fas fa-user-plus"></i>
-            {{ __('messages.add_user') }}
+            {{ __('admin.add_user') }}
         </a>
     </div>
 @stop
 
-
 @section('plugins.Datatables', true)
 @section('content')
 
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+    @endif
+
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+        </div>
+    @endif
+
     <div class="card card-outline card-primary">
         <div class="card-header border-0 pb-0">
-            <h3 class="card-title m-0">{{ __('messages.users_list') }}</h3>
+            <h3 class="card-title m-0">{{ __('admin.manage_users') }}</h3>
         </div>
 
         <div class="card-body">
@@ -27,10 +40,11 @@
                 <thead class="bg-light">
                     <tr>
                         <th>#</th>
-                        <th>{{ __('messages.user') }}</th>
-                        <th>{{ __('messages.email') }}</th>
-                        <th>{{ __('messages.created_at') }}</th>
-                        <th>{{ __('messages.actions') }}</th>
+                        <th>{{ __('admin.name') }}</th>
+                        <th>{{ __('admin.email') }}</th>
+                        <th>{{ __('admin.role') }}</th>
+                        <th>{{ __('admin.date') }}</th>
+                        <th>{{ __('admin.actions') }}</th>
                     </tr>
                 </thead>
 
@@ -45,22 +59,36 @@
 
                             <td>{{ $user->email }}</td>
 
+                            <td>
+                                @foreach($user->roles as $role)
+                                    <span class="badge badge-{{ $role->name === 'super-admin' ? 'danger' : ($role->name === 'admin' ? 'primary' : 'success') }}">
+                                        {{ $role->name }}
+                                    </span>
+                                @endforeach
+                            </td>
+
                             <td>{{ $user->created_at->format('Y-m-d') }}</td>
 
                             <td>
-                                <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"
-                                        onclick="return confirm('{{ __('messages.confirm_delete') }}')">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </form>
+                                <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+
+                                @if(auth()->id() !== $user->id)
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button class="btn btn-sm btn-danger"
+                                            onclick="return confirm('{{ __('admin.confirm_delete') }}')">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5">{{ __('messages.no_users') }}</td>
+                            <td colspan="6">{{ __('admin.no_users') }}</td>
                         </tr>
                     @endforelse
                 </tbody>

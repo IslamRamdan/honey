@@ -3,14 +3,14 @@
             <div class="row g-2 align-items-stretch  justify-content-start">
                 <div class="col-lg-4 col-md-6 d-flex align-items-center justify-content-center">
                     <div class="footer-logo d-flex align-items-center gap-0">
-                        <img src="{{ asset('assets/footer-logo.png') }}" class="w-100" alt="ee and honey" height="300">
+                        <img src="{{ asset('assets/footer-logo.png') }}" width="200" height="300" class="w-100" alt="ee and honey">
                     </div>
                 </div>
 
                 <div class="col-lg-2 col-md-6">
-                    <h5 class="footer-title" data-en="Links" data-ar="روابط" data-es="Enlaces" data-fr="Liens">
+                    <h3 class="footer-title" data-en="Links" data-ar="روابط" data-es="Enlaces" data-fr="Liens">
                         Links
-                    </h5>
+                    </h3>
 
                     <ul class="footer-links">
                         <li>
@@ -57,10 +57,10 @@
 
                 </div>
                 <div class="col-lg-2 col-md-6">
-                    <h5 class="footer-title" data-en="Products" data-ar="المنتجات" data-es="Productos"
+                    <h3 class="footer-title" data-en="Products" data-ar="المنتجات" data-es="Productos"
                         data-fr="Produits">
                         Products
-                    </h5>
+                    </h3>
 
                     <ul class="footer-links">
                         @foreach (\App\Models\Category::latest()->take(3)->get() as $category)

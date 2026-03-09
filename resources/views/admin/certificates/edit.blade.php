@@ -14,14 +14,21 @@
                 </div>
                 <div class="form-group">
                     <label>{{ __('admin.full_images') }}</label>
-                    <input type="file" name="full_images[]" class="form-control" accept="image/*" multiple>
-                    @if($certificate->full_images)
-                        <div class="mt-2 d-flex flex-wrap gap-2">
-                            @foreach($certificate->full_images as $img)
-                                <img src="{{ asset('storage/' . $img) }}" height="80" class="border rounded" alt="cert">
+                    @if(!empty($certificate->full_images))
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            @foreach($certificate->full_images as $index => $img)
+                                <div class="position-relative" style="width:150px;height:150px" data-index="{{ $index }}">
+                                    <img src="{{ asset('storage/' . $img) }}" class="w-100 h-100 rounded border" style="object-fit:cover">
+                                    <button type="button" class="btn btn-danger btn-sm delete-image"
+                                        style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)">
+                                        ×
+                                    </button>
+                                </div>
                             @endforeach
                         </div>
                     @endif
+                    <input type="file" name="full_images[]" class="form-control" accept="image/*" multiple>
+                    <small class="text-muted">{{ __('messages.add_new_images_note') ?? 'يمكنك إضافة صور جديدة بدون حذف القديمة. (لاختيار أكثر من صورة، قم بتحديدهم جميعاً معاً)' }}</small>
                 </div>
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -41,4 +48,23 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('js')
+<script>
+    // حذف صورة الشهادة
+    document.querySelectorAll('.delete-image').forEach(btn => {
+        btn.onclick = function() {
+            if (!confirm('{{ __("messages.delete_image_confirm") ?? "هل أنت متأكد من حذف هذه الصورة؟" }}')) return;
+            let box = this.closest('[data-index]');
+            fetch(`/admin/certificates/{{ $certificate->id }}/image/${box.dataset.index}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            }).then(() => box.remove());
+        };
+    });
+</script>
 @endsection

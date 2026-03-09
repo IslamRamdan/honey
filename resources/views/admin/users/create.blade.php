@@ -1,14 +1,14 @@
 @extends('adminlte::page')
 
-@section('title', __('messages.create_user'))
+@section('title', __('admin.add_user'))
 
 @section('content_header')
     <div class="d-flex justify-content-between align-items-center">
-        <h1>{{ __('messages.create_user') }}</h1>
+        <h1>{{ __('admin.add_user') }}</h1>
 
         <a href="{{ route('users.index') }}" class="btn btn-secondary">
             <i class="fas fa-arrow-left"></i>
-            {{ __('messages.back') }}
+            {{ __('admin.back') }}
         </a>
     </div>
 @stop
@@ -17,7 +17,7 @@
 
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">{{ __('messages.user_information') }}</h3>
+            <h3 class="card-title">{{ __('admin.add_user_title') }}</h3>
         </div>
 
         <form action="{{ route('users.store') }}" method="POST">
@@ -27,7 +27,7 @@
 
                 {{-- الاسم --}}
                 <div class="form-group">
-                    <label>{{ __('messages.name') }}</label>
+                    <label>{{ __('admin.name') }}</label>
                     <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                         value="{{ old('name') }}" required>
 
@@ -38,7 +38,7 @@
 
                 {{-- البريد --}}
                 <div class="form-group">
-                    <label>{{ __('messages.email') }}</label>
+                    <label>{{ __('admin.email') }}</label>
                     <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
                         value="{{ old('email') }}" required>
 
@@ -47,9 +47,27 @@
                     @enderror
                 </div>
 
+                {{-- الدور --}}
+                <div class="form-group">
+                    <label>{{ __('admin.role') }}</label>
+                    <select name="role" class="form-control @error('role') is-invalid @enderror" required>
+                        <option value="">-- {{ __('admin.select_role') }} --</option>
+                        @foreach($roles as $role)
+                            <option value="{{ $role->name }}"
+                                {{ old('role') == $role->name ? 'selected' : '' }}>
+                                {{ $role->name }}
+                            </option>
+                        @endforeach
+                    </select>
+
+                    @error('role')
+                        <span class="invalid-feedback">{{ $message }}</span>
+                    @enderror
+                </div>
+
                 {{-- كلمة المرور --}}
                 <div class="form-group">
-                    <label>{{ __('messages.password') }}</label>
+                    <label>{{ __('admin.password') }}</label>
                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
                         required>
 
@@ -60,7 +78,7 @@
 
                 {{-- تأكيد كلمة المرور --}}
                 <div class="form-group">
-                    <label>{{ __('messages.password_confirmation') }}</label>
+                    <label>{{ __('admin.password_confirm') }}</label>
                     <input type="password" name="password_confirmation" class="form-control" required>
                 </div>
 
@@ -69,7 +87,7 @@
             <div class="card-footer">
                 <button class="btn btn-success">
                     <i class="fas fa-save"></i>
-                    {{ __('messages.save') }}
+                    {{ __('admin.save') }}
                 </button>
             </div>
         </form>

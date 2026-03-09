@@ -84,4 +84,15 @@ class CertificateController extends Controller
         $certificate->delete();
         return back()->with('success', 'تم الحذف بنجاح');
     }
+
+    public function deleteImage(Certificate $certificate, $index)
+    {
+        $images = $certificate->full_images ?? [];
+        if (isset($images[$index])) {
+            \Illuminate\Support\Facades\Storage::disk('public')->delete($images[$index]);
+            unset($images[$index]);
+            $certificate->update(['full_images' => array_values($images)]);
+        }
+        return back()->with('success', 'تم حذف الصورة بنجاح');
+    }
 }

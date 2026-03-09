@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
+use Spatie\Permission\Traits\HasRoles;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -12,7 +13,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use LogsActivity;
+    use LogsActivity, HasRoles;
 
     public function getActivitylogOptions(): LogOptions
     {
@@ -58,3 +59,4 @@ class User extends Authenticatable
         ];
     }
 }
+
