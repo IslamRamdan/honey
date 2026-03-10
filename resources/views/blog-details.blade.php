@@ -179,18 +179,12 @@
 
                         @foreach ($videos as $index => $video)
                             @if ($video)
-                                <div class="video-container" data-bs-toggle="modal" data-bs-target="#videoModal">
-                                    {{-- <img src="{{ asset('assets/category-1.jpg') }}" alt="Video Thumbnail"> --}}
-                                    <div class="modal-body p-0 position-relative">
-                                        <button type="button" class="btn-close custom-close" data-bs-dismiss="modal"
-                                            aria-label="Close"><i class="fas fa-xmark"></i></button>
-
-                                        <div class="ratio ratio-16x9">
-                                            <video controls autoplay>
-                                                <source src="{{ asset('videos/blogs/' . $video) }}" type="video/mp4">
-                                                المتصفح لا يدعم تشغيل الفيديو
-                                            </video>
-                                        </div>
+                                <div class="video-wrapper mt-4 mt-lg-5 mb-0 rounded overflow-hidden shadow-sm w-100" data-aos="fade-up">
+                                    <div class="ratio ratio-16x9">
+                                        <video controls preload="metadata">
+                                            <source src="{{ asset('videos/blogs/' . $video) }}" type="video/mp4">
+                                            المتصفح لا يدعم تشغيل الفيديو
+                                        </video>
                                     </div>
                                 </div>
                             @endif
@@ -205,8 +199,22 @@
                     </div>
                 </div>
                 <div class="col-lg-4" data-aos="fade-up">
+                    {{-- الصور الإضافية --}}
+                    @if (!empty($blog->images))
+                        <div class="latest-news-card p-4 rounded-4 mb-4">
+                            <div class="d-flex flex-column gap-3">
+                                @foreach (array_slice($blog->images, 0, 4) as $img)
+                                    <div class="w-100" data-aos="fade-up">
+                                        <img src="{{ asset('images/blogs/' . $img) }}" class="rounded border w-100"
+                                            style="object-fit: cover; max-height: 400px;" alt="Additional Image">
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
                     <div class="latest-news-card p-4 rounded-4 mb-5">
-                        <h2 class="mb-3" data-en="Latest News" data-ar="آخر الأخبار" data-es="Últimas Noticias"
+                        <h2 class="mb-3 mt-0" data-en="Latest News" data-ar="آخر الأخبار" data-es="Últimas Noticias"
                             data-fr="Dernières Nouvelles">
                             Latest News
                         </h2>
@@ -229,23 +237,6 @@
                                 </div>
                             </a>
                         @endforeach
-
-                        {{-- الصور الإضافية --}}
-                        @if (!empty($blog->images))
-                            <h2 class="mt-4 mb-3" data-en="Additional Images" data-ar="صور إضافية"
-                                data-es="Imágenes Adicionales" data-fr="Images Supplémentaires">
-                                Additional Images
-                            </h2>
-
-                            <div class="d-flex flex-column gap-3">
-                                @foreach (array_slice($blog->images, 0, 4) as $img)
-                                    <div class="w-100" data-aos="fade-up">
-                                        <img src="{{ asset('images/blogs/' . $img) }}" class="rounded border w-100"
-                                            style="object-fit: cover; max-height: 400px;" alt="Additional Image">
-                                    </div>
-                                @endforeach
-                            </div>
-                        @endif
 
                     </div>
                 </div>
