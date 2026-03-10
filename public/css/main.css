@@ -3033,3 +3033,6 @@ body {
     font-variant-numeric: lining-nums;
     unicode-bidi: plaintext;
 }
+/* Fix Mobile Layout */
+html, body { overflow-x: hidden !important; width: 100vw; max-width: 100%; }
+@media (max-width: 768px) { .about-content { padding-top: 50px !important; } .hero { min-height: 50vh !important; } .hero-inner { min-height: 50vh !important; } .counters { padding-bottom: 20px !important; } }
