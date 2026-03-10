@@ -59,7 +59,8 @@
 
     <section class="hero">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline preload="none" poster="{{ asset('assets/logo.png') }}" class="hero-video" id="heroVideo">
+            <video autoplay muted loop playsinline preload="auto" poster="{{ asset('assets/logo.png') }}" class="hero-video" id="heroVideo">
+                <source src="{{ !empty($settings["hero_video"]) ? asset("storage/" . $settings["hero_video"]) : asset("assets/website-video.mp4") }}" type="video/mp4">
             </video>
         </div>
         @include('layouts.header')
@@ -334,19 +335,6 @@
     <script src="js/main.js" defer></script>
     <script src="js/certificate.js" defer></script>
 
-    <!-- Deferred Hero Video Loading -->
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var v = document.getElementById('heroVideo');
-        if (v) {
-            var s = document.createElement('source');
-            s.src = '{{ !empty($settings["hero_video"]) ? asset("storage/" . $settings["hero_video"]) : asset("assets/website-video.mp4") }}';
-            s.type = 'video/mp4';
-            v.appendChild(s);
-            v.load();
-        }
-    });
-    </script>
 
     <!-- Map Scripts (deferred) -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
