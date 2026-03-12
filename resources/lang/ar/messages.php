@@ -44,6 +44,8 @@ return [
   'category' => 'التصنيف',
   'select_category' => 'اختر التصنيف',
   'no_category' => 'بدون تصنيف',
+  'sort_order' => 'ترتيب الظهور',
+  'smallest_value_first' => 'القيمة الأصغر تظهر أولاً',
 
   // Products
   'products' => 'المنتجات',

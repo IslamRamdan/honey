@@ -45,6 +45,8 @@ return [
   'category' => 'Category',
   'select_category' => 'Select Category',
   'no_category' => 'No Category',
+  'sort_order' => 'Sort Order',
+  'smallest_value_first' => 'Smallest value appears first',
 
   // Products
   'products' => 'Products',

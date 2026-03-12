@@ -75,9 +75,9 @@
 
             {{-- ترتيب الظهور --}}
             <div class="form-group mb-3">
-                <label><i class="fas fa-sort-numeric-down text-warning"></i> ترتيب الظهور</label>
-                <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', $category->sort_order) }}" min="0" placeholder="0 = أول قسم">
-                <small class="form-text text-muted">القيمة الأصغر تظهر أولاً</small>
+                <label><i class="fas fa-sort-numeric-down text-warning"></i> {{ __('messages.sort_order') }}</label>
+                <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', $category->sort_order) }}" min="0" placeholder="0">
+                <small class="form-text text-muted">{{ __('messages.smallest_value_first') }}</small>
             </div>
 
             <button type="submit" class="btn btn-success mt-3">
