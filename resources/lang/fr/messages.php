@@ -44,6 +44,8 @@ return [
   'category' => 'Catégorie',
   'select_category' => 'Sélectionner une Catégorie',
   'no_category' => 'Aucune Catégorie',
+  'sort_order' => 'Ordre de tri',
+  'smallest_value_first' => 'La plus petite valeur apparaît en premier',
 
   // Products
   'products' => 'Produits',
