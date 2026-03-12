@@ -60,7 +60,19 @@ Route::get('locale/{locale}', function ($locale) {
 })->name('locale.switch');
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $stats = [
+        'categories' => Category::count(),
+        'products' => Product::count(),
+        'blogs' => Blog::count(),
+        'sliders' => Slider::count(),
+        'branches' => Branch::count(),
+        'pages' => Page::count(),
+        'users' => \App\Models\User::count(),
+        'certificates' => Certificate::count(),
+        'counters' => Counter::count(),
+        'faqs' => Faq::count(),
+    ];
+    return view('dashboard', compact('stats'));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -71,6 +83,7 @@ Route::middleware('auth')->group(function () {
     // Categories & Products (with permission middleware)
     Route::middleware('permission:manage-categories')->group(function () {
         Route::get('categories/{id}/products', [CategoryController::class, 'products'])->name('categories.products');
+        Route::post('categories/reorder', [CategoryController::class, 'reorder'])->name('categories.reorder');
         Route::resource('categories', CategoryController::class);
     });
 

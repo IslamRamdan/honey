@@ -29,7 +29,15 @@ class Category extends Model
         'description_fr',
         'description_es',
         'image',
+        'sort_order',
     ];
+
+    protected static function booted(): void
+    {
+        static::addGlobalScope('ordered', function ($builder) {
+            $builder->orderBy('sort_order');
+        });
+    }
 
     public function products()
     {

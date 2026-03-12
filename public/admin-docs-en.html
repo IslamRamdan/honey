@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Admin Panel Guide | Bee & Honey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ffc107; --dark: #343a40; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Roboto', sans-serif; background: #e9ecef; color: #333; line-height: 1.6; font-size: 13px; }
+        .page { width: 210mm; height: 297mm; margin: 15px auto; padding: 12mm 16mm 16mm; background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.12); position: relative; overflow: hidden; page-break-after: always; }
+        .page:last-child { page-break-after: auto; }
+        .pg { position: absolute; bottom: 6mm; left: 0; right: 0; text-align: center; font-size: 10px; color: #999; border-top: 1px solid #eee; padding-top: 3px; margin: 0 16mm; }
+        .cover { text-align: center; padding-top: 35mm; }
+        .cover img { max-width: 200px; margin-bottom: 20px; }
+        .cover h1 { font-size: 2rem; color: var(--dark); margin-bottom: 8px; }
+        .cover .sub { color: #6c757d; font-size: 1rem; margin-bottom: 20px; }
+        .cover .author { display: inline-block; background: var(--primary); color: #212529; padding: 8px 25px; border-radius: 50px; font-weight: 700; }
+        .cover .motto { margin-top: 25px; font-size: 0.88rem; color: #e65100; }
+        .sh { display: flex; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 6px; margin-bottom: 10px; }
+        .sn { background: var(--primary); color: #fff; min-width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; margin-right: 8px; flex-shrink: 0; }
+        .st { font-size: 1.15rem; color: var(--dark); font-weight: 700; }
+        h3 { color: #d39e00; font-size: 0.9rem; margin: 10px 0 5px; border-left: 3px solid var(--primary); padding: 2px 8px; background: #fffdf5; border-radius: 3px; }
+        p { margin: 0 0 5px; font-size: 12px; } ul { padding-inline-start: 16px; margin: 0 0 5px; } li { margin-bottom: 2px; font-size: 12px; }
+        .badge { display: inline-block; padding: 0 4px; border-radius: 2px; font-size: 0.75rem; font-weight: 700; }
+        .ba { background: #e8f5e9; color: #2e7d32; } .be { background: #fff8e1; color: #f57f17; } .bd { background: #ffebee; color: #c62828; } .bv { background: #e3f2fd; color: #1565c0; }
+        .note { background: #fffdf5; border-left: 3px solid var(--primary); padding: 4px 8px; border-radius: 3px; margin: 5px 0; font-size: 0.78rem; }
+        .warn { background: #fff3e0; border-left: 3px solid #e65100; padding: 4px 8px; border-radius: 3px; margin: 5px 0; font-size: 0.78rem; }
+        .ss { margin: 5px 0; text-align: center; } .ss img { max-width: 100%; height: auto; max-height: 165px; border-radius: 3px; border: 1px solid #ddd; object-fit: contain; } .sc { font-size: 0.65rem; color: #aaa; margin-top: 1px; }
+        .sr { display: flex; gap: 5px; margin: 5px 0; } .sr .ss { flex: 1; margin: 0; } .sr .ss img { max-height: 140px; }
+        .lb { background: #f0f7ff; border: 2px solid #1976d2; border-radius: 5px; padding: 6px 10px; margin: 5px 0; font-size: 12px; }
+        .lb code { background: #e3f2fd; padding: 1px 5px; border-radius: 3px; font-weight: 700; }
+        .toc { list-style: none; padding: 0; } .toc li { padding: 5px 0; border-bottom: 1px dotted #ddd; font-size: 12px; } .toc li span { float: right; color: #999; }
+        .toc a { color: #333; text-decoration: none; } .toc a:hover { color: var(--primary); text-decoration: underline; }
+        hr.sep { margin: 8px 0; border: none; border-top: 1px solid #eee; }
+        .ft { width: 100%; border-collapse: collapse; margin: 4px 0; font-size: 11px; }
+        .ft th { background: #f8f9fa; text-align: left; padding: 3px 6px; border: 1px solid #dee2e6; font-weight: 700; }
+        .ft td { padding: 3px 6px; border: 1px solid #dee2e6; } .ft tr:nth-child(even) td { background: #fafafa; }
+        @page { size: A4; margin: 0; }
+        @media print { body { background: #fff; } .page { box-shadow: none; margin: 0; width: 100%; }
+            .sn, .cover .author { background: var(--primary) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .badge, .note, .warn, .lb, .ft th, h3 { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+    </style>
+</head>
+<body>
+
+<div class="page">
+    <div class="cover">
+        <img src="assets/logo.png" alt="Bee & Honey Logo">
+        <h1>Comprehensive Admin Panel Guide</h1>
+        <div class="sub">"Bee & Honey" CMS | Version 1.0</div>
+        <div class="author">Developed & Documented by: Ahmad Al-Alawneh</div>
+        <div class="motto">"Precise documentation of every button, field, and text box in the admin panel"</div>
+    </div>
+    <div class="pg">Page 1</div>
+</div>
+
+<div class="page">
+    <div class="sh"><div class="sn">📋</div><div class="st">Table of Contents</div></div>
+    <ul class="toc">
+        <li><a href="#e0">0. How to Access the Admin Panel</a> <span>3</span></li>
+        <li><a href="#e1">1. Dashboard</a> <span>3</span></li>
+        <li><a href="#e2">2. Categories — List + Add</a> <span>4</span></li>
+        <li><a href="#e2b">2. Categories — Edit + Delete</a> <span>5</span></li>
+        <li><a href="#e3">3. Products — List + Add</a> <span>6</span></li>
+        <li><a href="#e3b">3. Products — Edit + Delete</a> <span>6</span></li>
+        <li><a href="#e4">4. Blogs & News — List + Add</a> <span>7</span></li>
+        <li><a href="#e4b">4. Blogs — Edit</a> <span>8</span></li>
+        <li><a href="#e5">5. Sliders</a> <span>8</span></li>
+        <li><a href="#e6">6. Dynamic Pages</a> <span>9</span></li>
+        <li><a href="#e7">7. Branches & Agents</a> <span>9</span></li>
+        <li><a href="#e8">8. Map Locations + 9. Settings</a> <span>10</span></li>
+        <li><a href="#e10">10. Certificates + 11. Counters</a> <span>11</span></li>
+        <li><a href="#e12">12. FAQs + 13. SEO</a> <span>12</span></li>
+        <li><a href="#e14">14. Roles & Permissions</a> <span>13</span></li>
+        <li><a href="#e15">15. Users + 16. Activity Logs</a> <span>14</span></li>
+    </ul>
+    <div class="pg">Page 2</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e0"><div class="sn">0</div><div class="st">How to Access the Admin Panel</div></div>
+    <p>Open your browser and navigate to the following URL:</p>
+    <div class="lb"><strong>Login URL:</strong> <code>https://beeandhoney.com/login</code></div>
+    <div class="ss"><img src="docs-assets/login-en.png" alt="Login"><div class="sc">Login Screen</div></div>
+    <table class="ft">
+        <tr><th>Element</th><th>Description</th><th>Notes</th></tr>
+        <tr><td>Email field</td><td>Registered email address</td><td>Required</td></tr>
+        <tr><td>Password field</td><td>Account password</td><td>Required</td></tr>
+        <tr><td>Remember me</td><td>Stay logged in on this device</td><td>Optional</td></tr>
+        <tr><td>Forgot password?</td><td>Password recovery via email</td><td>Sends reset link</td></tr>
+        <tr><td>LOG IN button</td><td>Submit credentials</td><td>Redirects to Dashboard</td></tr>
+    </table>
+    <div class="note">⚠️ If you forget your password, contact the system administrator.</div>
+    <hr class="sep">
+    <div class="sh" id="e1"><div class="sn">1</div><div class="st">Dashboard</div></div>
+    <p>The first screen after login. Displays real-time statistics for all sections via 10 colored boxes.</p>
+    <div class="ss"><img src="docs-assets/dashboard-en.png" alt="Dashboard"><div class="sc">Dashboard with statistics overview</div></div>
+    <table class="ft">
+        <tr><th>Box</th><th>Color</th><th>Function</th></tr>
+        <tr><td>Categories</td><td>Yellow</td><td>Count + direct link</td></tr>
+        <tr><td>Products</td><td>Green</td><td>Count + direct link</td></tr>
+        <tr><td>Blogs</td><td>Gray</td><td>Count + direct link</td></tr>
+        <tr><td>Users</td><td>Orange</td><td>Count + direct link</td></tr>
+        <tr><td>Sliders / Pages / Branches / Certs / Counters / FAQ</td><td>Various</td><td>Count + direct link</td></tr>
+    </table>
+    <ul>
+        <li><strong>"More Info" ⊕:</strong> Navigates directly to that section.</li>
+        <li><strong>Welcome message:</strong> Top banner "Welcome, [name]!". <strong>Navbar:</strong> Username + ☰ toggle.</li>
+    </ul>
+    <div class="pg">Page 3</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e2"><div class="sn">2</div><div class="st">Categories Management</div></div>
+    <p>Categories are the main product sections. A product cannot exist without a parent category.</p>
+    <h3>List Page:</h3>
+    <div class="ss"><img src="docs-assets/categories-en.png" alt="Categories"><div class="sc">Categories table with actions</div></div>
+    <table class="ft">
+        <tr><th>Column</th><th>Description</th></tr>
+        <tr><td>#</td><td>Auto sequential number</td></tr>
+        <tr><td>Name (AR/EN/FR/ES)</td><td>Category name per language</td></tr>
+        <tr><td>Sort Order</td><td>Display priority (lower = first)</td></tr>
+        <tr><td>Products Count</td><td>Clickable → opens filtered products</td></tr>
+        <tr><td>Image</td><td>60×60px thumbnail</td></tr>
+        <tr><td>Actions</td><td><span class="badge be">Edit</span> <span class="badge bd">Delete</span></td></tr>
+    </table>
+    <p><strong>"Add New" ➕:</strong> Top-right of table — opens the create form.</p>
+    <h3>Add Form:</h3>
+    <div class="ss"><img src="docs-assets/categories-create-en.png" alt="Add"><div class="sc">Add Category — language tabs</div></div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>Name (Arabic) *</td><td>Text</td><td>Yes</td><td>Arabic category name</td></tr>
+        <tr><td>Name (EN/FR/ES)</td><td>Text</td><td>No</td><td>Via separate language tabs</td></tr>
+        <tr><td>Image</td><td>File upload</td><td>No</td><td>Representative image</td></tr>
+        <tr><td>Sort Order</td><td>Number</td><td>No</td><td>0 = appears first</td></tr>
+    </table>
+    <p><strong>Buttons:</strong> <span class="badge ba">Save Category</span> + <span class="badge bv">Back</span></p>
+    <div class="pg">Page 4</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e2b"><div class="sn">2</div><div class="st">Categories (cont.) — Edit & Delete</div></div>
+    <h3>Edit Category:</h3>
+    <div class="ss"><img src="docs-assets/categories-edit-en.png" alt="Edit"><div class="sc">Edit Category — fields pre-filled with current data</div></div>
+    <ul>
+        <li><strong>Names:</strong> Pre-filled in all 4 languages — edit any independently.</li>
+        <li><strong>"Current Image":</strong> Shows uploaded image. Use "Change Image" to replace.</li>
+        <li><strong>Sort Order:</strong> Change to reorder display on website.</li>
+    </ul>
+    <p><strong>Buttons:</strong> <span class="badge ba">Update Category</span> + <span class="badge bv">Back</span></p>
+    <h3>Delete Category:</h3>
+    <ul>
+        <li>Click <span class="badge bd">Delete</span> → SweetAlert confirmation appears.</li>
+        <li>Message: <strong>"Are you sure?"</strong> — cannot undo.</li>
+        <li>Options: <span class="badge bd">Yes, delete!</span> or <span class="badge bv">Cancel</span>.</li>
+        <li><strong>Warning:</strong> If category has products, their display may be affected!</li>
+    </ul>
+    <div class="warn">⚠️ Deletion is permanent and irreversible — always confirm before deleting.</div>
+    <hr class="sep">
+    <div class="sh" id="e3"><div class="sn">3</div><div class="st">Products Management</div></div>
+    <h3>List Page:</h3>
+    <div class="ss"><img src="docs-assets/products-en.png" alt="Products"><div class="sc">Products table with categories and images</div></div>
+    <table class="ft">
+        <tr><th>Column</th><th>Description</th></tr>
+        <tr><td>#</td><td>Sequential number</td></tr>
+        <tr><td>Title (AR/EN/FR/ES)</td><td>Product title per language</td></tr>
+        <tr><td>Category</td><td>Parent category name</td></tr>
+        <tr><td>Image</td><td>Product thumbnail</td></tr>
+        <tr><td>Actions</td><td><span class="badge be">Edit</span> <span class="badge bd">Delete</span></td></tr>
+    </table>
+    <div class="pg">Page 5</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e3"><div class="sn">3</div><div class="st">Products (cont.) — Add & Edit</div></div>
+    <h3>Add Product Form:</h3>
+    <div class="ss"><img src="docs-assets/products-create-en.png" alt="Add"><div class="sc">Add Product — images upload + language tabs</div></div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>Category</td><td>Dropdown</td><td>Yes</td><td>Select parent category</td></tr>
+        <tr><td>Product Images</td><td>Multi-file</td><td>No</td><td>Displayed as slider on product page</td></tr>
+        <tr><td>Title (Arabic) *</td><td>Text</td><td>Yes</td><td>Product name</td></tr>
+        <tr><td>Description (Arabic) *</td><td>Rich editor</td><td>Yes</td><td>Marketing description</td></tr>
+        <tr><td>Sizes</td><td>Text</td><td>No</td><td>e.g., 250g, 500g, 1Kg</td></tr>
+    </table>
+    <p>↑ Title + Description + Sizes repeat in 4 tabs: <span class="badge bv">AR</span> <span class="badge bv">EN</span> <span class="badge bv">FR</span> <span class="badge bv">ES</span></p>
+    <div class="note">💡 Upload multiple images at once — they appear as an automatic slider gallery.</div>
+    <hr class="sep">
+    <div class="sh" id="e3b"><div class="sn">3</div><div class="st">Products — Edit & Delete</div></div>
+    <div class="ss"><img src="docs-assets/products-edit-en.png" alt="Edit"><div class="sc">Edit Product — current images with delete and replace options</div></div>
+    <ul>
+        <li><strong>Current images:</strong> Thumbnails + <span class="badge bd">✕</span> to delete individually.</li>
+        <li><strong>Upload new:</strong> "Choose Files" adds without removing old ones.</li>
+        <li><strong>Delete:</strong> <span class="badge bd">Delete</span> → SweetAlert → permanent removal.</li>
+    </ul>
+    <div class="pg">Page 6</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e4"><div class="sn">4</div><div class="st">Blogs & News Management</div></div>
+    <h3>List Page:</h3>
+    <div class="ss"><img src="docs-assets/blogs-en.png" alt="Blogs"><div class="sc">Blogs table — title, status, cover image</div></div>
+    <table class="ft">
+        <tr><th>Column</th><th>Description</th></tr>
+        <tr><td>#</td><td>Auto sequential number</td></tr>
+        <tr><td>Title</td><td>Article title</td></tr>
+        <tr><td>Status</td><td>"News" or "Blog"</td></tr>
+        <tr><td>Image</td><td>Cover thumbnail</td></tr>
+        <tr><td>Actions</td><td><span class="badge be">Edit</span> <span class="badge bd">Delete</span></td></tr>
+    </table>
+    <h3>Add Blog/News Form:</h3>
+    <div class="ss"><img src="docs-assets/blogs-create-en.png" alt="Add"><div class="sc">Add Blog — image/video uploads + CKEditor</div></div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>Main Image</td><td>File</td><td>No</td><td>Cover image</td></tr>
+        <tr><td>Additional Images</td><td>Multi-file</td><td>No</td><td>Image gallery</td></tr>
+        <tr><td>Videos</td><td>File</td><td>No</td><td>Max 2 (mp4, webm, ogg, mov)</td></tr>
+        <tr><td>Status</td><td>Dropdown</td><td>Yes</td><td>"News" or "Blog"</td></tr>
+        <tr><td>Title (Arabic) *</td><td>Text</td><td>Yes</td><td>Main article title</td></tr>
+        <tr><td>Description (Arabic) *</td><td>CKEditor</td><td>Yes</td><td>Rich editor (formatting, images, links)</td></tr>
+        <tr><td>SEO Title / Desc / Keywords</td><td>Text</td><td>No</td><td>Search engine optimization</td></tr>
+    </table>
+    <p>↑ Content + SEO fields repeat in 4 language tabs.</p>
+    <div class="pg">Page 7</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e4b"><div class="sn">4</div><div class="st">Blogs (cont.) — Edit</div></div>
+    <div class="ss"><img src="docs-assets/blogs-edit-en.png" alt="Edit"><div class="sc">Edit Blog — current images, videos & formatted content</div></div>
+    <ul>
+        <li><strong>Current images:</strong> Thumbnails + <span class="badge bd">✕</span> to delete individually.</li>
+        <li><strong>Current videos:</strong> Mini player + <span class="badge bd">✕</span> to remove.</li>
+        <li><strong>CKEditor:</strong> Content pre-filled and formatted, ready for editing.</li>
+        <li><strong>SEO fields:</strong> Pre-filled with saved data—update anytime.</li>
+    </ul>
+    <p><strong>Buttons:</strong> <span class="badge ba">Update Blog</span> + <span class="badge bv">Back</span></p>
+    <div class="warn">⚠️ Delete: <span class="badge bd">Delete</span> → SweetAlert → irreversible.</div>
+    <hr class="sep">
+    <div class="sh" id="e5"><div class="sn">5</div><div class="st">Sliders Management</div></div>
+    <p>Wide banners at the top of the homepage — add, reorder, and toggle each slider.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/sliders-en.png" alt="Sliders"><div class="sc">Sliders list</div></div>
+        <div class="ss"><img src="docs-assets/sliders-create-en.png" alt="Add"><div class="sc">Add Slider</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Banner Image</td><td>File upload</td><td>Wide homepage image</td></tr>
+        <tr><td>Alt Text (4 langs)</td><td>Text</td><td>For SEO & screen readers</td></tr>
+        <tr><td>Sort Order</td><td>Number</td><td>Display priority</td></tr>
+        <tr><td>Active toggle</td><td>Checkbox</td><td>Show/hide without deleting</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/sliders-edit-en.png" alt="Edit"><div class="sc">Edit Slider — current image with replace option</div></div>
+    <div class="pg">Page 8</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e6"><div class="sn">6</div><div class="st">Dynamic Pages Content</div></div>
+    <p>Controls "static" website text (About, Vision, Mission) — managed remotely from the admin panel.</p>
+    <div class="ss"><img src="docs-assets/pages-en.png" alt="Pages"><div class="sc">Dynamic pages list</div></div>
+    <h3>Edit Page:</h3>
+    <div class="ss"><img src="docs-assets/pages-edit-en.png" alt="Edit"><div class="sc">Edit dynamic page content</div></div>
+    <table class="ft">
+        <tr><th>Field</th><th>Description</th></tr>
+        <tr><td>Slug</td><td>Fixed identifier like about-brief — <strong>NEVER change!</strong></td></tr>
+        <tr><td>Title + Description (4 langs)</td><td>Section heading and content</td></tr>
+        <tr><td>Image (optional)</td><td>Section image</td></tr>
+    </table>
+    <div class="warn">⚠️ Changing the Slug will make content disappear from the frontend!</div>
+    <hr class="sep">
+    <div class="sh" id="e7"><div class="sn">7</div><div class="st">Branches & Agents</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/branches-en.png" alt="Branches"><div class="sc">Branches list</div></div>
+        <div class="ss"><img src="docs-assets/branches-create-en.png" alt="Add"><div class="sc">Add Branch</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Branch Name (4 langs)</td><td>Text</td><td>Branch or agent name</td></tr>
+        <tr><td>Address (4 langs)</td><td>Text</td><td>Street/city address</td></tr>
+        <tr><td>Country (4 langs)</td><td>Text</td><td>Country name</td></tr>
+        <tr><td>ISO Code</td><td>2 chars</td><td>JO=Jordan — maps on world map</td></tr>
+    </table>
+    <div class="pg">Page 9</div>
+</div>
+
+<div class="page">
+    <div class="sh"><div class="sn">7</div><div class="st">Branches (cont.) — Edit</div></div>
+    <div class="ss"><img src="docs-assets/branches-edit-en.png" alt="Edit"><div class="sc">Edit Branch — all fields in 4 languages</div></div>
+    <hr class="sep">
+    <div class="sh" id="e8"><div class="sn">8</div><div class="st">Map Locations</div></div>
+    <p>Light spots on the interactive world map representing your agents worldwide.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/map-locations-en.png" alt="List"><div class="sc">Map locations list</div></div>
+        <div class="ss"><img src="docs-assets/map-locations-create-en.png" alt="Add"><div class="sc">Add Location</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Description</th></tr>
+        <tr><td>ISO Country Code</td><td>2-letter code (JO, FR, SA)</td></tr>
+        <tr><td>Location Code</td><td>Unique internal identifier</td></tr>
+        <tr><td>X Coordinate</td><td>Horizontal position on map</td></tr>
+        <tr><td>Y Coordinate</td><td>Vertical position on map</td></tr>
+    </table>
+    <hr class="sep">
+    <div class="sh" id="e9"><div class="sn">9</div><div class="st">General Settings</div></div>
+    <div class="ss"><img src="docs-assets/settings-en.png" alt="Settings"><div class="sc">General Settings — contact info and media</div></div>
+    <table class="ft">
+        <tr><th>Field</th><th>Description</th></tr>
+        <tr><td>Address (4 langs)</td><td>Company address in footer</td></tr>
+        <tr><td>PDF Catalog + Cover</td><td>Catalog file and thumbnail</td></tr>
+        <tr><td>Hero Video</td><td>Homepage background video</td></tr>
+        <tr><td>Phone / Email / WhatsApp</td><td>Main contact information</td></tr>
+        <tr><td>Instagram / Facebook / LinkedIn</td><td>Social media links</td></tr>
+    </table>
+    <div class="pg">Page 10</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e10"><div class="sn">10</div><div class="st">Certificates Management</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/certificates-en.png" alt="Certs"><div class="sc">Certificates list</div></div>
+        <div class="ss"><img src="docs-assets/certificates-create-en.png" alt="Add"><div class="sc">Add Certificate</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Certificate Image</td><td>File upload</td><td>ISO / FDA / Quality cert</td></tr>
+        <tr><td>Active toggle</td><td>Checkbox</td><td>Show/hide on website</td></tr>
+        <tr><td>Sort Order</td><td>Number</td><td>Display priority</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/certificates-edit-en.png" alt="Edit"><div class="sc">Edit Certificate — current image with replace option</div></div>
+    <hr class="sep">
+    <div class="sh" id="e11"><div class="sn">11</div><div class="st">Counters Management</div></div>
+    <p>Statistical numbers on the website (500+ customers, 100+ products). Displayed with count-up animation.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/counters-en.png" alt="Counters"><div class="sc">Counters list</div></div>
+        <div class="ss"><img src="docs-assets/counters-create-en.png" alt="Add"><div class="sc">Add Counter</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Name (4 langs)</td><td>Text</td><td>e.g., "Happy Customers"</td></tr>
+        <tr><td>Numeric Value</td><td>Number</td><td>Displayed number (500)</td></tr>
+        <tr><td>FontAwesome Icon</td><td>Text</td><td>Code like fa-solid fa-users</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/counters-edit-en.png" alt="Edit"><div class="sc">Edit Counter</div></div>
+    <div class="pg">Page 11</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e12"><div class="sn">12</div><div class="st">FAQ Management</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/faqs-en.png" alt="FAQ"><div class="sc">FAQs list</div></div>
+        <div class="ss"><img src="docs-assets/faqs-create-en.png" alt="Add"><div class="sc">Add FAQ</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Description</th></tr>
+        <tr><td>Question (4 langs)</td><td>Text</td><td>Question text per language</td></tr>
+        <tr><td>Answer (4 langs)</td><td>Rich Editor</td><td>Detailed formatted answer</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/faqs-edit-en.png" alt="Edit"><div class="sc">Edit FAQ</div></div>
+    <hr class="sep">
+    <div class="sh" id="e13"><div class="sn">13</div><div class="st">Advanced SEO Management</div></div>
+    <p>Control how each page appears on Google, search engines, and social media platforms.</p>
+    <div class="ss"><img src="docs-assets/seo-en.png" alt="SEO"><div class="sc">SEO pages list</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/seo-create-en.png" alt="Add"><div class="sc">Add SEO</div></div>
+        <div class="ss"><img src="docs-assets/seo-edit-en.png" alt="Edit"><div class="sc">Edit SEO</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Description</th></tr>
+        <tr><td>Target Page</td><td>Dropdown (Home, About, etc.)</td></tr>
+        <tr><td>Title + Description + Keywords (4 langs)</td><td>SEO content per language</td></tr>
+        <tr><td>OG Image</td><td>Image when sharing on WhatsApp/Facebook</td></tr>
+    </table>
+    <div class="pg">Page 12</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e14"><div class="sn">14</div><div class="st">Roles & Permissions</div></div>
+    <div class="ss"><img src="docs-assets/roles-en.png" alt="Roles"><div class="sc">Roles list</div></div>
+    <h3>Add Role:</h3>
+    <div class="ss"><img src="docs-assets/roles-create-en.png" alt="Add"><div class="sc">Add Role — name + permission checkboxes</div></div>
+    <table class="ft"><tr><th>Field</th><th>Description</th></tr><tr><td>Role Name</td><td>e.g., "Editor", "Supervisor", "Content Manager"</td></tr></table>
+    <p><strong>14 Permission checkboxes:</strong></p>
+    <table class="ft">
+        <tr><td>Users</td><td>Roles</td><td>Settings</td><td>Sliders</td><td>Branches</td></tr>
+        <tr><td>Certificates</td><td>Counters</td><td>FAQs</td><td>Pages</td><td>Blog</td></tr>
+        <tr><td>Categories</td><td>Products</td><td>SEO</td><td>Activity Logs</td><td></td></tr>
+    </table>
+    <div class="warn">⚠️ Users cannot access any section without its permission enabled here!</div>
+    <h3>Edit Role:</h3>
+    <div class="ss"><img src="docs-assets/roles-edit-en.png" alt="Edit"><div class="sc">Edit role permissions</div></div>
+    <div class="pg">Page 13</div>
+</div>
+
+<div class="page">
+    <div class="sh" id="e15"><div class="sn">15</div><div class="st">Users Management</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/users-en.png" alt="Users"><div class="sc">Users list</div></div>
+        <div class="ss"><img src="docs-assets/users-create-en.png" alt="Add"><div class="sc">Add User</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr>
+        <tr><td>Name</td><td>Text</td><td>Yes</td><td>Full name</td></tr>
+        <tr><td>Email</td><td>Email</td><td>Yes</td><td>Login email (unique)</td></tr>
+        <tr><td>Password</td><td>Password</td><td>Yes</td><td>Secure (* optional on edit)</td></tr>
+        <tr><td>Role</td><td>Dropdown</td><td>Yes</td><td>Assign role for permissions</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/users-edit-en.png" alt="Edit"><div class="sc">Edit User — password optional on update</div></div>
+    <hr class="sep">
+    <div class="sh" id="e16"><div class="sn">16</div><div class="st">Activity Logs</div></div>
+    <p>The system's black box — records every operation by any user with full precision.</p>
+    <div class="ss"><img src="docs-assets/logs-en.png" alt="Logs"><div class="sc">Activity Logs — all operations recorded</div></div>
+    <table class="ft">
+        <tr><th>Column</th><th>Description</th></tr>
+        <tr><td>User</td><td>Who performed the action</td></tr>
+        <tr><td>Event</td><td>Create / Update / Delete</td></tr>
+        <tr><td>Description</td><td>Affected item details</td></tr>
+        <tr><td>Date</td><td>Amman timezone (Asia/Amman)</td></tr>
+        <tr><td>IP</td><td>Source network address</td></tr>
+        <tr><td>View Details 👁</td><td>Popup: Old vs New values comparison</td></tr>
+    </table>
+    <div class="warn">⚠️ Read-only — logs cannot be deleted or modified.</div>
+    <div class="pg">Page 14</div>
+</div>
+
+</body>
+</html>

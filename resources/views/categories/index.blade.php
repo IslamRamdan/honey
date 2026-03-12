@@ -11,23 +11,29 @@
 @section('content')
     <div class="container-fluid">
 
-        <a href="{{ route('categories.create') }}" class="btn btn-primary mb-3">
-            <i class="fas fa-plus"></i> {{ __('messages.add_new_category') ?? 'إضافة تصنيف جديد' }}
-        </a>
-
         @if (session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
 
         <div class="card card-outline card-primary">
-            <div class="card-header">
-                <h3 class="card-title">{{ __('messages.categories') ?? 'التصنيفات' }}</h3>
+            <div class="card-header border-0 pb-0">
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h3 class="card-title m-0">{{ __('messages.categories') ?? 'التصنيفات' }}</h3>
+                    <a href="{{ route('categories.create') }}" class="btn btn-primary btn-sm">
+                        <i class="fas fa-plus"></i> {{ __('messages.add_new_category') ?? 'إضافة تصنيف' }}
+                    </a>
+                </div>
             </div>
+            
             <div class="card-body">
                 <table id="categoriesTable" class="table table-bordered table-striped table-hover">
                     <thead class="bg-light">
                         <tr>
-                            <th>{{ __('messages.name') }}</th>
+                            <th style="width:80px;">الترتيب</th>
+                            <th>{{ __('messages.categories') }} (عربي)</th>
+                            <th>{{ __('messages.categories') }} (En)</th>
+                            <th>{{ __('messages.categories') }} (Fr)</th>
+                            <th>{{ __('messages.categories') }} (Es)</th>
                             <th>{{ __('messages.products_count') }}</th>
                             <th>{{ __('messages.image') }}</th>
                             <th>{{ __('messages.actions') }}</th>
@@ -36,7 +42,13 @@
                     <tbody>
                         @foreach ($categories as $cat)
                             <tr>
-                                <td>{{ $cat->{'name_' . app()->getLocale()} ?? $cat->name_en ?? $cat->name_ar }}</td>
+                                <td class="text-center">
+                                    <span class="badge badge-warning" style="font-size:0.95rem;">{{ $cat->sort_order }}</span>
+                                </td>
+                                <td>{{ $cat->name_ar }}</td>
+                                <td>{{ $cat->name_en }}</td>
+                                <td>{{ $cat->name_fr }}</td>
+                                <td>{{ $cat->name_es }}</td>
                                 <td>
                                     @if ($cat->products->count() > 0)
                                         <a href="{{ route('categories.products', $cat->id) }}">
@@ -48,8 +60,7 @@
                                 </td>
                                 <td>
                                     @if ($cat->image)
-                                        <img src="{{ asset('images/categories/' . $cat->image) }}" width="80"
-                                            class="rounded">
+                                        <img src="{{ asset('images/categories/' . $cat->image) }}" width="80" class="rounded">
                                     @endif
                                 </td>
                                 <td>
@@ -70,35 +81,21 @@
                         @endforeach
                     </tbody>
                 </table>
-
             </div>
         </div>
     </div>
 @endsection
 
 @section('css')
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css">
-
     @if (app()->getLocale() == 'ar')
         <style>
-            [dir="rtl"] .main-sidebar {
-                right: 0;
-                left: auto;
-            }
-
+            [dir="rtl"] .main-sidebar { right: 0; left: auto; }
             [dir="rtl"] .content-wrapper,
-            [dir="rtl"] .main-footer {
-                margin-right: 250px;
-                margin-left: 0;
-            }
+            [dir="rtl"] .main-footer { margin-right: 250px; margin-left: 0; }
         </style>
     @endif
     <style>
-        .table img {
-            object-fit: cover;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+        .table img { object-fit: cover; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
     </style>
 @endsection
 
@@ -109,6 +106,7 @@
             "responsive": true,
             "lengthChange": true,
             "autoWidth": false,
+            "order": [[0, "asc"]],
             "language": {
                 "url": "{{ app()->getLocale() == 'ar' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/ar.json' : (app()->getLocale() == 'fr' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json' : (app()->getLocale() == 'es' ? '//cdn.datatables.net/plug-ins/1.13.4/i18n/es-ES.json' : '')) }}"
             }

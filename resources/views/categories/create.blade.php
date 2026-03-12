@@ -69,6 +69,13 @@
                 <input type="file" name="image" class="form-control">
             </div>
 
+            {{-- ترتيب الظهور --}}
+            <div class="form-group mb-3">
+                <label><i class="fas fa-sort-numeric-down text-warning"></i> ترتيب الظهور</label>
+                <input type="number" name="sort_order" class="form-control" value="{{ old('sort_order', 0) }}" min="0" placeholder="0 = أول قسم">
+                <small class="form-text text-muted">القيمة الأصغر تظهر أولاً</small>
+            </div>
+
             <button type="submit" class="btn btn-success mt-3">
                 <i class="fas fa-save"></i> {{ __('messages.save_category') }}
             </button>

@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>الدليل الشامل لإدارة لوحة التحكم | Bee & Honey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #ffc107; --dark: #343a40; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Cairo', sans-serif; background: #e9ecef; color: #333; line-height: 1.6; font-size: 13px; }
+
+        .page {
+            width: 210mm; height: 297mm;
+            margin: 15px auto; padding: 12mm 16mm 16mm;
+            background: #fff; box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+            page-break-after: always; position: relative; overflow: hidden;
+        }
+        .page:last-child { page-break-after: auto; }
+
+        .pg {
+            position: absolute; bottom: 6mm; left: 0; right: 0;
+            text-align: center; font-size: 10px; color: #999;
+            border-top: 1px solid #eee; padding-top: 3px; margin: 0 16mm;
+        }
+
+        .cover { text-align: center; padding-top: 35mm; }
+        .cover img { max-width: 200px; margin-bottom: 20px; }
+        .cover h1 { font-size: 2rem; color: var(--dark); margin-bottom: 8px; }
+        .cover .sub { color: #6c757d; font-size: 1rem; margin-bottom: 20px; }
+        .cover .author { display: inline-block; background: var(--primary); color: #212529; padding: 8px 25px; border-radius: 50px; font-weight: 700; }
+        .cover .motto { margin-top: 25px; font-size: 0.88rem; color: #e65100; }
+
+        .sh { display: flex; align-items: center; border-bottom: 2px solid var(--primary); padding-bottom: 6px; margin-bottom: 10px; }
+        .sn { background: var(--primary); color: #fff; min-width: 30px; height: 30px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.95rem; margin-left: 8px; flex-shrink: 0; }
+        .st { font-size: 1.15rem; color: var(--dark); font-weight: 700; }
+
+        h3 { color: #d39e00; font-size: 0.9rem; margin: 10px 0 5px; border-right: 3px solid var(--primary); padding: 2px 8px; background: #fffdf5; border-radius: 3px; }
+        p { margin: 0 0 5px; text-align: justify; font-size: 12px; }
+        ul { padding-inline-start: 16px; margin: 0 0 5px; }
+        li { margin-bottom: 2px; font-size: 12px; }
+
+        .badge { display: inline-block; padding: 0 4px; border-radius: 2px; font-size: 0.75rem; font-weight: 700; }
+        .ba { background: #e8f5e9; color: #2e7d32; } .be { background: #fff8e1; color: #f57f17; }
+        .bd { background: #ffebee; color: #c62828; } .bv { background: #e3f2fd; color: #1565c0; }
+
+        .note { background: #fffdf5; border-right: 3px solid var(--primary); padding: 4px 8px; border-radius: 3px; margin: 5px 0; font-size: 0.78rem; }
+        .warn { background: #fff3e0; border-right: 3px solid #e65100; padding: 4px 8px; border-radius: 3px; margin: 5px 0; font-size: 0.78rem; }
+
+        .ss { margin: 5px 0; text-align: center; }
+        .ss img { max-width: 100%; height: auto; max-height: 165px; border-radius: 3px; border: 1px solid #ddd; object-fit: contain; }
+        .sc { font-size: 0.65rem; color: #aaa; margin-top: 1px; }
+        .sr { display: flex; gap: 5px; margin: 5px 0; }
+        .sr .ss { flex: 1; margin: 0; }
+        .sr .ss img { max-height: 140px; }
+
+        .lb { background: #f0f7ff; border: 2px solid #1976d2; border-radius: 5px; padding: 6px 10px; margin: 5px 0; font-size: 12px; }
+        .lb code { background: #e3f2fd; padding: 1px 5px; border-radius: 3px; font-weight: 700; direction: ltr; unicode-bidi: bidi-override; }
+
+        .toc { list-style: none; padding: 0; }
+        .toc li { padding: 5px 0; border-bottom: 1px dotted #ddd; font-size: 12px; }
+        .toc li span { float: left; color: #999; }
+        .toc a { color: #333; text-decoration: none; }
+        .toc a:hover { color: var(--primary); text-decoration: underline; }
+
+        hr.sep { margin: 8px 0; border: none; border-top: 1px solid #eee; }
+
+        .ft { width: 100%; border-collapse: collapse; margin: 4px 0; font-size: 11px; }
+        .ft th { background: #f8f9fa; text-align: right; padding: 3px 6px; border: 1px solid #dee2e6; font-weight: 700; }
+        .ft td { padding: 3px 6px; border: 1px solid #dee2e6; }
+        .ft tr:nth-child(even) td { background: #fafafa; }
+
+        @page { size: A4; margin: 0; }
+        @media print {
+            body { background: #fff; }
+            .page { box-shadow: none; margin: 0; width: 100%; }
+            .sn, .cover .author { background: var(--primary) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .badge, .note, .warn, .lb, .ft th, h3 { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== الغلاف ===== -->
+<div class="page">
+    <div class="cover">
+        <img src="assets/logo.png" alt="Bee & Honey Logo">
+        <h1>الدليل الشامل لإدارة لوحة التحكم</h1>
+        <div class="sub">نظام إدارة محتوى "Bee & Honey" | الإصدار 1.0</div>
+        <div class="author">تطوير وتوثيق: أحمد العلاونة</div>
+        <div class="motto">"توثيق دقيق وشامل لكل زر وحقل ومربع نص داخل لوحة التحكم"</div>
+    </div>
+    <div class="pg">الصفحة 1</div>
+</div>
+
+<!-- ===== الفهرس ===== -->
+<div class="page">
+    <div class="sh"><div class="sn">📋</div><div class="st">فهرس المحتويات</div></div>
+    <ul class="toc">
+        <li><a href="#s0">0. كيفية الوصول لوحة التحكم</a> <span>3</span></li>
+        <li><a href="#s1">1. الواجهة الرئيسية (الداشبورد)</a> <span>3</span></li>
+        <li><a href="#s2">2. إدارة التصنيفات — القائمة + الإضافة</a> <span>4</span></li>
+        <li><a href="#s2b">2. إدارة التصنيفات — التعديل + الحذف</a> <span>5</span></li>
+        <li><a href="#s3">3. إدارة المنتجات — القائمة + الإضافة</a> <span>6</span></li>
+        <li><a href="#s3b">3. إدارة المنتجات — التعديل + الحذف</a> <span>7</span></li>
+        <li><a href="#s4">4. إدارة المدونات — القائمة + الإضافة</a> <span>8</span></li>
+        <li><a href="#s4b">4. إدارة المدونات — التعديل</a> <span>9</span></li>
+        <li><a href="#s5">5. إدارة السلايدر</a> <span>10</span></li>
+        <li><a href="#s6">6. الصفحات الديناميكية</a> <span>10</span></li>
+        <li><a href="#s7">7. الفروع والوكلاء</a> <span>11</span></li>
+        <li><a href="#s8">8. مواقع الخريطة</a> <span>11</span></li>
+        <li><a href="#s9">9. الإعدادات العامة</a> <span>12</span></li>
+        <li><a href="#s10">10. الشهادات + 11. العدادات</a> <span>13</span></li>
+        <li><a href="#s12">12. الأسئلة الشائعة + 13. SEO</a> <span>14</span></li>
+        <li><a href="#s14">14. الأدوار والصلاحيات</a> <span>15</span></li>
+        <li><a href="#s15">15. المستخدمين + 16. سجل النشاطات</a> <span>16</span></li>
+    </ul>
+    <div class="pg">الصفحة 2</div>
+</div>
+
+<!-- ===== صفحة 3: تسجيل الدخول + الداشبورد ===== -->
+<div class="page">
+    <div class="sh" id="s0"><div class="sn">0</div><div class="st">كيفية الوصول لوحة التحكم</div></div>
+    <p>للوصول إلى لوحة التحكم، افتح المتصفح وانتقل إلى الرابط التالي:</p>
+    <div class="lb"><strong>رابط تسجيل الدخول:</strong> <code>https://beeandhoney.com/login</code></div>
+    <div class="ss"><img src="docs-assets/login-ar.png" alt="تسجيل الدخول"><div class="sc">شاشة تسجيل الدخول</div></div>
+    <table class="ft">
+        <tr><th>العنصر</th><th>الوصف</th><th>ملاحظات</th></tr>
+        <tr><td>حقل Email</td><td>البريد الإلكتروني المسجل</td><td>إلزامي</td></tr>
+        <tr><td>حقل Password</td><td>كلمة المرور</td><td>إلزامي</td></tr>
+        <tr><td>خانة Remember me</td><td>تذكرني على هذا الجهاز</td><td>اختياري</td></tr>
+        <tr><td>رابط Forgot password</td><td>استعادة كلمة المرور عبر البريد</td><td>يرسل رابط إعادة التعيين</td></tr>
+        <tr><td>زر LOG IN</td><td>تسجيل الدخول</td><td>ينقلك للداشبورد</td></tr>
+    </table>
+    <div class="note">⚠️ إذا نسيت كلمة المرور تواصل مع مدير النظام.</div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s1"><div class="sn">1</div><div class="st">الواجهة الرئيسية (الداشبورد)</div></div>
+    <p>أول شاشة بعد الدخول. تعرض إحصائيات فورية لكافة الأقسام عبر 10 صناديق ملونة.</p>
+    <div class="ss"><img src="docs-assets/dashboard-ar.png" alt="الداشبورد"><div class="sc">الداشبورد مع الإحصائيات</div></div>
+    <table class="ft">
+        <tr><th>الصندوق</th><th>اللون</th><th>الوظيفة</th></tr>
+        <tr><td>التصنيفات</td><td>أصفر</td><td>عدد التصنيفات + رابط مباشر</td></tr>
+        <tr><td>المنتجات</td><td>أخضر</td><td>عدد المنتجات + رابط مباشر</td></tr>
+        <tr><td>المدونات</td><td>رمادي</td><td>عدد المدونات/الأخبار</td></tr>
+        <tr><td>المستخدمين</td><td>برتقالي</td><td>عدد المستخدمين المسجلين</td></tr>
+        <tr><td>السلايدر / الصفحات / الفروع / الشهادات / العدادات / FAQ</td><td>متنوع</td><td>عدد + رابط مباشر</td></tr>
+    </table>
+    <ul>
+        <li><strong>زر "المزيد" ⊕:</strong> ينقلك مباشرة لصفحة إدارة القسم.</li>
+        <li><strong>رسالة ترحيب:</strong> شريط علوي "مرحباً، [اسمك]!" بخلفية متدرجة.</li>
+        <li><strong>Navbar:</strong> اسم المستخدم + زر ☰ لفتح/إغلاق القائمة الجانبية.</li>
+    </ul>
+    <div class="pg">الصفحة 3</div>
+</div>
+
+<!-- ===== صفحة 4: التصنيفات - قائمة + إضافة ===== -->
+<div class="page">
+    <div class="sh" id="s2"><div class="sn">2</div><div class="st">إدارة التصنيفات</div></div>
+    <p>التصنيفات = الأقسام الرئيسية للمنتجات. لا يمكن إضافة منتج بدون تصنيف أب.</p>
+    <h3>صفحة قائمة التصنيفات:</h3>
+    <div class="ss"><img src="docs-assets/categories-ar.png" alt="التصنيفات"><div class="sc">جدول التصنيفات مع الإجراءات</div></div>
+    <table class="ft">
+        <tr><th>العمود</th><th>الوصف</th></tr>
+        <tr><td>#</td><td>رقم تسلسلي تلقائي</td></tr>
+        <tr><td>الاسم (عربي/إنجليزي/فرنسي/إسباني)</td><td>اسم التصنيف بكل لغة — يُعرض حسب لغة الزائر</td></tr>
+        <tr><td>ترتيب العرض</td><td>رقم أولوية الظهور (الأصغر أولاً)</td></tr>
+        <tr><td>عدد المنتجات</td><td>رقم قابل للنقر → يفتح منتجات هذا التصنيف فقط</td></tr>
+        <tr><td>الصورة</td><td>صورة مصغرة 60×60 بكسل</td></tr>
+        <tr><td>الإجراءات</td><td><span class="badge be">تعديل</span> <span class="badge bd">حذف</span></td></tr>
+    </table>
+    <p><strong>زر "إضافة جديد" ➕:</strong> أعلى يمين الجدول — يفتح نموذج إنشاء تصنيف جديد.</p>
+
+    <h3>نموذج إضافة تصنيف:</h3>
+    <div class="ss"><img src="docs-assets/categories-create-ar.png" alt="إضافة تصنيف"><div class="sc">نموذج إضافة تصنيف جديد — التبويبات اللغوية</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>إلزامي؟</th><th>الوصف</th></tr>
+        <tr><td>الاسم (عربي) *</td><td>نص</td><td>نعم</td><td>اسم التصنيف بالعربية — يظهر للزائر العربي</td></tr>
+        <tr><td>الاسم (إنجليزي/فرنسي/إسباني)</td><td>نص</td><td>لا</td><td>اسم بكل لغة عبر تبويبات منفصلة</td></tr>
+        <tr><td>صورة التصنيف</td><td>رفع ملف</td><td>لا</td><td>صورة تمثيلية تظهر بجانب التصنيف</td></tr>
+        <tr><td>ترتيب الظهور</td><td>رقم</td><td>لا</td><td>0 = يظهر أولاً</td></tr>
+    </table>
+    <p><strong>الأزرار:</strong> <span class="badge ba">حفظ التصنيف</span> لحفظ التصنيف الجديد + <span class="badge bv">رجوع</span> للعودة بدون حفظ.</p>
+    <div class="pg">الصفحة 4</div>
+</div>
+
+<!-- ===== صفحة 5: التصنيفات تعديل + حذف ===== -->
+<div class="page">
+    <div class="sh" id="s2b"><div class="sn">2</div><div class="st">إدارة التصنيفات (تتمة) — التعديل والحذف</div></div>
+    <h3>تعديل تصنيف قائم:</h3>
+    <div class="ss"><img src="docs-assets/categories-edit-ar.png" alt="تعديل تصنيف"><div class="sc">شاشة تعديل تصنيف — الحقول مملوءة ببيانات التصنيف الحالي</div></div>
+    <p>عند الضغط على <span class="badge be">تعديل</span> يتم فتح نفس نموذج الإضافة لكن مع تعبئة جميع الحقول بالبيانات الحالية:</p>
+    <ul>
+        <li><strong>الأسماء:</strong> مملوءة بالـ 4 لغات — يمكن تعديل أي لغة بشكل مستقل.</li>
+        <li><strong>"الصورة الحالية":</strong> تُعرض الصورة المرفوعة سابقاً. لاستبدالها استخدم حقل "تغيير الصورة".</li>
+        <li><strong>ترتيب الظهور:</strong> يمكن تغييره لتغيير ترتيب عرض التصنيف على الموقع.</li>
+    </ul>
+    <p><strong>الأزرار:</strong> <span class="badge ba">تحديث التصنيف</span> لحفظ التعديلات + <span class="badge bv">رجوع</span> للعودة بدون حفظ.</p>
+
+    <h3>حذف تصنيف:</h3>
+    <p>عند الضغط على زر <span class="badge bd">حذف</span> يظهر تنبيه SweetAlert للتأكيد:</p>
+    <ul>
+        <li>رسالة: <strong>"هل أنت متأكد؟"</strong> — لا يمكن التراجع عن الحذف.</li>
+        <li>خيارات: <span class="badge bd">نعم، احذف!</span> لتأكيد الحذف النهائي أو <span class="badge bv">إلغاء</span> للتراجع.</li>
+        <li><strong>تحذير:</strong> إذا كان التصنيف يحتوي منتجات، قد يتأثر عرض تلك المنتجات!</li>
+    </ul>
+    <div class="warn">⚠️ الحذف نهائي ولا يمكن التراجع عنه — تأكد دائماً قبل الحذف.</div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s3"><div class="sn">3</div><div class="st">إدارة المنتجات</div></div>
+    <h3>صفحة قائمة المنتجات:</h3>
+    <div class="ss"><img src="docs-assets/products-ar.png" alt="المنتجات"><div class="sc">جدول المنتجات — كل منتج مع تصنيفه وصورته</div></div>
+    <table class="ft">
+        <tr><th>العمود</th><th>الوصف</th></tr>
+        <tr><td>#</td><td>رقم تسلسلي</td></tr>
+        <tr><td>العنوان (عربي/إنجليزي/فرنسي/إسباني)</td><td>عنوان المنتج بكل لغة</td></tr>
+        <tr><td>التصنيف</td><td>اسم التصنيف الأب الذي ينتمي إليه المنتج</td></tr>
+        <tr><td>الصورة</td><td>صورة مصغرة للمنتج</td></tr>
+        <tr><td>الإجراءات</td><td><span class="badge be">تعديل</span> <span class="badge bd">حذف</span></td></tr>
+    </table>
+    <div class="pg">الصفحة 5</div>
+</div>
+
+<!-- ===== صفحة 6: المنتجات — إضافة ===== -->
+<div class="page">
+    <div class="sh" id="s3"><div class="sn">3</div><div class="st">إدارة المنتجات (تتمة) — نموذج الإضافة</div></div>
+    <h3>نموذج إضافة منتج جديد:</h3>
+    <div class="ss"><img src="docs-assets/products-create-ar.png" alt="إضافة منتج"><div class="sc">نموذج إضافة منتج — التبويبات اللغوية + رفع الصور</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>إلزامي؟</th><th>الوصف</th></tr>
+        <tr><td>التصنيف</td><td>قائمة منسدلة</td><td>نعم</td><td>اختيار التصنيف الأب من القائمة</td></tr>
+        <tr><td>صور المنتج</td><td>رفع متعدد</td><td>لا</td><td>صور تُعرض كسلايدر في صفحة المنتج</td></tr>
+        <tr><td>العنوان (عربي) *</td><td>نص</td><td>نعم</td><td>اسم المنتج — يظهر في القائمة وصفحة التفاصيل</td></tr>
+        <tr><td>الوصف (عربي) *</td><td>محرر نص</td><td>نعم</td><td>وصف تسويقي مفصل — يدعم التنسيق</td></tr>
+        <tr><td>الأحجام (عربي)</td><td>نص</td><td>لا</td><td>مثال: 250g, 500g, 1Kg</td></tr>
+    </table>
+    <p>↑ حقول <strong>العنوان + الوصف + الأحجام</strong> تتكرر في 4 تبويبات لغوية: <span class="badge bv">عربي</span> <span class="badge bv">English</span> <span class="badge bv">Français</span> <span class="badge bv">Español</span></p>
+    <div class="note">💡 يمكنك إضافة أكثر من صورة دفعة واحدة — ستُعرض كمعرض سلايدر تلقائياً.</div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s3b"><div class="sn">3</div><div class="st">إدارة المنتجات — التعديل والحذف</div></div>
+    <h3>تعديل منتج قائم:</h3>
+    <div class="ss"><img src="docs-assets/products-edit-ar.png" alt="تعديل منتج"><div class="sc">شاشة تعديل منتج — الصور الحالية مع إمكانية الحذف والاستبدال</div></div>
+    <ul>
+        <li><strong>الصور الحالية:</strong> مصغرات مع زر <span class="badge bd">✕</span> لحذف كل صورة فردياً دون التأثير على البقية.</li>
+        <li><strong>رفع صور جديدة:</strong> زر "Choose Files" يضيف صور جديدة بدون حذف القديمة.</li>
+        <li><strong>الحذف:</strong> <span class="badge bd">حذف</span> → SweetAlert → تأكيد الحذف النهائي.</li>
+    </ul>
+    <div class="pg">الصفحة 6</div>
+</div>
+
+<!-- ===== صفحة 7: المدونات — قائمة + إضافة ===== -->
+<div class="page">
+    <div class="sh" id="s4"><div class="sn">4</div><div class="st">إدارة المدونات والأخبار</div></div>
+    <h3>صفحة قائمة المدونات:</h3>
+    <div class="ss"><img src="docs-assets/blogs-ar.png" alt="المدونات"><div class="sc">جدول المدونات — العنوان والحالة والصورة</div></div>
+    <table class="ft">
+        <tr><th>العمود</th><th>الوصف</th></tr>
+        <tr><td>#</td><td>رقم تسلسلي تلقائي</td></tr>
+        <tr><td>العنوان</td><td>عنوان المقالة (بلغة لوحة التحكم)</td></tr>
+        <tr><td>الحالة</td><td>"خبر" (News) أو "مدونة" (Blog)</td></tr>
+        <tr><td>الصورة</td><td>صورة الغلاف مصغرة</td></tr>
+        <tr><td>الإجراءات</td><td><span class="badge be">تعديل</span> <span class="badge bd">حذف</span></td></tr>
+    </table>
+
+    <h3>نموذج إضافة مدونة / خبر:</h3>
+    <div class="ss"><img src="docs-assets/blogs-create-ar.png" alt="إضافة مدونة"><div class="sc">نموذج إضافة مدونة — رفع صور وفيديوهات + محرر CKEditor</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>إلزامي؟</th><th>الوصف</th></tr>
+        <tr><td>الصورة الرئيسية</td><td>رفع ملف</td><td>لا</td><td>صورة الغلاف — تظهر في القائمة والتفاصيل</td></tr>
+        <tr><td>صور إضافية</td><td>رفع متعدد</td><td>لا</td><td>معرض صور داخلي</td></tr>
+        <tr><td>فيديوهات</td><td>رفع ملف</td><td>لا</td><td>حد 2 فيديو (صيغ: mp4, webm, ogg, mov)</td></tr>
+        <tr><td>الحالة</td><td>قائمة منسدلة</td><td>نعم</td><td>"خبر" (News) أو "مدونة" (Blog)</td></tr>
+        <tr><td>العنوان (عربي) *</td><td>نص</td><td>نعم</td><td>عنوان المقالة الرئيسي</td></tr>
+        <tr><td>الوصف (عربي) *</td><td>CKEditor</td><td>نعم</td><td>محرر متقدم (تنسيق + صور + روابط)</td></tr>
+        <tr><td>عنوان SEO / وصف SEO / كلمات مفتاحية</td><td>نص</td><td>لا</td><td>تحسين محركات البحث</td></tr>
+    </table>
+    <p>↑ حقول المحتوى + SEO تتكرر في 4 تبويبات لغوية.</p>
+    <div class="pg">الصفحة 7</div>
+</div>
+
+<!-- ===== صفحة 8: المدونات — تعديل ===== -->
+<div class="page">
+    <div class="sh" id="s4b"><div class="sn">4</div><div class="st">إدارة المدونات (تتمة) — التعديل</div></div>
+    <h3>تعديل مدونة قائمة:</h3>
+    <div class="ss"><img src="docs-assets/blogs-edit-ar.png" alt="تعديل مدونة"><div class="sc">شاشة تعديل مدونة — الصور والفيديوهات الحالية + المحتوى المنسق</div></div>
+    <ul>
+        <li><strong>الصور الحالية:</strong> مصغرات مع زر <span class="badge bd">✕</span> لحذف أي صورة فردياً.</li>
+        <li><strong>الفيديوهات الحالية:</strong> مشغل مصغر مع زر <span class="badge bd">✕</span> للحذف.</li>
+        <li><strong>محتوى CKEditor:</strong> مملوء بالنص المنسق وجاهز للتعديل المباشر.</li>
+        <li><strong>حقول SEO:</strong> مملوءة بالبيانات المحفوظة — يمكن تحديثها في أي وقت.</li>
+    </ul>
+    <p><strong>الأزرار:</strong> <span class="badge ba">تحديث المدونة</span> لحفظ التغييرات + <span class="badge bv">رجوع</span> للعودة.</p>
+    <div class="warn">⚠️ حذف المدونة: زر <span class="badge bd">حذف</span> → SweetAlert → تأكيد نهائي — لا يمكن التراجع.</div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s5"><div class="sn">5</div><div class="st">إدارة السلايدر</div></div>
+    <p>البانرات العريضة في أعلى الصفحة الرئيسية — يمكن إضافة وترتيب وتفعيل/إيقاف كل سلايدر.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/sliders-ar.png" alt="السلايدر"><div class="sc">قائمة السلايدر</div></div>
+        <div class="ss"><img src="docs-assets/sliders-create-ar.png" alt="إضافة"><div class="sc">إضافة سلايدر</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        <tr><td>صورة البانر</td><td>رفع ملف</td><td>صورة عريضة للصفحة الرئيسية</td></tr>
+        <tr><td>النص البديل Alt (4 لغات)</td><td>نص</td><td>لـ SEO وقراءة الشاشة</td></tr>
+        <tr><td>الترتيب</td><td>رقم</td><td>أولوية العرض</td></tr>
+        <tr><td>مفتاح التفعيل</td><td>خانة اختيار</td><td>تشغيل/إيقاف بدون حذف</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/sliders-edit-ar.png" alt="تعديل"><div class="sc">تعديل سلايدر — الصورة الحالية مع خيار الاستبدال</div></div>
+    <div class="pg">الصفحة 8</div>
+</div>
+
+<!-- ===== صفحة 9: الصفحات + الفروع ===== -->
+<div class="page">
+    <div class="sh" id="s6"><div class="sn">6</div><div class="st">محتوى الصفحات الديناميكية</div></div>
+    <p>يتحكم بنصوص الموقع "الثابتة": من نحن، رؤيتنا، رسالتنا — وتُدار عن بُعد من لوحة التحكم.</p>
+    <div class="ss"><img src="docs-assets/pages-ar.png" alt="الصفحات"><div class="sc">قائمة الصفحات الديناميكية</div></div>
+    <h3>تعديل صفحة:</h3>
+    <div class="ss"><img src="docs-assets/pages-edit-ar.png" alt="تعديل"><div class="sc">تعديل محتوى صفحة ديناميكية</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>الوصف</th></tr>
+        <tr><td>Slug</td><td>المعرّف الثابت مثل about-brief — <strong>لا تغيره أبداً!</strong></td></tr>
+        <tr><td>العنوان + الوصف (4 لغات)</td><td>عنوان القسم ومحتواه المعروض على الموقع</td></tr>
+        <tr><td>الصورة (اختياري)</td><td>صورة مرفقة بالقسم</td></tr>
+    </table>
+    <div class="warn">⚠️ تغيير الـ Slug يؤدي لاختفاء النص من واجهة الموقع بالكامل!</div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s7"><div class="sn">7</div><div class="st">إدارة الفروع والوكلاء</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/branches-ar.png" alt="الفروع"><div class="sc">قائمة الفروع</div></div>
+        <div class="ss"><img src="docs-assets/branches-create-ar.png" alt="إضافة"><div class="sc">إضافة فرع جديد</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        <tr><td>اسم الفرع (4 لغات)</td><td>نص</td><td>اسم الفرع أو الوكيل بكل لغة</td></tr>
+        <tr><td>العنوان (4 لغات)</td><td>نص</td><td>العنوان الكامل بالشارع والمدينة</td></tr>
+        <tr><td>الدولة (4 لغات)</td><td>نص</td><td>اسم الدولة</td></tr>
+        <tr><td>كود ISO</td><td>حرفين</td><td>JO=الأردن، SA=السعودية — يحدد الموقع على الخريطة</td></tr>
+    </table>
+    <div class="pg">الصفحة 9</div>
+</div>
+
+<!-- ===== صفحة 10: فروع تعديل + خريطة + إعدادات ===== -->
+<div class="page">
+    <div class="sh"><div class="sn">7</div><div class="st">إدارة الفروع (تتمة) — تعديل</div></div>
+    <div class="ss"><img src="docs-assets/branches-edit-ar.png" alt="تعديل فرع"><div class="sc">تعديل بيانات فرع — كل الحقول بالـ 4 لغات</div></div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s8"><div class="sn">8</div><div class="st">إدارة مواقع الخريطة</div></div>
+    <p>النقاط المضيئة على خريطة العالم التفاعلية التي تمثل وكلاءكم في مختلف الدول.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/map-locations-ar.png" alt="المواقع"><div class="sc">قائمة المواقع على الخريطة</div></div>
+        <div class="ss"><img src="docs-assets/map-locations-create-ar.png" alt="إضافة"><div class="sc">إضافة موقع جديد</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>الوصف</th></tr>
+        <tr><td>كود الدولة ISO</td><td>حرفين مثل JO, FR, SA</td></tr>
+        <tr><td>كود الموقع</td><td>معرّف داخلي فريد لكل نقطة</td></tr>
+        <tr><td>إحداثيات X</td><td>الموقع الأفقي على الخريطة</td></tr>
+        <tr><td>إحداثيات Y</td><td>الموقع العمودي على الخريطة</td></tr>
+    </table>
+
+    <hr class="sep">
+
+    <div class="sh" id="s9"><div class="sn">9</div><div class="st">الإعدادات العامة</div></div>
+    <div class="ss"><img src="docs-assets/settings-ar.png" alt="الإعدادات"><div class="sc">صفحة الإعدادات العامة — بيانات التواصل والوسائط</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>الوصف</th></tr>
+        <tr><td>العنوان (4 لغات)</td><td>عنوان الشركة في الفوتر</td></tr>
+        <tr><td>كتالوج PDF + غلاف</td><td>ملف الكتالوج وصورته المصغرة</td></tr>
+        <tr><td>فيديو البطل</td><td>خلفية الصفحة الرئيسية</td></tr>
+        <tr><td>هاتف / بريد / واتساب</td><td>بيانات التواصل الرئيسية</td></tr>
+        <tr><td>Instagram / Facebook / LinkedIn</td><td>روابط السوشيال ميديا</td></tr>
+    </table>
+    <div class="pg">الصفحة 10</div>
+</div>
+
+<!-- ===== صفحة 11: الشهادات + العدادات ===== -->
+<div class="page">
+    <div class="sh" id="s10"><div class="sn">10</div><div class="st">إدارة الشهادات</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/certificates-ar.png" alt="الشهادات"><div class="sc">قائمة الشهادات</div></div>
+        <div class="ss"><img src="docs-assets/certificates-create-ar.png" alt="إضافة"><div class="sc">إضافة شهادة جديدة</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        <tr><td>صورة الشهادة</td><td>رفع ملف</td><td>شهادة ISO / FDA / جودة</td></tr>
+        <tr><td>مفتاح التفعيل</td><td>خانة اختيار</td><td>إظهار/إخفاء على الموقع</td></tr>
+        <tr><td>الترتيب</td><td>رقم</td><td>أولوية العرض</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/certificates-edit-ar.png" alt="تعديل"><div class="sc">تعديل شهادة — الصورة الحالية مع خيار الاستبدال</div></div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s11"><div class="sn">11</div><div class="st">إدارة العدادات</div></div>
+    <p>الأرقام الإحصائية على الموقع (500+ عميل، 100+ منتج). تُعرض بأنيميشن عد تصاعدي.</p>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/counters-ar.png" alt="العدادات"><div class="sc">قائمة العدادات</div></div>
+        <div class="ss"><img src="docs-assets/counters-create-ar.png" alt="إضافة"><div class="sc">إضافة عداد جديد</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        <tr><td>الاسم (4 لغات)</td><td>نص</td><td>مثل "عملاء سعداء"</td></tr>
+        <tr><td>القيمة الرقمية</td><td>رقم</td><td>الرقم المعروض (500)</td></tr>
+        <tr><td>أيقونة FontAwesome</td><td>نص</td><td>كود مثل fa-solid fa-users</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/counters-edit-ar.png" alt="تعديل"><div class="sc">تعديل عداد</div></div>
+    <div class="pg">الصفحة 11</div>
+</div>
+
+<!-- ===== صفحة 12: FAQ + SEO ===== -->
+<div class="page">
+    <div class="sh" id="s12"><div class="sn">12</div><div class="st">إدارة الأسئلة الشائعة (FAQ)</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/faqs-ar.png" alt="FAQ"><div class="sc">قائمة الأسئلة الشائعة</div></div>
+        <div class="ss"><img src="docs-assets/faqs-create-ar.png" alt="إضافة"><div class="sc">إضافة سؤال جديد</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        <tr><td>السؤال (4 لغات)</td><td>نص</td><td>نص السؤال بكل لغة</td></tr>
+        <tr><td>الجواب (4 لغات)</td><td>محرر نص</td><td>الجواب التفصيلي بتنسيق نصي</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/faqs-edit-ar.png" alt="تعديل"><div class="sc">تعديل سؤال وجواب</div></div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s13"><div class="sn">13</div><div class="st">إدارة SEO المتقدم</div></div>
+    <p>التحكم بظهور صفحات الموقع على جوجل ومحركات البحث ومنصات التواصل.</p>
+    <div class="ss"><img src="docs-assets/seo-ar.png" alt="SEO"><div class="sc">قائمة صفحات SEO</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/seo-create-ar.png" alt="إضافة"><div class="sc">إضافة SEO لصفحة</div></div>
+        <div class="ss"><img src="docs-assets/seo-edit-ar.png" alt="تعديل"><div class="sc">تعديل SEO</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>الوصف</th></tr>
+        <tr><td>الصفحة المستهدفة</td><td>قائمة منسدلة (الرئيسية، من نحن، إلخ)</td></tr>
+        <tr><td>العنوان + الوصف + الكلمات (4 لغات)</td><td>محتوى SEO لكل لغة</td></tr>
+        <tr><td>صورة OG</td><td>تظهر عند مشاركة الرابط على واتساب/فيسبوك</td></tr>
+    </table>
+    <div class="pg">الصفحة 12</div>
+</div>
+
+<!-- ===== صفحة 13: الأدوار ===== -->
+<div class="page">
+    <div class="sh" id="s14"><div class="sn">14</div><div class="st">إدارة الأدوار والصلاحيات</div></div>
+    <div class="ss"><img src="docs-assets/roles-ar.png" alt="الأدوار"><div class="sc">قائمة الأدوار المتاحة</div></div>
+    <h3>إضافة دور جديد:</h3>
+    <div class="ss"><img src="docs-assets/roles-create-ar.png" alt="إضافة"><div class="sc">نموذج إضافة دور — اسم الدور + خانات الصلاحيات</div></div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>الوصف</th></tr>
+        <tr><td>اسم الدور</td><td>مثل "محرر" أو "مشرف" أو "مدير محتوى"</td></tr>
+    </table>
+    <p><strong>14 صلاحية (خانات اختيار):</strong></p>
+    <table class="ft">
+        <tr><td>إدارة المستخدمين</td><td>إدارة الأدوار</td><td>إدارة الإعدادات</td><td>إدارة السلايدر</td><td>إدارة الفروع</td></tr>
+        <tr><td>إدارة الشهادات</td><td>إدارة العدادات</td><td>إدارة الأسئلة</td><td>إدارة الصفحات</td><td>إدارة المدونة</td></tr>
+        <tr><td>إدارة التصنيفات</td><td>إدارة المنتجات</td><td>إدارة SEO</td><td>عرض سجل النشاطات</td><td></td></tr>
+    </table>
+    <div class="warn">⚠️ لا يستطيع أي مستخدم دخول قسم بدون تفعيل صلاحيته من هنا!</div>
+    <h3>تعديل دور:</h3>
+    <div class="ss"><img src="docs-assets/roles-edit-ar.png" alt="تعديل"><div class="sc">تعديل صلاحيات دور قائم</div></div>
+    <div class="pg">الصفحة 13</div>
+</div>
+
+<!-- ===== صفحة 14: المستخدمين + السجل ===== -->
+<div class="page">
+    <div class="sh" id="s15"><div class="sn">15</div><div class="st">إدارة المستخدمين</div></div>
+    <div class="sr">
+        <div class="ss"><img src="docs-assets/users-ar.png" alt="المستخدمين"><div class="sc">قائمة المستخدمين</div></div>
+        <div class="ss"><img src="docs-assets/users-create-ar.png" alt="إضافة"><div class="sc">إضافة مستخدم جديد</div></div>
+    </div>
+    <table class="ft">
+        <tr><th>الحقل</th><th>النوع</th><th>إلزامي؟</th><th>الوصف</th></tr>
+        <tr><td>الاسم</td><td>نص</td><td>نعم</td><td>الاسم الكامل</td></tr>
+        <tr><td>البريد الإلكتروني</td><td>email</td><td>نعم</td><td>بريد تسجيل الدخول (فريد)</td></tr>
+        <tr><td>كلمة المرور</td><td>password</td><td>نعم</td><td>كلمة مرور آمنة (* اختيارية عند التعديل)</td></tr>
+        <tr><td>الدور</td><td>قائمة منسدلة</td><td>نعم</td><td>ربط المستخدم بدور لتحديد صلاحياته</td></tr>
+    </table>
+    <div class="ss"><img src="docs-assets/users-edit-ar.png" alt="تعديل"><div class="sc">تعديل مستخدم — كلمة المرور اختيارية عند التعديل</div></div>
+
+    <hr class="sep">
+
+    <div class="sh" id="s16"><div class="sn">16</div><div class="st">سجل النشاطات (Activity Logs)</div></div>
+    <p>الصندوق الأسود للنظام — يسجل كل عملية يقوم بها أي مستخدم بدقة متناهية.</p>
+    <div class="ss"><img src="docs-assets/logs-ar.png" alt="السجل"><div class="sc">سجل النشاطات — كل العمليات مسجلة</div></div>
+    <table class="ft">
+        <tr><th>العمود</th><th>الوصف</th></tr>
+        <tr><td>المستخدم</td><td>من نفّذ العملية</td></tr>
+        <tr><td>الحدث</td><td>إنشاء / تعديل / حذف</td></tr>
+        <tr><td>الوصف</td><td>تفاصيل العنصر المتأثر</td></tr>
+        <tr><td>التاريخ</td><td>بتوقيت عمّان (Asia/Amman)</td></tr>
+        <tr><td>IP</td><td>عنوان الشبكة المصدر</td></tr>
+        <tr><td>عرض التفاصيل 👁</td><td>نافذة تقارن القيم القديمة بالجديدة</td></tr>
+    </table>
+    <div class="warn">⚠️ قسم للقراءة فقط — لا يمكن حذف أو تعديل السجلات.</div>
+    <div class="pg">الصفحة 14</div>
+</div>
+
+</body>
+</html>

@@ -9,20 +9,29 @@
 @section('plugins.Datatables', true)
 
 @section('content')
-    <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">
-        <i class="fas fa-plus"></i> {{ __('messages.add_product') ?? 'إضافة منتج' }}
-    </a>
+    @if (session('success'))
+        <div class="alert alert-success">{{ session('success') }}</div>
+    @endif
 
     <div class="card card-outline card-primary">
-        <div class="card-header">
-            <h3 class="card-title">{{ __('messages.products') ?? 'المنتجات' }}</h3>
+        <div class="card-header border-0 pb-0">
+            <div class="d-flex justify-content-between align-items-center mb-2">
+                <h3 class="card-title m-0">{{ __('messages.products') ?? 'المنتجات' }}</h3>
+                <a href="{{ route('products.create') }}" class="btn btn-primary btn-sm">
+                    <i class="fas fa-plus"></i> {{ __('messages.add_product') ?? 'إضافة منتج' }}
+                </a>
+            </div>
         </div>
+        
         <div class="card-body">
             <table id="productsTable" class="table table-bordered table-striped table-hover">
                 <thead class="bg-light">
                     <tr>
                         <th>{{ __('messages.id') ?? '#' }}</th>
-                        <th>{{ __('messages.title') ?? 'العنوان' }}</th>
+                        <th>{{ __('messages.title') ?? 'العنوان' }} (عربي)</th>
+                        <th>{{ __('messages.title') ?? 'العنوان' }} (En)</th>
+                        <th>{{ __('messages.title') ?? 'العنوان' }} (Fr)</th>
+                        <th>{{ __('messages.title') ?? 'العنوان' }} (Es)</th>
                         <th>{{ __('messages.image') ?? 'الصورة' }}</th>
                         <th>{{ __('messages.category') ?? 'التصنيف' }}</th>
                         <th>{{ __('messages.actions') ?? 'الإجراءات' }}</th>
@@ -34,7 +43,10 @@
                         <tr>
                             <td>{{ $loop->iteration }}</td>
 
-                            <td>{{ $product->{'title_' . app()->getLocale()} }}</td>
+                            <td>{{ $product->title_ar }}</td>
+                            <td>{{ $product->title_en }}</td>
+                            <td>{{ $product->title_fr }}</td>
+                            <td>{{ $product->title_es }}</td>
 
                             {{-- صورة المنتج (أول صورة فقط) --}}
                             <td>

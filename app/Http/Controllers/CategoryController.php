@@ -9,9 +9,10 @@ use App\Traits\CompressesImages;
 class CategoryController extends Controller
 {
     use CompressesImages;
+
     public function index()
     {
-        $categories = Category::all();
+        $categories = Category::withoutGlobalScope('ordered')->orderBy('sort_order')->get();
         return view('categories.index', compact('categories'));
     }
 
@@ -28,6 +29,7 @@ class CategoryController extends Controller
             'name_fr' => 'required|string|max:255',
             'name_es' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
@@ -35,6 +37,9 @@ class CategoryController extends Controller
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeCompressedImageToPublic($request->image, 'images/categories');
         }
+
+        // تعيين قيمة افتراضية لترتيب الظهور
+        $data['sort_order'] = $data['sort_order'] ?? Category::withoutGlobalScopes()->count();
 
         Category::create($data);
 
@@ -54,6 +59,7 @@ class CategoryController extends Controller
             'name_fr' => 'required|string|max:255',
             'name_es' => 'required|string|max:255',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg',
+            'sort_order' => 'nullable|integer|min:0',
         ]);
 
         $data = $request->all();
@@ -72,12 +78,28 @@ class CategoryController extends Controller
         $category->delete();
         return redirect()->route('categories.index')->with('success', 'تم حذف التصنيف');
     }
+
+    /**
+     * إعادة ترتيب الأقسام عبر AJAX (Drag & Drop)
+     */
+    public function reorder(Request $request)
+    {
+        $request->validate([
+            'order' => 'required|array',
+            'order.*' => 'integer|exists:categories,id',
+        ]);
+
+        foreach ($request->order as $position => $id) {
+            Category::withoutGlobalScopes()->where('id', $id)->update(['sort_order' => $position]);
+        }
+
+        return response()->json(['success' => true, 'message' => 'تم حفظ الترتيب بنجاح']);
+    }
+
     public function showProducts(Category $category)
     {
-        // جلب المنتجات المرتبطة بالتصنيف
-        $products = $category->products()->paginate(9); // 9 منتجات لكل صفحة
+        $products = $category->products()->paginate(9);
 
-        // إنشاء كائن SEO ديناميكي للصفحة بناءً على بيانات التصنيف
         $seo = new \stdClass();
         $seo->title_ar = $category->name_ar . ' | بي آند هني';
         $seo->title_en = $category->name_en . ' | Bee & Honey';
@@ -98,10 +120,11 @@ class CategoryController extends Controller
 
         return view('products', compact('category', 'products', 'seo'));
     }
+
     public function products($id)
     {
         $category = Category::findOrFail($id);
-        $products = $category->products()->paginate(10); // أو get() حسب الحاجة
+        $products = $category->products()->paginate(10);
         return view('categories.products', compact('category', 'products'));
     }
 }
