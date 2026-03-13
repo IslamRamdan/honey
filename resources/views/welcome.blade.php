@@ -60,7 +60,7 @@
     <section class="hero">
         <div class="hero-video-wrapper">
             <video autoplay muted loop playsinline preload="auto" poster="{{ asset('assets/logo.png') }}" class="hero-video" id="heroVideo">
-                <source src="{{ !empty($settings["hero_video"]) ? asset("storage/" . $settings["hero_video"]) : asset("assets/website-video.mp4") }}" type="video/mp4">
+                <source src="{{ !empty($settings['hero_video']) ? \App\Support\Security::safeStorageAsset($settings['hero_video'], asset('assets/website-video.mp4')) : asset('assets/website-video.mp4') }}" type="video/mp4">
             </video>
         </div>
         @include('layouts.header')
@@ -235,7 +235,7 @@
 
     <section class="catalog-section py-5"
         @if(!empty($settings['catalog_image'] ?? ''))
-            style="background: url('{{ asset('storage/' . $settings['catalog_image']) }}') no-repeat center center; background-size: cover;"
+            style="background: url('{{ \App\Support\Security::safeStorageAsset($settings['catalog_image']) }}') no-repeat center center; background-size: cover;"
         @endif
     >
         <div class="container">
@@ -247,8 +247,8 @@
                             To view the e-catalog
                         </p>
 
-                        <a href="{{ isset($settings['catalog_link']) && (str_starts_with($settings['catalog_link'], 'http') || str_starts_with($settings['catalog_link'], '#')) ? $settings['catalog_link'] : (isset($settings['catalog_link']) ? asset('storage/' . $settings['catalog_link']) : '#') }}"
-                            target="_blank" download class="catalog-btn">
+                        <a href="{{ isset($settings['catalog_link']) && str_starts_with($settings['catalog_link'], 'http') ? \App\Support\Security::safeExternalUrl($settings['catalog_link']) : (isset($settings['catalog_link']) ? \App\Support\Security::safeStorageAsset($settings['catalog_link']) : '#') }}"
+                            target="_blank" rel="noopener noreferrer" download class="catalog-btn">
                             <span class="visually-hidden">Download Catalog</span>
                             <i class="fa-solid fa-file-arrow-down fa-bounce"></i>
                         </a>

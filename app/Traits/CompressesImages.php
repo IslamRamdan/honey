@@ -82,6 +82,17 @@ trait CompressesImages
     }
 
     /**
+     * Store a non-image upload on the public disk using a randomized filename.
+     */
+    protected function storeFileToPublic(UploadedFile $file, string $path): string
+    {
+        $extension = Str::lower($file->getClientOriginalExtension() ?: $file->extension());
+        $filename = Str::random(40).($extension ? '.'.$extension : '');
+
+        return $file->storeAs($path, $filename, 'public');
+    }
+
+    /**
      * Create a GD image resource from an uploaded file.
      * Handles JPEG, PNG, and WebP, flattening transparency to white.
      */

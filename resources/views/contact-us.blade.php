@@ -175,7 +175,7 @@
                                     </h3>
 
                                 </div>
-                                <a href="{{ $settings['location_link'] ?? '#' }}" data-en="{{ $settings['location_en'] ?? 'Al-salt industrial city' }}" data-ar="{{ $settings['location_ar'] ?? 'مدينة السلط الصناعية' }}"
+                                <a href="{{ \App\Support\Security::safeExternalUrl($settings['location_link'] ?? null, '#') }}" rel="noopener noreferrer" data-en="{{ $settings['location_en'] ?? 'Al-salt industrial city' }}" data-ar="{{ $settings['location_ar'] ?? 'مدينة السلط الصناعية' }}"
                                     data-es="{{ $settings['location_es'] ?? 'Ciudad Industrial de Sal de Jordania' }}"
                                     data-fr="{{ $settings['location_fr'] ?? 'Ville industrielle de sel de Jordanie' }}">
                                     {{ $settings['location_' . app()->getLocale()] ?? 'Al-salt industrial city' }}
@@ -193,14 +193,15 @@
                                 </div>
 
                                 <div class="icons d-flex flex-wrap gap-2">
-                                    <a href="{{ $settings['instagram'] ?? 'https://www.instagram.com/beeandhoney.official?igsh=MW9lNnBmb3ppdTZyMA==' }}"
+                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['instagram'] ?? 'https://www.instagram.com/beeandhoney.official?igsh=MW9lNnBmb3ppdTZyMA==') }}"
+                                        rel="noopener noreferrer"
                                         aria-label="Instagram">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
-                                    <a href="{{ $settings['facebook'] ?? 'https://web.facebook.com/beeandhoney' }}" aria-label="Facebook">
+                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['facebook'] ?? 'https://web.facebook.com/beeandhoney') }}" rel="noopener noreferrer" aria-label="Facebook">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
-                                    <a href="{{ $settings['linkedin'] ?? 'https://www.linkedin.com/company/bee-and-honey/' }}" aria-label="LinkedIn">
+                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['linkedin'] ?? 'https://www.linkedin.com/company/bee-and-honey/') }}" rel="noopener noreferrer" aria-label="LinkedIn">
                                         <i class="fa-brands fa-linkedin-in"></i>
                                     </a>
                                 </div>

@@ -14,6 +14,14 @@ class LanguageController extends Controller
 
         session(['locale' => $request->locale]);
 
-        return redirect()->back();
+        $previousUrl = url()->previous();
+        $previousHost = parse_url($previousUrl, PHP_URL_HOST);
+        $previousScheme = strtolower((string) parse_url($previousUrl, PHP_URL_SCHEME));
+
+        if ($previousHost === $request->getHost() && in_array($previousScheme, ['http', 'https'], true)) {
+            return redirect()->to($previousUrl);
+        }
+
+        return redirect()->route('home');
     }
 }

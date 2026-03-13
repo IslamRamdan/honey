@@ -165,12 +165,15 @@
                             </span>
                         </div>
                         <div class="detail-desc p-4" data-aos="fade-up">
-                            <h3 style="text-align: center; color: #742e00;" data-en="{!! $blog->name_en !!}"
-                                data-ar="{!! $blog->name_ar !!}" data-es="{!! $blog->name_es !!}"
-                                data-fr="{!! $blog->name_fr !!}"></h3>
-                            <p data-en="{!! $blog->description_en !!}" data-ar="{!! $blog->description_ar !!}"
-                                data-es="{!! $blog->description_es !!}" data-fr="{!! $blog->description_fr !!}">
-                            </p>
+                            <h3 style="text-align: center; color: #742e00;" data-en="{{ $blog->name_en }}"
+                                data-ar="{{ $blog->name_ar }}" data-es="{{ $blog->name_es }}"
+                                data-fr="{{ $blog->name_fr }}"></h3>
+                            <div class="blog-body" data-allow-html="true"
+                                data-en="{{ \App\Support\Security::sanitizeRichHtml($blog->description_en) }}"
+                                data-ar="{{ \App\Support\Security::sanitizeRichHtml($blog->description_ar) }}"
+                                data-es="{{ \App\Support\Security::sanitizeRichHtml($blog->description_es) }}"
+                                data-fr="{{ \App\Support\Security::sanitizeRichHtml($blog->description_fr) }}">
+                            </div>
 
                         </div>
                         @php
@@ -225,9 +228,9 @@
                                 <img src="{{ asset('images/blogs/' . $latest->image) }}" class="news-img me-3"
                                     alt="">
                                 <div>
-                                    <h3 class="mb-1 h6" data-en="{!! $latest->name_en !!}"
-                                        data-ar="{!! $latest->name_ar !!}" data-es="{!! $latest->name_es !!}"
-                                        data-fr="{!! $latest->name_fr !!}"></h3>
+                                    <h3 class="mb-1 h6" data-en="{{ $latest->name_en }}"
+                                        data-ar="{{ $latest->name_ar }}" data-es="{{ $latest->name_es }}"
+                                        data-fr="{{ $latest->name_fr }}"></h3>
                                     <p class="text-muted small mb-0"
                                         data-en="{{ $latest->created_at->locale('en')->translatedFormat('d F Y') }}"
                                         data-ar="{{ $latest->created_at->locale('ar')->translatedFormat('d F Y') }}"

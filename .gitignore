@@ -26,3 +26,9 @@ Thumbs.db
 *.pdf
 *.zip
 *.sql
+*.bak
+*.tar
+*.gz
+*.rar
+/backups/
+/storage/app/backups/

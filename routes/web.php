@@ -16,6 +16,7 @@ use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ContactController;
+use Illuminate\Http\Request;
 use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Product;
@@ -52,11 +53,20 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'application/xml');
 });
 
-Route::get('locale/{locale}', function ($locale) {
+Route::get('locale/{locale}', function (Request $request, $locale) {
     if (in_array($locale, ['en', 'ar', 'fr', 'es'])) {
         session(['locale' => $locale]);
     }
-    return redirect()->back();
+
+    $previousUrl = url()->previous();
+    $previousHost = parse_url($previousUrl, PHP_URL_HOST);
+    $previousScheme = strtolower((string) parse_url($previousUrl, PHP_URL_SCHEME));
+
+    if ($previousHost === $request->getHost() && in_array($previousScheme, ['http', 'https'], true)) {
+        return redirect()->to($previousUrl);
+    }
+
+    return redirect()->route('home');
 })->name('locale.switch');
 
 Route::get('/dashboard', function () {
@@ -73,7 +83,11 @@ Route::get('/dashboard', function () {
         'faqs' => Faq::count(),
     ];
     return view('dashboard', compact('stats'));
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware([
+    'auth',
+    'verified',
+    'permission:manage-users|manage-roles|manage-settings|manage-sliders|manage-branches|manage-certificates|manage-counters|manage-faqs|manage-pages|manage-seo|manage-blogs|manage-categories|manage-products|view-activity-logs',
+])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -168,7 +182,9 @@ Route::get('/contact-us', function () {
     return view('contact-us', compact('settings', 'seo'));
 })->name('contact');
 
-Route::post('/contact/submit', [ContactController::class, 'submit'])->name('contact.submit');
+Route::post('/contact/submit', [ContactController::class, 'submit'])
+    ->middleware('throttle:5,1')
+    ->name('contact.submit');
 
 // الأخبار
 Route::get('/news', function () {

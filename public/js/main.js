@@ -15,10 +15,32 @@ function applyLanguage(lang) {
     localStorage.setItem("lang", lang);
 
     document.querySelectorAll(`[data-${lang}]`).forEach(el => {
+        const translatedValue = el.getAttribute(`data-${lang}`) || "";
+
         if (el.tagName === 'META') {
-            el.setAttribute('content', el.getAttribute(`data-${lang}`));
+            el.setAttribute('content', translatedValue);
+        } else if (el.classList.contains('blog-link')) {
+            const temp = document.createElement('div');
+            temp.innerHTML = translatedValue;
+
+            const text = temp.textContent?.trim() || "";
+            const tempIcon = temp.querySelector('i');
+            const targetText = el.querySelector('span');
+            const targetIcon = el.querySelector('i');
+
+            if (targetText) {
+                targetText.textContent = text;
+            } else {
+                el.textContent = text;
+            }
+
+            if (targetIcon && tempIcon) {
+                targetIcon.className = tempIcon.className;
+            }
+        } else if (el.dataset.allowHtml === 'true') {
+            el.innerHTML = translatedValue;
         } else {
-            el.innerHTML = el.getAttribute(`data-${lang}`);
+            el.textContent = translatedValue;
         }
     });
 

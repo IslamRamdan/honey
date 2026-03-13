@@ -149,7 +149,7 @@
                                 About Us
                             </span>
 
-                            <h2 class="about-title"
+                            <h2 class="about-title" data-allow-html="true"
                                 data-en="Certified <span>Manufacturing Facility</span> with Export Capabilities"
                                 data-ar="مصنع مُعتمد وقدرات تصديرية"
                                 data-fr="Usine certifiée avec capacités d’exportation"

@@ -62,7 +62,7 @@
                             <div class="mb-2 p-2 bg-light rounded d-flex align-items-center">
                                 <i class="fas fa-file-pdf fa-2x text-danger mr-2"></i>
                                 <div>
-                                    <a href="{{ asset('storage/' . $general['catalog_link']->value) }}" target="_blank" class="text-info font-weight-bold">
+                                    <a href="{{ \App\Support\Security::safeStorageAsset($general['catalog_link']->value) }}" target="_blank" rel="noopener noreferrer" class="text-info font-weight-bold">
                                         {{ basename($general['catalog_link']->value) }}
                                     </a>
                                     <br><small class="text-muted">{{ __('admin.current_file') }}</small>
@@ -78,7 +78,7 @@
                         <label><i class="fas fa-image text-success"></i> {{ __('admin.catalog_image') }}</label>
                         @if(!empty($general['catalog_image']->value ?? ''))
                             <div class="mb-2">
-                                <img src="{{ asset('storage/' . $general['catalog_image']->value) }}" alt="Catalog Image" class="img-thumbnail" style="max-height:140px;">
+                                <img src="{{ \App\Support\Security::safeStorageAsset($general['catalog_image']->value) }}" alt="Catalog Image" class="img-thumbnail" style="max-height:140px;">
                             </div>
                         @endif
                         <div class="custom-file">

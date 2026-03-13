@@ -164,9 +164,9 @@
                                         </a>
                                     </h3>
 
-                                    <p class="card-text" data-en="{!! Str::limit($blog->description_en, 150) !!}"
-                                        data-ar="{!! Str::limit($blog->description_ar, 150) !!}" data-es="{!! Str::limit($blog->description_es, 150) !!}"
-                                        data-fr="{!! Str::limit($blog->description_fr, 150) !!}">
+                                    <p class="card-text" data-en="{{ Str::limit(strip_tags($blog->description_en), 150) }}"
+                                        data-ar="{{ Str::limit(strip_tags($blog->description_ar), 150) }}" data-es="{{ Str::limit(strip_tags($blog->description_es), 150) }}"
+                                        data-fr="{{ Str::limit(strip_tags($blog->description_fr), 150) }}">
                                     </p>
 
                                     <div class="blog-footer">
