@@ -43,15 +43,29 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/sitemap.xml', function () {
+    $staticUrls = [
+        ['loc' => route('home'), 'priority' => '1.0', 'changefreq' => 'daily'],
+        ['loc' => route('about'), 'priority' => '0.8'],
+        ['loc' => route('categories'), 'priority' => '0.8'],
+        ['loc' => route('news'), 'priority' => '0.8'],
+        ['loc' => route('all-blogs'), 'priority' => '0.8'],
+        ['loc' => route('all-news'), 'priority' => '0.8'],
+        ['loc' => route('contact'), 'priority' => '0.7'],
+    ];
 
-    $products = Product::all();
-    $categories = Category::all();
-    $blogs = Blog::all();
+    $categories = Category::query()
+        ->select('id', 'updated_at')
+        ->get();
+
+    $blogs = Blog::query()
+        ->select('id', 'updated_at')
+        ->latest('updated_at')
+        ->get();
 
     return response()
-        ->view('sitemap', compact('products', 'categories', 'blogs'))
-        ->header('Content-Type', 'application/xml');
-});
+        ->view('sitemap', compact('staticUrls', 'categories', 'blogs'))
+        ->header('Content-Type', 'application/xml; charset=UTF-8');
+})->name('sitemap');
 
 Route::get('locale/{locale}', function (Request $request, $locale) {
     if (in_array($locale, ['en', 'ar', 'fr', 'es'])) {
