@@ -1,4 +1,8 @@
 @if (isset($seo) && $seo)
+    @php
+        $canonicalUrl = url()->current();
+    @endphp
+
     <!-- Title -->
     <title data-ar="{{ $seo->title_ar }}" data-en="{{ $seo->title_en }}" data-es="{{ $seo->title_es }}"
         data-fr="{{ $seo->title_fr }}">
@@ -15,11 +19,14 @@
         data-es="{{ $seo->keywords_es }}" data-fr="{{ $seo->keywords_fr }}"
         content="{{ $seo->{'keywords_' . app()->getLocale()} ?? '' }}">
 
+    <link rel="canonical" href="{{ $canonicalUrl }}">
+    <meta name="robots" content="index,follow">
+
     <!-- Open Graph Tags -->
     <meta property="og:title" content="{{ $seo->{'title_' . app()->getLocale()} ?? $seo->title_en }}">
     <meta property="og:description" content="{{ $seo->{'description_' . app()->getLocale()} ?? '' }}">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="{{ url()->current() }}">
+    <meta property="og:url" content="{{ $canonicalUrl }}">
     @if ($seo->image)
         <meta property="og:image" content="{{ Str::startsWith($seo->image, ['http', '../', 'images/']) ? asset($seo->image) : asset('storage/' . $seo->image) }}">
     @endif
@@ -33,4 +40,8 @@
     @endif
 @else
     <title>{{ config('app.name', 'Bee and Honey') }}</title>
+    <link rel="canonical" href="{{ url()->current() }}">
+    <meta name="robots" content="index,follow">
 @endif
+
+@include('components.google-analytics')

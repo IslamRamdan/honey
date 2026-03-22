@@ -3,7 +3,14 @@
         <a class="navbar-brand" href="/">
             <div class="logo-icon">
                 <img src="{{ asset('assets/logo.png') }}" width="153" height="70" class="w-100 dark-logo" alt="Bee and Honey Logo">
-                <img src="{{ asset('assets/light-logo.png') }}" width="153" height="70" class="w-100 light-logo" alt="Bee and Honey Logo Light">
+                <img
+                    src="{{ asset('assets/light-logo.png') }}"
+                    srcset="{{ asset('assets/responsive/light-logo-240.webp') }} 240w, {{ asset('assets/responsive/light-logo-320.webp') }} 320w"
+                    sizes="306px"
+                    width="153"
+                    height="70"
+                    class="w-100 light-logo"
+                    alt="Bee and Honey Logo Light">
             </div>
         </a>
 

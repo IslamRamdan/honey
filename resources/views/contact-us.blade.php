@@ -28,10 +28,9 @@
     <link rel="stylesheet" href="css/main.css">
 
     <!-- Non-critical CSS (deferred) -->
-    <link href="css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="css/all.min.css"></noscript>
+    <link href="{{ asset('css/all.min.css') }}?v=20260317-fontswap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/all.min.css') }}?v=20260317-fontswap"></noscript>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" media="print" onload="this.media='all'">
     <script>
         const savedLang = localStorage.getItem("lang") || (navigator.language.slice(0, 2) === 'ar' ? 'ar' : 'en');
         document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
@@ -304,8 +303,7 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
-    <script src="js/main.js" defer></script>
+    <script src="{{ asset('js/main.js') }}?v=20260317-jsperf2" defer></script>
     <script src="js/contact.js" defer></script>
 </body>
 

@@ -3,7 +3,14 @@
             <div class="row g-2 align-items-stretch  justify-content-start">
                 <div class="col-lg-4 col-md-6 d-flex align-items-center justify-content-center">
                     <div class="footer-logo d-flex align-items-center gap-0">
-                        <img src="{{ asset('assets/footer-logo.png') }}" width="200" height="300" class="w-100" alt="ee and honey">
+                        <img
+                            src="{{ asset('assets/footer-logo.png') }}"
+                            srcset="{{ asset('assets/responsive/footer-logo-320.webp') }} 320w, {{ asset('assets/responsive/footer-logo-540.webp') }} 540w"
+                            sizes="525px"
+                            width="200"
+                            height="300"
+                            class="w-100"
+                            alt="ee and honey">
                     </div>
                 </div>
 

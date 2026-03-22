@@ -1,10 +1,8 @@
-document.addEventListener("DOMContentLoaded", function () {
-    console.log("DOM loaded, initializing map...");
-
+function initAgentMap() {
     if (!window.currentLang) window.currentLang = "en";
 
     const mapTranslations = {
-        YE: { en: "Yemen", ar: "اليمن", fr: "Yémen", es: "Yemen" },
+        YE: { en: "Yemen", ar: "اليمن", fr: "Yemen", es: "Yemen" },
         SA: {
             en: "Saudi Arabia",
             ar: "المملكة العربية السعودية",
@@ -12,23 +10,17 @@ document.addEventListener("DOMContentLoaded", function () {
             es: "Arabia Saudita",
         },
         QA: { en: "Qatar", ar: "قطر", fr: "Qatar", es: "Catar" },
-        OM: { en: "Oman", ar: "عُمان", fr: "Oman", es: "Omán" },
+        OM: { en: "Oman", ar: "عُمان", fr: "Oman", es: "Oman" },
         US: {
             en: "United States",
             ar: "الولايات المتحدة الأمريكية",
-            fr: "États-Unis",
+            fr: "Etats-Unis",
             es: "Estados Unidos",
         },
-        EG: { en: "Egypt", ar: "مصر", fr: "Égypte", es: "Egipto" },
+        EG: { en: "Egypt", ar: "مصر", fr: "Egypte", es: "Egipto" },
         PS: { en: "Palestine", ar: "فلسطين", fr: "Palestine", es: "Palestina" },
-        LB: { en: "Lebanon", ar: "لبنان", fr: "Liban", es: "Líbano" },
-        Jo: {
-            en: "Jordan",
-            ar: "الأردن",
-            fr: "Jordanie",
-            es: "Jordania",
-        },
-
+        LB: { en: "Lebanon", ar: "لبنان", fr: "Liban", es: "Libano" },
+        JO: { en: "Jordan", ar: "الأردن", fr: "Jordanie", es: "Jordania" },
         visit: {
             en: "Visit Website",
             ar: "زيارة الموقع",
@@ -40,29 +32,18 @@ document.addEventListener("DOMContentLoaded", function () {
     const chartDiv = document.getElementById("chartdiv");
 
     if (!chartDiv) {
-        console.error(" chartdiv element not found!");
         return;
     }
 
-    console.log(
-        "Chart div found:",
-        chartDiv.id,
-        "Dimensions:",
-        chartDiv.offsetWidth,
-        "x",
-        chartDiv.offsetHeight,
-    );
-
-    let chartInitialized = false;
     let resizeTimeout;
+    let resizeDebounce;
 
     function createGlobeChart() {
-        console.log("Creating globe chart...");
         if (resizeTimeout) {
             clearTimeout(resizeTimeout);
         }
+
         if (window.root && !window.root.isDisposed()) {
-            console.log("Disposing previous chart...");
             window.root.dispose();
             window.root = null;
         }
@@ -71,18 +52,10 @@ document.addEventListener("DOMContentLoaded", function () {
             const root = am5.Root.new("chartdiv");
             window.root = root;
 
-            console.log("AM5 Root created");
-
             root.autoResize = true;
-
             root.width = chartDiv.clientWidth;
             root.height = chartDiv.clientHeight;
-
-            console.log("Set root dimensions:", root.width, "x", root.height);
-
             root.setThemes([am5themes_Animated.new(root)]);
-
-            console.log("Themes set");
 
             const chart = root.container.children.push(
                 am5map.MapChart.new(root, {
@@ -95,6 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     homeGeoPoint: { longitude: 45, latitude: 25 },
                 }),
             );
+
             const polygonSeries = chart.series.push(
                 am5map.MapPolygonSeries.new(root, {
                     geoJSON: am5geodata_worldLow,
@@ -121,7 +95,6 @@ document.addEventListener("DOMContentLoaded", function () {
             };
 
             polygonSeries.events.on("datavalidated", () => {
-                console.log("Polygon series data validated");
                 polygonSeries.mapPolygons.each((polygon) => {
                     const id = polygon.dataItem.get("id");
                     if (countryColors[id]) {
@@ -129,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
                 });
             });
+
             const pinSeries = chart.series.push(
                 am5map.MapPointSeries.new(root, {
                     latitudeField: "latitude",
@@ -136,31 +110,24 @@ document.addEventListener("DOMContentLoaded", function () {
                 }),
             );
 
-            // Map dynamic data from Database
-            let dbLocations = [];
-            if (window.mapLocationsData && window.mapLocationsData.length > 0) {
-                dbLocations = window.mapLocationsData.map(function (loc) {
-                    return {
-                        id: loc.id,
-                        title_en: loc.title_en,
-                        title_ar: loc.title_ar,
-                        title_fr: loc.title_fr || loc.title_en,
-                        title_es: loc.title_es || loc.title_en,
-                        latitude: parseFloat(loc.latitude),
-                        longitude: parseFloat(loc.longitude),
-                        instagram: loc.instagram || "#",
-                        facebook: loc.facebook || "#",
-                        website: loc.website || "#"
-                    };
-                });
-            }
+            const dbLocations = Array.isArray(window.mapLocationsData)
+                ? window.mapLocationsData.map((loc) => ({
+                    id: loc.id,
+                    title_en: loc.title_en,
+                    title_ar: loc.title_ar,
+                    title_fr: loc.title_fr || loc.title_en,
+                    title_es: loc.title_es || loc.title_en,
+                    latitude: parseFloat(loc.latitude),
+                    longitude: parseFloat(loc.longitude),
+                    instagram: loc.instagram || "#",
+                    facebook: loc.facebook || "#",
+                    website: loc.website || "#",
+                }))
+                : [];
 
             pinSeries.data.setAll(dbLocations);
 
-            console.log("Dynamic Pin data set");
-
             pinSeries.bullets.push((root, series, dataItem) => {
-                const code = dataItem.dataContext.code;
                 const marker = am5.Picture.new(root, {
                     src: "../assets/marker-brown.svg",
                     width: 26,
@@ -189,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 </a>
                             </div>
                             <a href="${dataItem.dataContext.website || "#"}" target="_blank" class="branch-btn">
-                                ${mapTranslations && mapTranslations.visit && mapTranslations.visit[lang] ? mapTranslations.visit[lang] : "Visit Website"}
+                                ${mapTranslations.visit[lang] || "Visit Website"}
                             </a>
                         </div>
                     `;
@@ -199,12 +166,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             chart.appear(1000, 100);
-            chartInitialized = true;
-            console.log("Chart initialized successfully");
 
             resizeTimeout = setTimeout(() => {
                 if (root && !root.isDisposed()) {
-                    console.log("Forcing resize after chart appearance...");
                     root.resize();
                 }
             }, 1500);
@@ -214,110 +178,91 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function initMap() {
-        console.log("Initializing map...");
-
         if (typeof am5 === "undefined" || typeof am5map === "undefined") {
-            console.error("AMCharts library not loaded!");
             setTimeout(initMap, 100);
             return;
         }
 
         if (chartDiv.offsetWidth === 0 || chartDiv.offsetHeight === 0) {
-            console.log("Chart container has zero dimensions, waiting...");
-            setTimeout(() => {
-                console.log(
-                    "After wait - dimensions:",
-                    chartDiv.offsetWidth,
-                    "x",
-                    chartDiv.offsetHeight,
-                );
-                createGlobeChart();
-            }, 100);
-        } else {
-            setTimeout(() => {
-                createGlobeChart();
-            }, 50);
+            setTimeout(createGlobeChart, 100);
+            return;
         }
+
+        setTimeout(createGlobeChart, 50);
     }
 
-    window.addEventListener("load", function () {
-        console.log("Window fully loaded, checking chart...");
+    window.addEventListener("load", () => {
         if (window.root && !window.root.isDisposed()) {
-            setTimeout(() => {
-                window.root.resize();
-            }, 100);
+            setTimeout(() => window.root.resize(), 100);
         }
     });
 
-    let resizeDebounce;
-    window.addEventListener("resize", function () {
+    window.addEventListener("resize", () => {
         clearTimeout(resizeDebounce);
         resizeDebounce = setTimeout(() => {
             if (window.root && !window.root.isDisposed()) {
-                console.log("Window resized, resizing chart...");
                 window.root.resize();
             }
         }, 250);
     });
 
-    window.addEventListener("pageshow", function (event) {
-        if (event.persisted) {
-            console.log("Page loaded from cache, resizing chart...");
-            setTimeout(() => {
-                if (window.root && !window.root.isDisposed()) {
-                    window.root.resize();
-                } else {
-                    initMap();
-                }
-            }, 100);
+    window.addEventListener("pageshow", (event) => {
+        if (!event.persisted) {
+            return;
         }
+
+        setTimeout(() => {
+            if (window.root && !window.root.isDisposed()) {
+                window.root.resize();
+            } else {
+                initMap();
+            }
+        }, 100);
     });
 
     document.addEventListener("languageChanged", (event) => {
-        if (event.detail && event.detail.lang) {
-            window.currentLang = event.detail.lang;
-            if (
-                window.root &&
-                window.root.series &&
-                !window.root.isDisposed()
-            ) {
-                window.root.series.each((series) => {
-                    if (series instanceof am5map.MapPointSeries) {
-                        series.bullets.each((bullet) => {
-                            const sprite = bullet.get("sprite");
-                            if (sprite) sprite.invalidateTooltip();
-                        });
-                    }
-                });
-            }
+        if (!event.detail?.lang) {
+            return;
+        }
+
+        window.currentLang = event.detail.lang;
+
+        if (window.root && window.root.series && !window.root.isDisposed()) {
+            window.root.series.each((series) => {
+                if (series instanceof am5map.MapPointSeries) {
+                    series.bullets.each((bullet) => {
+                        const sprite = bullet.get("sprite");
+                        if (sprite) sprite.invalidateTooltip();
+                    });
+                }
+            });
         }
     });
 
     window.changeMapLanguage = function (lang) {
-        if (mapTranslations.YE[lang]) {
-            window.currentLang = lang;
-            const event = new CustomEvent("languageChanged", {
-                detail: { lang },
-            });
-            document.dispatchEvent(event);
-        } else {
-            console.warn(
-                `Language "${lang}" not supported. Available: en, ar, fr, es`,
-            );
+        if (!mapTranslations.visit[lang]) {
+            console.warn(`Language "${lang}" not supported. Available: en, ar, fr, es`);
+            return;
         }
+
+        window.currentLang = lang;
+        document.dispatchEvent(new CustomEvent("languageChanged", { detail: { lang } }));
     };
 
     setTimeout(initMap, 100);
 
-    window.addEventListener("beforeunload", function () {
+    window.addEventListener("beforeunload", () => {
         if (window.root && !window.root.isDisposed()) {
             window.root.dispose();
         }
-        if (resizeTimeout) {
-            clearTimeout(resizeTimeout);
-        }
-        if (resizeDebounce) {
-            clearTimeout(resizeDebounce);
-        }
+
+        clearTimeout(resizeTimeout);
+        clearTimeout(resizeDebounce);
     });
-});
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initAgentMap, { once: true });
+} else {
+    initAgentMap();
+}

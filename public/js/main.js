@@ -1,5 +1,14 @@
 const supportedLangs = ["en", "ar", "es", "fr"];
 
+function runWhenIdle(callback) {
+    if ("requestIdleCallback" in window) {
+        window.requestIdleCallback(callback, { timeout: 1200 });
+        return;
+    }
+
+    window.setTimeout(callback, 150);
+}
+
 function getCurrentLanguage() {
     const savedLang = localStorage.getItem("lang");
     if (savedLang && supportedLangs.includes(savedLang)) return savedLang;
@@ -55,8 +64,9 @@ window.currentLang = currentLang;
 window.applyLanguage = applyLanguage;
 
 let productsSwiper;
+let productsSwiperLang;
 
-function initProductsSwiper(lang) {
+function buildProductsSwiper(lang) {
     const isRTL = lang === "ar";
 
     if (productsSwiper) {
@@ -81,14 +91,66 @@ function initProductsSwiper(lang) {
             1200: { slidesPerView: 5, centeredSlides: true }
         }
     });
+
+    productsSwiperLang = lang;
 }
 
-AOS.init({ duration: 1000, once: false });
+function initProductsSwiper(lang) {
+    const swiperElement = document.querySelector(".products-swiper");
+
+    if (!swiperElement || typeof window.Swiper === "undefined") {
+        return;
+    }
+
+    if (productsSwiper && productsSwiperLang === lang) {
+        return;
+    }
+
+    buildProductsSwiper(lang);
+}
+
+function scheduleProductsSwiper(lang) {
+    const swiperElement = document.querySelector(".products-swiper");
+
+    if (!swiperElement || typeof window.Swiper === "undefined") {
+        return;
+    }
+
+    const startSwiper = () => initProductsSwiper(lang);
+
+    if (!("IntersectionObserver" in window)) {
+        runWhenIdle(startSwiper);
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        if (!entries.some(entry => entry.isIntersecting)) {
+            return;
+        }
+
+        observer.disconnect();
+        runWhenIdle(startSwiper);
+    }, { rootMargin: "250px 0px" });
+
+    observer.observe(swiperElement);
+}
+
+function initAOSIfNeeded() {
+    if (typeof window.AOS === "undefined" || !document.querySelector("[data-aos]")) {
+        return;
+    }
+
+    window.AOS.init({
+        duration: 700,
+        once: true,
+        disable: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+    });
+}
 
 document.addEventListener("DOMContentLoaded", function () {
 
     const navbarCollapse = document.getElementById("navbarNav");
-    const bsCollapse = new bootstrap.Collapse(navbarCollapse, { toggle: false });
+    const bsCollapse = navbarCollapse ? new bootstrap.Collapse(navbarCollapse, { toggle: false }) : null;
 
     document.querySelectorAll('.btn-dropdown').forEach(button => {
         button.setAttribute('data-bs-toggle', '');
@@ -190,19 +252,48 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     applyLanguage(currentLang);
-    // Show page after language is applied
     document.documentElement.style.transition = 'opacity 0.15s ease';
     document.documentElement.style.opacity = '1';
-    initProductsSwiper(currentLang);
+
+    runWhenIdle(() => {
+        initAOSIfNeeded();
+        scheduleProductsSwiper(currentLang);
+    });
 
     const navbar = document.getElementById("mainNavbar");
     const navLinks = document.querySelectorAll("#mainNavbar .nav-link");
+    let isNavbarSticky = false;
+    let navbarFrameRequested = false;
 
-    function handleNavbar() {
-        navbar.classList.toggle("sticky", window.scrollY > 10);
+    function updateNavbarSticky() {
+        if (!navbar) {
+            return;
+        }
+
+        const shouldBeSticky = window.scrollY > 10;
+
+        if (shouldBeSticky === isNavbarSticky) {
+            return;
+        }
+
+        isNavbarSticky = shouldBeSticky;
+        navbar.classList.toggle("sticky", shouldBeSticky);
     }
-    handleNavbar();
-    window.addEventListener("scroll", handleNavbar);
+
+    function requestNavbarUpdate() {
+        if (navbarFrameRequested) {
+            return;
+        }
+
+        navbarFrameRequested = true;
+        window.requestAnimationFrame(() => {
+            navbarFrameRequested = false;
+            updateNavbarSticky();
+        });
+    }
+
+    updateNavbarSticky();
+    window.addEventListener("scroll", requestNavbarUpdate, { passive: true });
 
     navLinks.forEach(link => {
         link.addEventListener("click", function (e) {
@@ -268,5 +359,5 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.addEventListener("languageChanged", (e) => {
-    initProductsSwiper(e.detail.lang);
+    scheduleProductsSwiper(e.detail.lang);
 });

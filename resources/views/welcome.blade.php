@@ -36,16 +36,271 @@
         rel="stylesheet" media="print" onload="this.media='all'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet"></noscript>
 
-    <!-- Critical CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <style>
+        :root {
+            --primary-color: #fec340;
+            --third-color: #7e401c;
+            --white: #ffffff;
+            --Montserrat: "Montserrat", sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            overflow-x: hidden !important;
+            font-family: var(--Montserrat), "Cairo", system-ui, sans-serif;
+            background: #fff;
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-content-center {
+            justify-content: center;
+        }
+
+        .align-items-center {
+            align-items: center;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        .gap-3 {
+            gap: 1rem;
+        }
+
+        .p-4 {
+            padding: 1.5rem;
+        }
+
+        .py-5 {
+            padding-top: 3rem;
+            padding-bottom: 3rem;
+        }
+
+        .container-lg {
+            width: 100%;
+            max-width: 1320px;
+            margin-right: auto;
+            margin-left: auto;
+            padding-right: 0.75rem;
+            padding-left: 0.75rem;
+        }
+
+        .navbar {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        .navbar-brand {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3125rem 0;
+            text-decoration: none;
+        }
+
+        .navbar-toggler {
+            border: 1px solid var(--primary-color);
+            border-radius: 0.375rem;
+            color: var(--primary-color);
+            background: transparent;
+            padding: 0.35rem 0.75rem;
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+
+        .navbar-collapse {
+            width: 100%;
+        }
+
+        .collapse:not(.show) {
+            display: none;
+        }
+
+        .navbar-nav {
+            display: flex;
+            flex-direction: column;
+            padding-left: 0;
+            margin: 0;
+            list-style: none;
+        }
+
+        .nav-item,
+        .dropdown {
+            position: relative;
+        }
+
+        .nav-link,
+        .btn-warning {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-weight: 700;
+            line-height: 1.5;
+            border: 0;
+            cursor: pointer;
+        }
+
+        .nav-link {
+            color: var(--white);
+            background: transparent;
+            padding: 0.5rem 0;
+        }
+
+        .btn-warning {
+            color: var(--third-color);
+            background: var(--primary-color);
+            border-radius: 999px;
+            padding: 0.65rem 1.2rem;
+        }
+
+        .dropdown-menu {
+            display: none;
+        }
+
+        .logo-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero {
+            position: relative;
+            min-height: 50vh;
+            overflow: hidden;
+        }
+
+        .hero-video-wrapper {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            background: #3d240d;
+        }
+
+        .hero-video-wrapper::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.45);
+            z-index: 0;
+        }
+
+        .hero-video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #mainNavbar {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            z-index: 10;
+            background: transparent !important;
+            transition: all 0.3s ease;
+        }
+
+        #mainNavbar .dark-logo {
+            display: none;
+        }
+
+        #mainNavbar .light-logo {
+            display: inline-flex;
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 5;
+            min-height: 70vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 15px;
+        }
+
+        @media (max-width: 991px) {
+            #mainNavbar .navbar-collapse {
+                margin-top: 0.75rem;
+                background: #fff;
+                border-radius: 10px;
+            }
+
+            #mainNavbar .nav-link {
+                color: #000;
+            }
+        }
+
+        @media (min-width: 992px) {
+            .navbar-expand-lg {
+                flex-wrap: nowrap;
+            }
+
+            .navbar-expand-lg .navbar-toggler {
+                display: none;
+            }
+
+            .navbar-expand-lg .navbar-collapse {
+                display: flex !important;
+                flex-basis: auto;
+                align-items: center;
+            }
+
+            .navbar-expand-lg .navbar-nav {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .p-lg-0 {
+                padding: 0;
+            }
+        }
+
+        @media (min-width: 900px) {
+            .hero,
+            .hero-inner {
+                min-height: 100vh;
+            }
+        }
+    </style>
+    <link rel="preload" href="{{ asset('css/bootstrap.min.css') }}?v=20260317-cssasync" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="{{ asset('css/main.css') }}?v=20260317-cssasync" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}?v=20260317-cssasync"></noscript>
+    <noscript><link rel="stylesheet" href="{{ asset('css/main.css') }}?v=20260317-cssasync"></noscript>
 
     <!-- Non-critical CSS (deferred) -->
-    <link href="css/all.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <noscript><link rel="stylesheet" href="css/all.min.css"></noscript>
+    <link href="{{ asset('css/all.min.css') }}?v=20260317-fontswap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="{{ asset('css/all.min.css') }}?v=20260317-fontswap"></noscript>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet" media="print" onload="this.media='all'">
-    <link href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}?v=20260317-swiperlocal" rel="stylesheet" media="print" onload="this.media='all'">
     <script>
         const savedLang = localStorage.getItem("lang") || (navigator.language.slice(0, 2) === 'ar' ? 'ar' : 'en');
         document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
@@ -56,10 +311,26 @@
 
 <body class="home-body">
 <main>
+    @php
+        $responsiveStorageSrcset = function (?string $path, array $widths): string {
+            if (empty($path)) {
+                return '';
+            }
+
+            $normalizedPath = ltrim($path, '/');
+            $directory = trim(dirname($normalizedPath), '.');
+            $filename = pathinfo($normalizedPath, PATHINFO_FILENAME);
+            $basePath = 'storage/responsive/' . ($directory ? $directory . '/' : '') . $filename;
+
+            return collect($widths)
+                ->map(fn (int $width) => asset($basePath . '-' . $width . '.webp') . ' ' . $width . 'w')
+                ->implode(', ');
+        };
+    @endphp
 
     <section class="hero">
         <div class="hero-video-wrapper">
-            <video autoplay muted loop playsinline preload="auto" poster="{{ asset('assets/logo.png') }}" class="hero-video" id="heroVideo">
+            <video autoplay muted loop playsinline preload="auto" poster="{{ asset('assets/responsive/logo-poster.webp') }}" class="hero-video" id="heroVideo">
                 <source src="{{ !empty($settings['hero_video']) ? \App\Support\Security::safeStorageAsset($settings['hero_video'], asset('assets/website-video.mp4')) : asset('assets/website-video.mp4') }}" type="video/mp4">
             </video>
         </div>
@@ -120,7 +391,13 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-up">
                     <div class="image">
-                        <img src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}" width="600" height="400" loading="lazy" decoding="async" class="w-100" alt="{{ $aboutBrief->title_en ?? 'About Bee & Honey' }}">
+                        <img
+                            src="{{ !empty($aboutBrief->image) ? asset('storage/' . $aboutBrief->image) : asset('assets/freepik__ultra-realistic-studio-product-photography-of-natu__55394.png') }}"
+                            @if(!empty($aboutBrief->image))
+                                srcset="{{ $responsiveStorageSrcset($aboutBrief->image, [480, 720, 960]) }}"
+                                sizes="(max-width: 991px) 92vw, 679px"
+                            @endif
+                            width="600" height="400" loading="lazy" decoding="async" class="w-100" alt="{{ $aboutBrief->title_en ?? 'About Bee & Honey' }}">
                     </div>
                 </div>
             </div>
@@ -133,7 +410,13 @@
             <div class="swiper-wrapper">
                 @foreach($sliders as $slider)
                 <div class="swiper-slide">
-                    <img src="{{ asset('storage/' . $slider->image) }}" loading="lazy" decoding="async" alt="Honey Product Banner">
+                    <img
+                        src="{{ asset('storage/' . $slider->image) }}"
+                        srcset="{{ $responsiveStorageSrcset($slider->image, [480, 768, 960]) }}"
+                        sizes="(max-width: 575px) 82vw, (max-width: 991px) 72vw, 721px"
+                        loading="lazy"
+                        decoding="async"
+                        alt="Honey Product Banner">
                 </div>
                 @endforeach
             </div>
@@ -330,19 +613,75 @@
     </script>
     <script src="js/bootstrap.bundle.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+    <script src="{{ asset('vendor/swiper/swiper-bundle.min.js') }}?v=20260317-swiperlocal" defer></script>
 
-    <script src="js/main.js" defer></script>
+    <script src="{{ asset('js/main.js') }}?v=20260317-jsperf2" defer></script>
     <script src="js/certificate.js" defer></script>
 
 
-    <!-- Map Scripts (deferred) -->
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
-    <script src="https://cdn.amcharts.com/lib/5/index.js" defer></script>
-    <script src="https://cdn.amcharts.com/lib/5/map.js" defer></script>
-    <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js" defer></script>
-    <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" defer></script>
-    <script src="js/map.js" defer></script>
+    <script>
+        (() => {
+            const mapSection = document.querySelector('.map-section');
+
+            if (!mapSection) {
+                return;
+            }
+
+            let mapAssetsLoaded = false;
+
+            const loadScript = (src) => new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = src;
+                script.defer = true;
+                script.onload = resolve;
+                script.onerror = reject;
+                document.body.appendChild(script);
+            });
+
+            const loadMapAssets = async () => {
+                if (mapAssetsLoaded) {
+                    return;
+                }
+
+                mapAssetsLoaded = true;
+
+                try {
+                    await loadScript('https://cdn.amcharts.com/lib/5/index.js');
+                    await loadScript('https://cdn.amcharts.com/lib/5/map.js');
+                    await loadScript('https://cdn.amcharts.com/lib/5/geodata/worldLow.js');
+                    await loadScript('https://cdn.amcharts.com/lib/5/themes/Animated.js');
+                    await loadScript('{{ asset('js/map.js') }}?v=20260317-jsperf');
+                } catch (error) {
+                    console.error('Failed to load map assets', error);
+                }
+            };
+
+            const triggerLoad = () => {
+                if ('requestIdleCallback' in window) {
+                    requestIdleCallback(() => loadMapAssets(), { timeout: 2000 });
+                    return;
+                }
+
+                setTimeout(loadMapAssets, 200);
+            };
+
+            if ('IntersectionObserver' in window) {
+                const observer = new IntersectionObserver((entries) => {
+                    if (!entries.some(entry => entry.isIntersecting)) {
+                        return;
+                    }
+
+                    observer.disconnect();
+                    triggerLoad();
+                }, { rootMargin: '300px 0px' });
+
+                observer.observe(mapSection);
+                return;
+            }
+
+            triggerLoad();
+        })();
+    </script>
 </body>
 
 </html>
