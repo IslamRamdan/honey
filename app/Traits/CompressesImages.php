@@ -82,6 +82,64 @@ trait CompressesImages
     }
 
     /**
+     * Generate responsive WebP variants for an image stored on the public disk.
+     */
+    protected function generateResponsiveImages(string $storedPath, array $widths = [480, 720, 960], int $quality = 80): void
+    {
+        $absoluteSource = Storage::disk('public')->path($storedPath);
+
+        if (!is_file($absoluteSource)) {
+            return;
+        }
+
+        $directory = trim(dirname($storedPath), '.');
+        $filename = pathinfo($storedPath, PATHINFO_FILENAME);
+        $outputDir = 'responsive/' . ($directory ? $directory . '/' : '');
+
+        Storage::disk('public')->makeDirectory($outputDir);
+
+        $img = $this->loadGdImage($absoluteSource);
+        if (!$img) {
+            return;
+        }
+
+        $originalWidth = imagesx($img);
+        $originalHeight = imagesy($img);
+
+        foreach ($widths as $width) {
+            if ($originalWidth <= $width) {
+                continue;
+            }
+
+            $targetHeight = (int) round(($originalHeight / $originalWidth) * $width);
+            $canvas = imagecreatetruecolor($width, $targetHeight);
+            imagealphablending($canvas, false);
+            imagesavealpha($canvas, true);
+            $transparent = imagecolorallocatealpha($canvas, 0, 0, 0, 127);
+            imagefilledrectangle($canvas, 0, 0, $width, $targetHeight, $transparent);
+            imagecopyresampled($canvas, $img, 0, 0, 0, 0, $width, $targetHeight, $originalWidth, $originalHeight);
+
+            $targetPath = Storage::disk('public')->path($outputDir . $filename . '-' . $width . '.webp');
+            imagewebp($canvas, $targetPath, $quality);
+            imagedestroy($canvas);
+        }
+
+        imagedestroy($img);
+    }
+
+    private function loadGdImage(string $path)
+    {
+        $type = @exif_imagetype($path);
+
+        return match ($type) {
+            IMAGETYPE_JPEG => @imagecreatefromjpeg($path),
+            IMAGETYPE_PNG => @imagecreatefrompng($path),
+            IMAGETYPE_WEBP => @imagecreatefromwebp($path),
+            default => null,
+        };
+    }
+
+    /**
      * Store a non-image upload on the public disk using a randomized filename.
      */
     protected function storeFileToPublic(UploadedFile $file, string $path): string

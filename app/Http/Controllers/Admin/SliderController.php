@@ -34,6 +34,7 @@ class SliderController extends Controller
 
         $data = $request->except('image');
         $data['image'] = $this->storeCompressedImage($request->file('image'), 'sliders');
+        $this->generateResponsiveImages($data['image'], [480, 768, 960]);
         $data['is_active'] = $request->has('is_active');
 
         Slider::create($data);
@@ -62,6 +63,7 @@ class SliderController extends Controller
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeCompressedImage($request->file('image'), 'sliders');
+            $this->generateResponsiveImages($data['image'], [480, 768, 960]);
         }
 
         $slider->update($data);

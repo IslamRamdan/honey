@@ -44,13 +44,16 @@ class PageController extends Controller
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeCompressedImage($request->file('image'), 'pages');
+            $this->generateResponsiveImages($data['image'], [480, 720, 960]);
         }
 
         // Handle multiple images
         $imagesList = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $imagesList[] = $this->storeCompressedImage($file, 'pages');
+                $path = $this->storeCompressedImage($file, 'pages');
+                $this->generateResponsiveImages($path, [480, 720, 960]);
+                $imagesList[] = $path;
             }
         }
         $data['images'] = $imagesList ?: null;
@@ -88,6 +91,7 @@ class PageController extends Controller
 
         if ($request->hasFile('image')) {
             $data['image'] = $this->storeCompressedImage($request->file('image'), 'pages');
+            $this->generateResponsiveImages($data['image'], [480, 720, 960]);
         }
 
         // Handle multiple images
@@ -95,7 +99,9 @@ class PageController extends Controller
         $newImages = [];
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $file) {
-                $newImages[] = $this->storeCompressedImage($file, 'pages');
+                $path = $this->storeCompressedImage($file, 'pages');
+                $this->generateResponsiveImages($path, [480, 720, 960]);
+                $newImages[] = $path;
             }
         }
         // Merge old and new images
