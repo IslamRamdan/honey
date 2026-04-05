@@ -495,7 +495,7 @@
                 data-es="Nuestros certificados" data-fr="Nos certificats">
                 Our Certificates
             </h2>
-            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-4 mt-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-4 mt-5 justify-content-center">
                 @foreach($certificates as $certificate)
                 <div class="col">
                     <div class="certificate-item" data-aos="zoom-in">
