@@ -63,9 +63,9 @@
                             <a href="{{ route('blogs.edit', $blog->id) }}" class="btn btn-sm btn-warning">
                                 <i class="fas fa-edit"></i> {{ __('admin.edit') }}
                             </a>
-                            <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" style="display:inline-block;">
+                            <form action="{{ route('blogs.destroy', $blog->id) }}" method="POST" class="delete-form" style="display:inline-block;">
                                 @csrf @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('{{ __('admin.confirm_delete') }}')">
+                                <button type="submit" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i> {{ __('admin.delete') }}
                                 </button>
                             </form>

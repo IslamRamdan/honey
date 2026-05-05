@@ -193,14 +193,14 @@
 
                                 <div class="icons d-flex flex-wrap gap-2">
                                     <a href="{{ \App\Support\Security::safeExternalUrl($settings['instagram'] ?? 'https://www.instagram.com/beeandhoney.official?igsh=MW9lNnBmb3ppdTZyMA==') }}"
-                                        rel="noopener noreferrer"
+                                        target="_blank" rel="noopener noreferrer"
                                         aria-label="Instagram">
                                         <i class="fa-brands fa-instagram"></i>
                                     </a>
-                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['facebook'] ?? 'https://web.facebook.com/beeandhoney') }}" rel="noopener noreferrer" aria-label="Facebook">
+                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['facebook'] ?? 'https://web.facebook.com/beeandhoney') }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                                         <i class="fa-brands fa-facebook-f"></i>
                                     </a>
-                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['linkedin'] ?? 'https://www.linkedin.com/company/bee-and-honey/') }}" rel="noopener noreferrer" aria-label="LinkedIn">
+                                    <a href="{{ \App\Support\Security::safeExternalUrl($settings['linkedin'] ?? 'https://www.linkedin.com/company/bee-and-honey/') }}" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                         <i class="fa-brands fa-linkedin-in"></i>
                                     </a>
                                 </div>

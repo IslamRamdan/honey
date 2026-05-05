@@ -25,6 +25,12 @@ return [
   'update_blog' => 'Actualizar artículo',
   'blog_list' => 'Lista de artículos',
   'delete_blog_confirm' => '¿Desea eliminar este artículo?',
+  'blog_language_requirement' => 'Campos obligatorios: título y contenido en al menos un idioma. Los demás idiomas son opcionales.',
+  'blog_language_incomplete' => 'Completa el título y el contenido para el idioma seleccionado.',
+  'blog_title_required' => 'Ingresa el título para este idioma o borra su contenido.',
+  'blog_content_required' => 'Ingresa el contenido para este idioma o borra su título.',
+  'required_fields' => 'Campos obligatorios',
+  'ok' => 'OK',
 
   // Categories
   'categories' => 'Categorías',

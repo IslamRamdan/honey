@@ -69,12 +69,11 @@
                                     <i class="fas fa-edit"></i> {{ __('messages.edit') }}
                                 </a>
 
-                                <form action="{{ route('products.destroy', $product) }}" method="POST"
+                                <form action="{{ route('products.destroy', $product) }}" method="POST" class="delete-form"
                                     style="display:inline">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn btn-sm btn-danger"
-                                        onclick="return confirm('{{ __('messages.delete_product_confirm') }}')">
+                                    <button class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i> {{ __('messages.delete') }}
                                     </button>
                                 </form>

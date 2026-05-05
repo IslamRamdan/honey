@@ -75,11 +75,10 @@
                                 </a>
 
                                 @if(auth()->id() !== $user->id)
-                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('{{ __('admin.confirm_delete') }}')">
+                                        <button class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

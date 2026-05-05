@@ -24,7 +24,7 @@
 
     <!-- Critical CSS -->
     <link rel="stylesheet" href="{{ asset('css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}?v=20260405-card-layout">
 
     <!-- Non-critical CSS (deferred) -->
     <link href="{{ asset('css/all.min.css') }}?v=20260317-fontswap" rel="stylesheet" media="print" onload="this.media='all'">

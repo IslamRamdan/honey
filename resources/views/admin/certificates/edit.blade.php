@@ -55,15 +55,27 @@
     // حذف صورة الشهادة
     document.querySelectorAll('.delete-image').forEach(btn => {
         btn.onclick = function() {
-            if (!confirm('{{ __("messages.delete_image_confirm") ?? "هل أنت متأكد من حذف هذه الصورة؟" }}')) return;
             let box = this.closest('[data-index]');
-            fetch(`/admin/certificates/{{ $certificate->id }}/image/${box.dataset.index}`, {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json'
-                }
-            }).then(() => box.remove());
+            Swal.fire({
+                title: @json(__('messages.confirm_delete_title')),
+                text: @json(__('messages.delete_image_confirm')),
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: @json(__('messages.yes_delete')),
+                cancelButtonText: @json(__('messages.cancel')),
+                reverseButtons: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }}
+            }).then((result) => {
+                if (!result.isConfirmed) return;
+                fetch(`/admin/certificates/{{ $certificate->id }}/image/${box.dataset.index}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                        'Accept': 'application/json'
+                    }
+                }).then(() => box.remove());
+            });
         };
     });
 </script>

@@ -41,15 +41,15 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'name_en' => 'required|string|max:255',
-            'name_fr' => 'required|string|max:255',
-            'name_es' => 'required|string|max:255',
+            'name_ar' => 'nullable|string|max:255|required_with:description_ar',
+            'name_en' => 'nullable|string|max:255|required_with:description_en',
+            'name_fr' => 'nullable|string|max:255|required_with:description_fr',
+            'name_es' => 'nullable|string|max:255|required_with:description_es',
 
-            'description_ar' => 'required|string',
-            'description_en' => 'required|string',
-            'description_fr' => 'required|string',
-            'description_es' => 'required|string',
+            'description_ar' => 'nullable|string|required_with:name_ar',
+            'description_en' => 'nullable|string|required_with:name_en',
+            'description_fr' => 'nullable|string|required_with:name_fr',
+            'description_es' => 'nullable|string|required_with:name_es',
 
             // الصورة الرئيسية
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
@@ -65,7 +65,9 @@ class BlogController extends Controller
             'status' => 'required|in:new,blog',
         ]);
 
-        $data = $request->except(['images', 'videos']);
+        $this->validateAtLeastOneLanguage($request);
+
+        $data = $this->fillMissingLanguageContent($request->except(['images', 'videos']));
 
         /* =======================
            الصورة الرئيسية
@@ -119,15 +121,15 @@ class BlogController extends Controller
     public function update(Request $request, Blog $blog)
     {
         $request->validate([
-            'name_ar' => 'required|string|max:255',
-            'name_en' => 'required|string|max:255',
-            'name_fr' => 'required|string|max:255',
-            'name_es' => 'required|string|max:255',
+            'name_ar' => 'nullable|string|max:255|required_with:description_ar',
+            'name_en' => 'nullable|string|max:255|required_with:description_en',
+            'name_fr' => 'nullable|string|max:255|required_with:description_fr',
+            'name_es' => 'nullable|string|max:255|required_with:description_es',
 
-            'description_ar' => 'required|string',
-            'description_en' => 'required|string',
-            'description_fr' => 'required|string',
-            'description_es' => 'required|string',
+            'description_ar' => 'nullable|string|required_with:name_ar',
+            'description_en' => 'nullable|string|required_with:name_en',
+            'description_fr' => 'nullable|string|required_with:name_fr',
+            'description_es' => 'nullable|string|required_with:name_es',
 
             'image' => 'nullable|image|mimes:jpg,jpeg,png,webp',
 
@@ -140,7 +142,9 @@ class BlogController extends Controller
             'status' => 'required|in:new,blog',
         ]);
 
-        $data = $request->except(['images', 'videos']);
+        $this->validateAtLeastOneLanguage($request);
+
+        $data = $this->fillMissingLanguageContent($request->except(['images', 'videos']));
 
         /* =======================
            الصورة الرئيسية
@@ -227,5 +231,42 @@ class BlogController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    private function validateAtLeastOneLanguage(Request $request): void
+    {
+        $hasCompleteLanguage = collect(['ar', 'en', 'fr', 'es'])->contains(function ($locale) use ($request) {
+            return filled($request->input("name_{$locale}"))
+                && filled($request->input("description_{$locale}"));
+        });
+
+        if (! $hasCompleteLanguage) {
+            validator([], [])->after(function ($validator) {
+                $validator->errors()->add(
+                    'content_language',
+                    __('messages.blog_language_requirement')
+                );
+            })->validate();
+        }
+    }
+
+    private function fillMissingLanguageContent(array $data): array
+    {
+        $locales = ['ar', 'en', 'fr', 'es'];
+        $fallbackLocale = collect($locales)->first(function ($locale) use ($data) {
+            return filled($data["name_{$locale}"] ?? null)
+                && filled($data["description_{$locale}"] ?? null);
+        });
+
+        if (! $fallbackLocale) {
+            return $data;
+        }
+
+        foreach ($locales as $locale) {
+            $data["name_{$locale}"] = $data["name_{$locale}"] ?: $data["name_{$fallbackLocale}"];
+            $data["description_{$locale}"] = $data["description_{$locale}"] ?: $data["description_{$fallbackLocale}"];
+        }
+
+        return $data;
     }
 }

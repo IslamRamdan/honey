@@ -119,18 +119,21 @@
                 </div>
                 
                 <div class="card-body">
+                    <div class="alert alert-info">
+                        {{ __('messages.blog_language_requirement') ?? 'Required: enter the title and content in at least one language. Other languages are optional.' }}
+                    </div>
                     <div class="tab-content" id="custom-tabs-four-tabContent">
                         @foreach ($langs as $key => $lang)
                             <div class="tab-pane fade {{ $loop->first ? 'show active' : '' }}" id="custom-tabs-{{ $key }}" role="tabpanel" aria-labelledby="custom-tabs-{{ $key }}-tab">
                                 
                                 <h5 class="text-primary border-bottom pb-2">{{ __('messages.content_details') ?? 'تفاصيل المحتوى' }}</h5>
                                 <div class="form-group mb-3">
-                                    <label>{{ __('messages.title') ?? 'العنوان' }} ({{ $lang }}) <span class="text-danger">*</span></label>
-                                    <input type="text" name="name_{{ $key }}" class="form-control" value="{{ old('name_' . $key, $blog->{'name_' . $key}) }}" required>
+                                    <label>{{ __('messages.title') ?? 'العنوان' }} ({{ $lang }})</label>
+                                    <input type="text" name="name_{{ $key }}" class="form-control" value="{{ old('name_' . $key, $blog->{'name_' . $key}) }}">
                                 </div>
 
                                 <div class="form-group mb-3">
-                                    <label>{{ __('messages.description') ?? 'المحتوى' }} ({{ $lang }}) <span class="text-danger">*</span></label>
+                                    <label>{{ __('messages.description') ?? 'المحتوى' }} ({{ $lang }})</label>
                                     <textarea name="description_{{ $key }}" class="form-control editor" rows="4">{{ old('description_' . $key, $blog->{'description_' . $key}) }}</textarea>
                                 </div>
 
@@ -167,39 +170,125 @@
 @stop
 
 @section('js')
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.ckeditor.com/ckeditor5/38.1.0/classic/ckeditor.js"></script>
     <script>
+        const blogEditors = {};
+
         document.querySelectorAll('.editor').forEach(el => {
-            ClassicEditor.create(el).catch(err => console.error(err));
+            ClassicEditor.create(el)
+                .then(editor => {
+                    blogEditors[el.name.replace('description_', '')] = editor;
+                })
+                .catch(err => console.error(err));
+        });
+
+        document.querySelector('form[action="{{ route('blogs.update', $blog->id) }}"]').addEventListener('submit', function(event) {
+            Object.values(blogEditors).forEach(editor => editor.updateSourceElement());
+
+            const alertTitle = @json(__('messages.required_fields'));
+            const okButton = @json(__('messages.ok'));
+            const atLeastOneLanguageMessage = @json(__('messages.blog_language_requirement'));
+            const titleRequiredMessage = @json(__('messages.blog_title_required'));
+            const contentRequiredMessage = @json(__('messages.blog_content_required'));
+            const languages = ['ar', 'en', 'fr', 'es'];
+            let targetLanguage = null;
+            let message = null;
+
+            const hasRichTextContent = (html) => {
+                const container = document.createElement('div');
+                container.innerHTML = (html || '').replace(/&nbsp;/g, ' ');
+                return container.textContent.trim().length > 0 ||
+                    Boolean(container.querySelector('img, video, iframe'));
+            };
+
+            const completeLanguage = languages.find((locale) => {
+                const title = this.querySelector(`[name="name_${locale}"]`).value.trim();
+                const editor = blogEditors[locale];
+                const content = editor ? editor.getData() : this.querySelector(`[name="description_${locale}"]`).value;
+                const hasContent = hasRichTextContent(content);
+
+                if (title && !hasContent && !targetLanguage) {
+                    targetLanguage = locale;
+                    message = contentRequiredMessage;
+                }
+
+                if (!title && hasContent && !targetLanguage) {
+                    targetLanguage = locale;
+                    message = titleRequiredMessage;
+                }
+
+                return title && hasContent;
+            });
+
+            if (!targetLanguage && !completeLanguage) {
+                targetLanguage = languages[0];
+                message = atLeastOneLanguageMessage;
+            }
+
+            if (targetLanguage) {
+                event.preventDefault();
+                $(`#custom-tabs-${targetLanguage}-tab`).tab('show');
+                Swal.fire({
+                    icon: 'warning',
+                    title: alertTitle,
+                    text: message,
+                    confirmButtonText: okButton
+                });
+            }
         });
 
         // حذف صورة
         document.querySelectorAll('.delete-image').forEach(btn => {
             btn.onclick = function() {
-                if (!confirm("{{ __('messages.delete_image_confirm') }}")) return;
                 let box = this.closest('[data-index]');
-                fetch(`/blogs/{{ $blog->id }}/image/${box.dataset.index}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
-                    }
-                }).then(() => box.remove());
+                Swal.fire({
+                    title: @json(__('messages.confirm_delete_title')),
+                    text: @json(__('messages.delete_image_confirm')),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: @json(__('messages.yes_delete')),
+                    cancelButtonText: @json(__('messages.cancel')),
+                    reverseButtons: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }}
+                }).then((result) => {
+                    if (!result.isConfirmed) return;
+                    fetch(`/blogs/{{ $blog->id }}/image/${box.dataset.index}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    }).then(() => box.remove());
+                });
             };
         });
 
         // حذف فيديو
         document.querySelectorAll('.delete-video').forEach(btn => {
             btn.onclick = function() {
-                if (!confirm("{{ __('messages.delete_video_confirm') }}")) return;
                 let box = this.closest('[data-index]');
-                fetch(`/blogs/{{ $blog->id }}/video/${box.dataset.index}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                        'Accept': 'application/json'
-                    }
-                }).then(() => box.remove());
+                Swal.fire({
+                    title: @json(__('messages.confirm_delete_title')),
+                    text: @json(__('messages.delete_video_confirm')),
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: @json(__('messages.yes_delete')),
+                    cancelButtonText: @json(__('messages.cancel')),
+                    reverseButtons: {{ app()->getLocale() == 'ar' ? 'true' : 'false' }}
+                }).then((result) => {
+                    if (!result.isConfirmed) return;
+                    fetch(`/blogs/{{ $blog->id }}/video/${box.dataset.index}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                            'Accept': 'application/json'
+                        }
+                    }).then(() => box.remove());
+                });
             };
         });
     </script>

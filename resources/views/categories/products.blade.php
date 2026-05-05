@@ -45,12 +45,11 @@
                                 <a href="{{ route('products.edit', $product->id) }}" class="btn btn-sm btn-warning">
                                     <i class="fas fa-edit"></i> {{ __('messages.edit') }}
                                 </a>
-                                <form action="{{ route('products.destroy', $product->id) }}" method="POST"
+                                <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-form"
                                     style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-sm btn-danger"
-                                        onclick="return confirm('{{ __('messages.delete_product_confirm') }}')">
+                                    <button type="submit" class="btn btn-sm btn-danger">
                                         <i class="fas fa-trash"></i> {{ __('messages.delete') }}
                                     </button>
                                 </form>

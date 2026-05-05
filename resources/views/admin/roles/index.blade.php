@@ -73,11 +73,10 @@
                                         <i class="fas fa-edit"></i>
                                     </a>
 
-                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="d-inline">
+                                    <form action="{{ route('admin.roles.destroy', $role->id) }}" method="POST" class="d-inline delete-form">
                                         @csrf
                                         @method('DELETE')
-                                        <button class="btn btn-sm btn-danger"
-                                            onclick="return confirm('{{ __('admin.confirm_delete') }}')">
+                                        <button class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>
                                         </button>
                                     </form>

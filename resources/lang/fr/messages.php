@@ -25,6 +25,12 @@ return [
   'update_blog' => 'Mettre à jour le Blog',
   'blog_list' => 'Liste des Blogs',
   'delete_blog_confirm' => 'Voulez-vous supprimer ce blog ?',
+  'blog_language_requirement' => 'Champs obligatoires : titre et contenu dans au moins une langue. Les autres langues sont facultatives.',
+  'blog_language_incomplete' => 'Veuillez compléter le titre et le contenu pour la langue sélectionnée.',
+  'blog_title_required' => 'Veuillez saisir le titre pour cette langue ou vider son contenu.',
+  'blog_content_required' => 'Veuillez saisir le contenu pour cette langue ou vider son titre.',
+  'required_fields' => 'Champs obligatoires',
+  'ok' => 'OK',
 
   // Categories
   'categories' => 'Catégories',

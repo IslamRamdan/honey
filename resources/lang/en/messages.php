@@ -26,6 +26,12 @@ return [
   'update_blog' => 'Update Blog',
   'blog_list' => 'Blog List',
   'delete_blog_confirm' => 'Do you want to delete this blog?',
+  'blog_language_requirement' => 'Required fields: title and content in at least one language. Other languages are optional.',
+  'blog_language_incomplete' => 'Please complete both title and content for the selected language.',
+  'blog_title_required' => 'Please enter the title for this language or clear its content.',
+  'blog_content_required' => 'Please enter the content for this language or clear its title.',
+  'required_fields' => 'Required fields',
+  'ok' => 'OK',
 
   // Categories
   'categories' => 'Categories',
