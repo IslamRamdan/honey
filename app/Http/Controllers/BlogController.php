@@ -263,8 +263,8 @@ class BlogController extends Controller
         }
 
         foreach ($locales as $locale) {
-            $data["name_{$locale}"] = $data["name_{$locale}"] ?: $data["name_{$fallbackLocale}"];
-            $data["description_{$locale}"] = $data["description_{$locale}"] ?: $data["description_{$fallbackLocale}"];
+            $data["name_{$locale}"] = $data["name_{$locale}"] ?? $data["name_{$fallbackLocale}"];
+            $data["description_{$locale}"] = $data["description_{$locale}"] ?? $data["description_{$fallbackLocale}"];
         }
 
         return $data;
